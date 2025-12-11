@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deep-Linked SPA Example</title>
+    <link rel="stylesheet" href="/styles.css">
+    <!-- Preserve deep links when served from static hosts such as GitHub Pages -->
+    <script>
+		debugger; 
+        window.originalHref = window.location.href;
+        (function restoreDeepLink(location) {
+            // GitHub Pages hands 404s to index with the path tucked into the query.
+            if (!location.search || location.search[1] !== '/') return;
+
+            const SearchSegment = location.search; 
+            const segments = location.search.slice(1); 
+            const segments1 = segments.split('&');
+            const decodedPath = segments1.map((segment) => segment.replace(/~and~/g, '&'));
+            const decodedPath2 = decodedPath.join('?');
+            const restoredUrl = location.pathname.slice(0, -1) + decodedPath2 + location.hash;
+
+            window.history.replaceState(null, null, restoredUrl);
+        }(window.location));
+        
+    </script>
+</head>
+<body>
+    <noscript class="noscript-warning">This application needs JavaScript to run.</noscript>
+    <header class="site-header">
+        <div class="brand">
+            <span class="brand__accent">Graham</span> Joss
+        </div>
+        <nav class="site-nav" aria-label="Primary">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+        </nav>
+    </header>
+
+    <!-- The router swaps view markup into this mount point. -->
+    <main id="app" class="view-container" aria-live="polite"></main>
+
+    <footer class="site-footer">
+        A manifest-driven deep-linked SPA built with vanilla JavaScript and the History API.
+    </footer>
+
+    <!-- Boot the SPA module once the shell has been parsed. -->
+    <script type="module" src="/app.js"></script>
+</body>
+</html>

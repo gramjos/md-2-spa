@@ -1,0 +1,19 @@
+<p>only audio with highest quality</p>
+<p>```</p>
+<p>yt-dlp -x --audio-format mp3 --audio-quality 0 "URL"</p>
+<p>```</p>
+<p>For Long Audio</p>
+<p>```</p>
+<p>yt-dlp -x --audio-format mp3 \</p>
+<p>--audio-quality 0 \</p>
+<p>--embed-thumbnail \</p>
+<p>--add-metadata \</p>
+<p>--output "~/Music/%(uploader)s - %(title)s.%(ext)s" \</p>
+<p>--continue \</p>
+<p>--no-part \</p>
+<p>--retries infinite \</p>
+<p>--fragment-retries infinite \</p>
+<p>--buffer-size 32K \</p>
+<p>--concurrent-fragments 4 \</p>
+<p>"https://www.youtube.com/watch?v=VIDEO_ID"</p>
+<p>```</p>

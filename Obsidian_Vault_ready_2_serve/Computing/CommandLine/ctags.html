@@ -1,0 +1,38 @@
+<p>---</p>
+<p>tags: [unix, homebrew, vim, tags, ctags]</p>
+<p>---</p>
+<p>To create a tags file in the local directory.</p>
+<p>```shell</p>
+<p>ctags -R .</p>
+<p>```</p>
+<p>to be more explicit</p>
+<p>```zsh</p>
+<p>$ tree</p>
+<p>.</p>
+<p>├── data</p>
+<p>│   ├── bnsf_rail.geojson</p>
+<p>│   └── pro_pic.jpg</p>
+<p>├── index.html</p>
+<p>├── js</p>
+<p>│   ├── app.js</p>
+<p>│   ├── basemap-control.js</p>
+<p>│   ├── charts-panel.js</p>
+<p>│   ├── landing-page.js</p>
+<p>│   ├── modal-info.js</p>
+<p>│   ├── table-interactions.js</p>
+<p>│   └── table-resize.js</p>
+<p>├── package.json</p>
+<p>├── README.md</p>
+<p>├── server.js</p>
+<p>├── styles.css</p>
+<p>$ ctags -R --languages=JavaScript,HTML,CSS \</p>
+<p>--exclude=node_modules \</p>
+<p>--exclude=dist \</p>
+<p>--exclude=.git \</p>
+<p>--exclude='*.geojson' \</p>
+<p>--exclude='*.jpg'</p>
+<p>```</p>
+<p>copyme version</p>
+<p>```zsh</p>
+<p>ctags -R --languages=JavaScript,HTML,CSS --exclude=node_modules --exclude=dist --exclude=.git --exclude='*.geojson' -exclude='*.jpg'</p>
+<p>```</p>

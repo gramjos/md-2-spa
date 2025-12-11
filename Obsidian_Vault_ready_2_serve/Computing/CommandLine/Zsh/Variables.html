@@ -1,0 +1,22 @@
+<p>---</p>
+<p>tags: environment_variables, root_user</p>
+<p>---</p>
+<h4>Checking if root user</h4>
+<p>```run-shell</p>
+<p>if [[ $UID -ne 0 ]]; then</p>
+<p>echo Non root user. Please run as root.</p>
+<p>else</p>
+<p>echo Root user</p>
+<p>fi</p>
+<p>```</p>
+<h4>Environment variables</h4>
+<p>e.i. ` HOME PWD USER UID SHELL`</p>
+<p>`$0` is shortcut to  `$SHELL`</p>
+<p>```run-shell</p>
+<p>echo $0</p>
+<p>echo $SHELL</p>
+<p>```</p>
+<p>```run-shell</p>
+<p>var=12345678901234567890$</p>
+<p>echo ${#var}</p>
+<p>```</p>

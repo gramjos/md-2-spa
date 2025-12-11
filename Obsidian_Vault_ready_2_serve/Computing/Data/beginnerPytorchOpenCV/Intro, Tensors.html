@@ -1,0 +1,67 @@
+<p>---</p>
+<p>tags: [python, tensor, data, ai, torch, marimo]</p>
+<p>web_code:</p>
+<p>---</p>
+<p>We have torch installed but with what version of Nvidia' CUDA library? __12.4__</p>
+<p>```python</p>
+<p>print("torch version : {}".format(torch.__version__))</p>
+<p>```</p>
+<p>_torch version : 2.5.1+cu124_</p>
+<h4>Fundamental Data Structure of Machine Learning , __Tensor__</h4>
+<p>An image is an arrays of pixels.</p>
+<p>Computer images are stored as 2 dimensional arrays, which can be thought a 2D mathematical matrix. A matrix with more than 2 dimensions is the same structure as a __tensor__.</p>
+<h4>Batch, many images (as tensors) in one _`&#39;batch tensor&#39;`_</h4>
+<p>When working with an image what data structures are we using?</p>
+<p>```python</p>
+<h1>Download some digit images from MNIST dataset</h1>
+<h1>b/c the Marimo notebook</h1>
+<p>from subprocess import run as shell_lst</p>
+<p>shell_lst(['curl','-s','https://learnopencv.com/wp-content/uploads/2024/07/mnist_1.jpg', '-o', 'mnist_1.jpg'])</p>
+<p>shell_lst(['curl','-s','https://learnopencv.com/wp-content/uploads/2024/07/mnist_0.jpg', '-o', 'mnist_0.jpg'])</p>
+<h1>with jupyter or colab way</h1>
+<p>!wget -q "https://learnopencv.com/wp-content/uploads/2024/%% 07 %%/mnist_0.jpg" -O "mnist_0.jpg"</p>
+<p>import cv2</p>
+<p>digit_0_array_og = cv2.imread("mnist_0.jpg")</p>
+<p>digit_0_array_og.shape #  [ 28, 28, 3 ]</p>
+<p>from sys import maxsize</p>
+<p>np.set_printoptions(linewidth=100000, threshold=maxsize)</p>
+<p>digit_0_array_og</p>
+<h1>cell output below...</h1>
+<p>array([[[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  7,   7,   7],</p>
+<p>[  1,   1,   1],</p>
+<p>[  0,   0,   0],</p>
+<p>[  3,   3,   3],</p>
+<p>[  0,   0,   0],</p>
+<p>[ 18,  18,  18],</p>
+<p>[  0,   0,   0],</p>
+<p>[  3,   3,   3],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  3,   3,   3],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  9,   9,   9],</p>
+<p>[  0,   0,   0],</p>
+<p>[  2,   2,   2],</p>
+<p>[  0,   0,   0],</p>
+<p>[ 11,  11,  11],</p>
+<p>[  0,   0,   0],</p>
+<p>[  1,   1,   1],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0],</p>
+<p>[  0,   0,   0]], # NOTE: there are 27 more of these chunks</p>
+<p>```</p>
+<p>`digital_0_array_og` is a multi dimensional array from the numpy library called `ndarray`  (28, 28, 3) $\text{X,Y,Z}$. Can be read as grid of pixels, where each pixel is represented by 3 values. These three values typically correspond to the color channels Red, Green, and Blue (RGB). Therefore, this array structure holds the data for a 28 by 28 pixel color image</p>
+<p>> [!info]+ Quiz question</p>
+<p>> **Question** Which of the following is a key difference between PyTorch tensors and NumPy arrays?</p>
+<p>> **Answer** PyTorch tensors support GPU acceleration and automatic differentiation, whereas NumPy arrays do not.</p>
+<p>></p>
+<p>> [!info]+ Quiz question</p>
+<p>> **Question** Which of the following is a key difference between PyTorch tensors and NumPy arrays?</p>
+<p>> **Answer** PyTorch tensors support GPU acceleration and automatic differentiation, whereas NumPy arrays do not.</p>
+<p>></p>

@@ -1,0 +1,14 @@
+<p>---</p>
+<p>tags: [conda, gis]</p>
+<p>---</p>
+<p>```shell</p>
+<p>conda create -n geo_realm</p>
+<p>conda activate geo_realm</p>
+<p>conda config --env --add channels conda-forge</p>
+<p>conda config --env --set channel_priority strict</p>
+<p>conda install python=3 geopandas</p>
+<p>```</p>
+<p>Turn off base env on shell start</p>
+<p>```shell</p>
+<p>conda config --set auto_activate_base false</p>
+<p>```</p>
