@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+
+# Python bytecode / caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Editor/IDE (keep repo VS Code settings, but ignore local state)
+.vscode/*.log
+.vscode/*.pid
+
+# Build outputs (generated vault renders)
+*_ready_2_serve/
+
+# CTags / tooling outputs
+.tags
+tags
+
+# Misc
+*.log

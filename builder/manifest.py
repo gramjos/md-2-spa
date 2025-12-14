@@ -38,7 +38,13 @@ def build_directory(ctx: BuildContext, directory: Path, slug_segments: List[str]
         A dictionary representing the manifest node for this directory, or None
         if the directory is not eligible for inclusion.
     """
-    relative_dir = directory.relative_to(ctx.source_root)
+
+
+    ### General Approach:
+    ## Since this a recursive function that writes files to a specfic structure, the call
+    ## has to re-orient itself before recursing. 
+
+    relative_dir = directory.relative_to(ctx.source_root) 
     is_root = not slug_segments
 
     # Special handling for 'graphics' directories, which are just copied.
@@ -47,7 +53,7 @@ def build_directory(ctx: BuildContext, directory: Path, slug_segments: List[str]
         return None
 
     readme_path = find_readme(directory)
-    if readme_path is None:
+    if readme_path is None: # README guard
         # A directory without a README is not included, unless it's the root.
         # The root *must* have a README to start the build.
         return None
@@ -70,7 +76,9 @@ def build_directory(ctx: BuildContext, directory: Path, slug_segments: List[str]
 
     # Iterate over children to process subdirectories and files.
     ds = sorted(directory.iterdir(), key=lambda p: p.name.lower())
-    for child in sorted(directory.iterdir(), key=lambda p: p.name.lower()):
+    for child in ds:
+        if child.name in [".git", ".obsidian", "private", ".DS_Store",".excalidraw"]: 
+            continue
         if child.is_dir():
             child_slug_segments = slug_segments + [slugify(child.name)]
             child_manifest = build_directory(
