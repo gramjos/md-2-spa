@@ -14,7 +14,6 @@ The parser evaluates inline elements in the following order:
 3. **Italic**: `*text*` (Star) or `_text_` (Single underscore)
 4. **Images**: `![[...]]` where `...` is a path to a asset: gif, png, jpeg, jpg
 5. **Web Links**: `[alias](url)` 
-6. **Internal Links**: `[[...]]` or `[[...|alias]]` where `...` is a path or unique file name
 
 ## Creating a New Parsing Rule
 

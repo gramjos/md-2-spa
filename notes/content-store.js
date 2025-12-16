@@ -68,6 +68,10 @@ function buildContentUrl(path) {
     return `${contentBase}/${path}`.replace(/\/+/g, '/');
 }
 
+export function buildSourceUrl(sourcePath) {
+    return `${contentBase}/${sourcePath}`.replace(/\/+/g, '/');
+}
+
 function rewriteRelativeUrls(html, path) {
     if (!contentBase) return html;
     const prefix = `${contentBase}/${path.split('/').slice(0, -1).join('/')}`.replace(/\/+/g, '/');

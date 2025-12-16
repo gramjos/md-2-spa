@@ -235,6 +235,26 @@ a:focus-visible {
     text-decoration: underline;
 }
 
+.notes-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.notes-download {
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+}
+
+.notes-download:hover,
+.notes-download:focus-visible {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .notes-directory-lists {
     display: grid;
     gap: 1.5rem;

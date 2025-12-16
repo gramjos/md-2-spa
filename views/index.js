@@ -1,5 +1,5 @@
 // View functions stay modular so routing just chooses among them.
-import { resolveNode, fetchHtml, toNotesHref } from '../notes/content-store.js';
+import { resolveNode, fetchHtml, toNotesHref, buildSourceUrl } from '../notes/content-store.js';
 import { codeBlock, escapeHtml } from '../utils/rendering.js';
 import { initializeExcalidrawEmbeds } from '../utils/excalidraw.js';
 
@@ -99,9 +99,16 @@ function renderNotesPath(ctx, segments) {
 }
 
 function buildDirectoryMarkup(node, readmeHtml) {
+    const downloadUrl = node.readme?.source ? buildSourceUrl(node.readme.source) : null;
+    const downloadLink = downloadUrl 
+        ? `<a class="notes-download" href="${downloadUrl}" download title="Download Markdown">⬇️</a>` 
+        : '';
     return `
         <section class="notes-view">
             ${renderBreadcrumbs(node.breadcrumbs, node.title, node.slugPath)}
+            <div class="notes-actions">
+                ${downloadLink}
+            </div>
             <header class="notes-header">
                 <h1>${escapeHtml(node.title)}</h1>
             </header>
@@ -116,10 +123,17 @@ function buildFileMarkup(node, fileHtml) {
     const parentCrumb = breadcrumbs[breadcrumbs.length - 1] || null;
     const backHref = parentCrumb ? toNotesHref(parentCrumb.slugPath) : '/notes';
     const backLabel = parentCrumb ? parentCrumb.title : 'Notes';
+    const downloadUrl = node.source ? buildSourceUrl(node.source) : null;
+    const downloadLink = downloadUrl 
+        ? `<a class="notes-download" href="${downloadUrl}" download title="Download Markdown">⬇️</a>` 
+        : '';
     return `
         <section class="notes-view">
             ${renderBreadcrumbs(breadcrumbs, node.title, node.slugPath)}
-            <a class="notes-backlink" href="${backHref}">← Back to ${escapeHtml(backLabel)}</a>
+            <div class="notes-actions">
+                <a class="notes-backlink" href="${backHref}">← Back to ${escapeHtml(backLabel)}</a>
+                ${downloadLink}
+            </div>
             <h1>${escapeHtml(node.title)}</h1>
             <article class="notes-content">${fileHtml}</article>
         </section>
