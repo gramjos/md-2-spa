@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Types_of_Commands</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h2>Builtins Commands Versus Commands located on <code>PATH</code></h2><p><em>Most</em> commands come from a program on the file system. In contrast, some commands, out of necessity need to be baked into the shell's program file (making it a <em>*builtin</em>*) because the command affects the current shell. For this reason and efficiencies (a bloated shell file) commands are either placed in the builtins or on <code>PATH</code></p><h4>Shell Builtins</h4><ul><li>These commands do not start separate process. </li></ul><p><code>$ type pwd</code> <code>pwd is a shell builtin</code> Same information can be found by using the <code>which</code> command</p><h4>File System Commands</h4><ul><li>located on the <em>*PATH</em>* variable</li></ul><h4>Builtin example <code>alias</code></h4><ul><li>they are created using shell builtins because <code>alias</code> stores an <code>alias</code> the currently running shell process, so t must be a builtin </li></ul><p><code>$ type alias</code> <code>alias is a shell builtin</code></p>
+</body>
+</html>

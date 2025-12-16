@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listeners</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>State Machine Events</h5><p>Definitions for <strong>click</strong>, <strong>hover</strong>, and <strong>mouse</strong> actions <strong>Note</strong>, Listeners are not required for state machines</p><h5>Create Listener</h5><p>Animate Mode -> Listener Section panel -> plus sign</p><h4>Listeners Anatomy</h4><ol><li>target</li><li>user action</li><li>listener action</li></ol><h5>Target</h5><ul><li>area to listen for an action</li><li>can be an art board or nested art bard or object within art board</li></ul><h5>Defining an art board</h5><p>While the listener is selected, select the target button and then either select the object in the hierarchy or directly on the stage.  Once the defined action happens within the target area the listener will react.</p><h5>Types of Targets</h5><ul><li>Shape or group will create a hit box</li><li>Art board or nested art boards will listen for any events coming from those boards</li></ul>
+</body>
+</html>

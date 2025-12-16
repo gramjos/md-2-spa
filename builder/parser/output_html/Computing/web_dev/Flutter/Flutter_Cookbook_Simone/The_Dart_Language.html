@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The_Dart_Language</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>A language made by Google in 2011 meant to supplant Javascript. Conservative in nature. - strongly typed language - support asynchronous programming - uses both JIT and AOT - Since Dart 3 it is now soundly null safe ---</p><h2>Examples ran in [DartPad.dev](https://dartpad.dev/?)</h2><pre><code class="language-dart">void main() {
+  variablePlayground(); 
+
+}
+void variablePlayground() {
+ basicTypes();
+}
+void basicTypes() {
+ int four = 4;
+ double pi = 3.14;
+ num someNumber = 24601;
+ bool yes = true;
+ bool no = false;
+ int? nothing; 
+ print(four);
+ print(pi); 
+ print(someNumber);
+ print(yes);
+ print(no);
+ print(nothing == null);
+}</code></pre><p>The above outputs...</p><pre><code class="language-shell">4
+3.14
+24601
+true
+false
+true</code></pre><p>Dynamic types are sort of a 'get out of jail free card' that can be anything and should <em>*NOT</em>* be used.</p><pre><code class="language-dart">void untypedVariables() {
+ dynamic something = 14.2;
+ print(something.runtimeType); //outputs 'double'
+}</code></pre><h6>Similar type inferring can be done with <code>var</code> <em>*but NOT exactly the same</em>*</h6><pre><code class="language-dart">void typeInterpolation() {
+ var anInteger = 15;
+ var aDouble = 27.6;
+ var aBoolean = false;
+ print(anInteger.runtimeType);
+ print(anInteger);
+ print(aDouble.runtimeType);
+ print(aDouble);
+ print(aBoolean.runtimeType);
+ print(aBoolean);
+}</code></pre><p>outputs</p><pre><code class="language-shell">int
+15
+double
+27.6
+bool
+false</code></pre><p>In the above snippet the variable <code>anInteger</code> is only mutable within the bounds of the <code>int</code> type.</p><h4>Immutable variables</h4><p><code>final</code> and <code>const</code> must be determined at compile time. For example, a <code>const</code> variable cannot be have the value of <code>DateTime.now()</code> since the date can only determined at runtime. <code>final</code> variables have a little leeway. Though, they can only be assigned once, if the <code>final</code> variable is assigned to an object then the value of the variable can change by adjusting the fields of that object. <code>const</code> does not have this flexibility. Generally, it is a good idea to favor immutable over mutable because mutability is more likely to lead to errors and immutable variables are faster.</p><h3>Strings and string interpolation</h3><pre><code class="language-dart">final age = 42;
+final howOld = 'I am $age ${age == 1 ? 'year' : 'years'} old.'; print(howOld);</code></pre><p>In the snippet above, placing simple variables in a string is done with <code>$</code> but the brackets are necessary if you want an expression to be computed in the string.</p><pre><code class="language-dart">final rawString = r'I want to show an escape \ character';</code></pre><p>The <code>r'..'</code> raw string is used to print escape characters. Dart also has a <code>StringBuffer</code> which is like Java's string builder. The functionality is an incremental string concatenator. <code>StringBuffer</code> as better performance than normal string interpolation.</p><pre><code class="language-dart">List fruits = ['Strawberry', 'Coconut', 
+			   'Orange', 'Mango', 'Apple'];
+StringBuffer buffer = StringBuffer();
+for (String fruit in fruits) { 
+	buffer.write(fruit);
+	buffer.write(' ');
+	 } 
+print (buffer.toString());
+	  // prints: Strawberry Coconut Orange Mango Apple</code></pre><h4>Functions</h4><p>Normal structure</p><pre><code class="language-dart">int factorial(int number){
+	if (number <= 0){
+	return 1;
+	}
+	return number * factorial(number - 1)
+}</code></pre><p><em>*Optional positional parameters</em>* are wrapped in square brackets. The <code>?</code> after the type tells the Dart compiler that the parameter itself can be null.</p><h6>Null-Aware Coalescing Operator</h6><pre><code class="language-dart"> void unnamed([String? name, int? age]) {
+  final actualName = name ?? 'Unknown';
+  final actualAge = age ?? 0;
+  print('$actualName is $actualAge years old.');
+ }</code></pre><p>In the above snippet, the double <code>??</code> is the <em>*null-aware coalescing operator</em><em> which is a quick to check if a value is null then provide a default value if it is. </em><em>Named Optional Parameters</em><em> with curly brackets `{}`. When calling a function with named parameters you </em><em>NEED</em>* to specify the parameter name but the parameter list can be in any order.</p><pre><code class="language-dart">void named({String? greeting, String? name}) {
+  final actualGreeting = greeting ?? 'Hello';
+  final actualName = name ?? 'Mystery Person';
+  print('$actualGreeting, $actualName!');
+     }</code></pre><p><em>*BOTH</em><em> optional parameters and optional named parameter support default values. If a function is called with one of these styles then `null` will not be used in preference to their default value. In the below example, there is a mix of both </em><em>required</em><em> and </em><em>named optional</em>*.</p><pre><code class="language-dart">String duplicate(String name, {int times = 1}) {
+  final merged = StringBuffer(name);
+  for (var i = 1; i < times; i++) {
+    merged.write(' $name');
+     } 
+  return merged.toString();}</code></pre><p>For completeness the above is called like  <code>duplicate('Mikey', times: 3);</code></p><h1>Name Parameters make readable code</h1><p>When a function does not have a return type or functional parameter, the <em>*dynamic</em>* type is used but this style should be avoided.</p><h3>Functions as a variable -> Closures</h3><p>Closures are known as first-class functions. As a language feature they emerged form lambda calculus. Closure allow functions to be passed as parameters to other functions. To add a closure to a function, define another function signature inside a function.</p><pre><code class="language-dart">void callbackExample(
+	void Function(String value) callback
+) {
+  callback('Hello Callback');
+}
+
+void printSomething(String value) { print(value); }</code></pre><p>The above closure the function is initiated by  <code>callbackExmaple(printSomething)</code> The variable <code>callback</code> has a value of the function <code>printSomething</code>  The above snippet is defines an inline closure. A less verbose way is to the type alias called <code>typedef</code>. It makes the function signature cleaner.</p><pre><code class="language-dart">typedef CallBack = void Functions(); 
+
+void callbackExample(CallBack callback ) {
+  callback('Hello Callback');
+  }</code></pre><p>Another example...</p><pre><code class="language-dart">typedef NumberGetter = int Function();
+
+int powerOfTwo(NumberGetter getter) {
+ return getter() * getter();
+}</code></pre><p>The above code is activated by the below snippet. Notice the <em>rocket notation</em> for single line functions.</p><pre><code class="language-dart">int getFour() => 4;
+final squared = powerOfTwo(getFour);</code></pre><h4>Switch Statements</h4><pre><code class="language-dart">int dayOfWeek = 7;
+//String myDay = getDay(dayOfWeek);
+var myDay = switch (dayOfWeek) {
+	1 => 'Monday',
+	2 => 'Tuesday',
+	3 => 'Wednesday',
+	4 => 'Thursday',
+    5 => 'Friday',
+    6 => 'Saturday',
+    7 => 'Sunday' ,
+    _ => 'Invalid day' //Default value 
+    };
+print(myDay);</code></pre><h3>Records</h3><p>Since Dart 3, the <em>*record expression</em>* is used to hold custom data like ...</p><pre><code class="language-dart">var person = (name: 'Clark', age: 42);
+print (person.name);</code></pre><p>In the above case, the variable <code>person</code> is the <em>*record expression</em><em>. These are an immutable set of fields.  The below functions `getPeron` returns a </em><em>record</em>* which is similar to a tuple.</p><pre><code class="language-dart">void main() {
+  var (String name, int age) = 
+		  getPerson( {'name': 'Clark', 'age': 42});
+  print('$name is $age years old.');
+   }
+(String, int) getPerson(Map<String, dynamic> json) {
+  return (json['name'] as String, json['age'] as int);
+   }</code></pre><h3>Classes</h3><p>Not much different from other <a href="Programming Paradigms">Object Oriented languages</a>. Classes are used to make custom types.</p><pre><code class="language-dart">class Name {
+   final String first;
+   final String last;
+   Name(this.first, this.last);
+   @override 
+   String toString() { 
+   return '$first $last'; 
+   } 
+}</code></pre><p>Now using the above and class through inheritance.</p><pre><code class="language-dart">class OfficialName extends Name {
+// Private properties begin with an underscore 
+  final String _title;
+   // You can add colons after constructor 
+   // to parse data or delegate to super 
+  OfficialName(this._title, String first, String last) 
+	  : super(first, last);
+  @override 
+  String toString() { 
+    return '$_title. ${super.toString()}'; } }</code></pre><p>How the above is used</p><pre><code class="language-dart">final name = OfficialName('Mr', 'Clark', 'Kent');
+final message = name.toString();
+print(message)</code></pre><p>A note about the <em>constructor shorthand</em>  <code>const Name(this.first, this.last) : super(first, last):</code> This allows member variable assignment by using <code>this</code> with dot notation.</p><h4>Building Block of Object Oriented Programming</h4><h6>3 keywords for building relationships</h6><ol><li><code>extends</code> -> <em>class inheritance</em></li><li><code>implements</code> -> <em>interface conformance</em></li><li><code>with</code> -> <em>apply mixin</em></li></ol><p><code>extends</code> adds functionality to the super class. 1 extends per class <code>implements</code> <em>*all classes are implicit interfaces</em>*. Does not inherit any code just a contract to write a the same function signatures. Infinite implements can be applied to a class. <code>with</code> uses <code>mixin</code>s for multiple class hierarchies. When defining a <code>mixin</code>, <code>extends</code> cannot be used. A <code>mixin</code> declaration defines a <code>mixin</code>. A <code>class</code> declaration defines a [class](https://dart.dev/language/classes). A <code>mixin class</code> declaration defines a class that is usable as both a regular class and a <code>mixin</code>, with the same name and the same type.</p><h5>Spread Operator</h5><p>A brief way to add multiple values into a collection.</p><pre><code class="language-dart">var list = [1, 2, 3];
+var list2 = [0, ...list];
+assert(list2.length == 4);</code></pre><p>If <code>list</code> variable could be <em>*null</em><em> use the </em><em>null-aware spread operator</em>*</p><pre><code class="language-dart">var list2 = [0, ...?list];</code></pre><h4>Higher-Order Functions</h4><p>Functions that take one or more functions as arguments or return a function. Given data of this form. The goal is to turn this mapping into a strongly typed object.</p><pre><code class="language-dart">List<Map> data = [
+	{'first': 'Nada', 'last': 'Mueller', 'age': 10},
+				...
+				];</code></pre><p>We will use the previous seen <code>Name</code> class</p><pre><code class="language-dart">class Name {
+  final String first;
+  final String last;
+  Name(this.first, this.last);
+  @override
+  String toString() {
+   return '$first $last'; } }</code></pre><p>We will use <code>map</code> function to transform the data into a new form. From a <code>Map</code> type to encapsulating in a class (object) called <code>Name</code>. Imagine the <code>data</code> variable above is a global variable and is in scope of the function <code>mapping()</code> below.</p><pre><code class="language-dart">List<Name> mapping() {
+// Transform the data 
+	// from raw maps to a strongly typed model 
+final names = data.map<Name>((Map rawName) {
+  final first = rawName['first'];
+  final last = rawName['last'];
+  return Name(first, last); }).toList();  
+return names; }</code></pre><p>The above snippet can also be done with a loop below. Notice how the mapping takes care of the looping and the adding to the list.</p><pre><code class="language-dart">final names = <Name>[];
+for (Map rawName in data) {
+  final first = rawName['first'];
+  final last = rawName['last'];
+  final name = Name(first, last);
+  names.add(name); }</code></pre><p>Now that the <code>map</code> function's internals are understood there is even a more concise way translate the data variable of type <code>Map</code> into a strongly typed object.</p><pre><code class="language-dart">final names = data.map<Name>(
+  (raw) => Name(raw['first'], raw['last']), ).toList();</code></pre><p>Now that data is properly formatted we can sort by the object's property (last name). Notice no new variable is created after <code>sort</code> is called therefore, <em>*in place sort</em>*</p><pre><code class="language-dart">void sorting() {
+  final names = mapping();
+   // Sort the list by last name 
+   names.sort((a, b) => a.last.compareTo(b.last));
+   print('');
+   print('Alphabetical List of Names');
+   names.forEach(print); }</code></pre><p>Pull a subset of data from the list of Name objects.</p><pre><code class="language-dart">void filtering() {
+  final names = mapping();
+  final onlyMs = names.where(
+	  (name) => name.last.startsWith('M'));
+  print('');
+  print('Filters name list by M');
+  onlyMs.forEach(print); }</code></pre><p>Calculate average age. <code>reduce</code> works like a running sum expression</p><pre><code class="language-dart">void reducing() {
+// Merge an element of the data together 
+final allAges = data.map<int>((person) => person['age']);
+final total = allAges.reduce((total, age) => total + age);
+final average = total / allAges.length;
+print('The average age is $average'); }</code></pre><p>Flattening a multi-dimensional list to 1 dimensional.</p><pre><code class="language-dart">final matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [-7, -8, -9],
+];
+final linear = matrix.expand<int>((row) => row);</code></pre><p><code>(1, 2, 3, 4, 5, 6, -7, -8, -9)</code> Quick print of an iterable</p><pre><code class="language-dart">// Instead of doing this 
+data.forEach((value) { print(value); });
+// We can do this 
+data.forEach(print); </code></pre><p>Brevity by chaining higher-order functions</p><pre><code class="language-dart">final names = data .map<Name>(
+  (raw) => Name(raw['first'], raw['last'])) 
+  .where((name) => name.last.startsWith('M')) 
+  .where((name) => name.first.length > 5) 
+  .toList(growable: false);</code></pre><p>Iterables are <em>lazy</em>  so each high-order function is cached and only ran once the <code>.toList()</code> is called. The above is a single pass algorithm. By default in dart all lists are growable. Here, we declare the list cannot get any bigger than its initial size.</p><h4>fold()</h4><p>[Source - Dart API](https://api.dart.dev/stable/1.10.1/dart-core/List/fold.html)</p><pre><code class="language-dart">dynamic fold(  
+	initialValue,
+	dynamic combine(previousValue, E element)
+)</code></pre><p>Reduces a collection to a single value by iteratively combining each element of the collection with an existing value. Uses <code>initialValue</code> as the initial value, then iterates through the elements and updates the value with each element using the <code>combine</code> function, as if by:</p><pre><code class="language-dart">var value = initialValue;
+for (E element in this) {
+  value = combine(value, element);
+}
+return value;</code></pre><p>Example of calculating the sum of an iterable:</p><pre><code class="language-dart">iterable.fold(0, (prev, element) => prev + element);</code></pre><h5>First class functions versus higher-order functions</h5><ul><li>A first-class function can be treated as a value: it can be assigned to a variable, passed as an argument, or returned as a value.</li><li>A higher-order function takes one or more functions as arguments or returns a function as a result.</li></ul><p>This means that first-class functions can be treated as values, and higher-order functions take or return functions as input or output.</p><h4>The Builder Pattern</h4><p>used when constructors get too large. The below will incrementally build out the object with one constructor call at a time.</p><pre><code class="language-dart">class UrlBuilder {
+  String? _scheme;
+  String? _host;
+  String? _path;
+  UrlBuilder setScheme(String value) {
+    _scheme = value;
+    return this; }
+  UrlBuilder setHost(String value) {
+    _host = value;
+    return this; }
+  UrlBuilder setPath(String value) {
+    _path = value;
+    return this; }
+  String build() {
+    assert(_scheme != null);
+    assert(_host != null);
+    assert(_path != null);
+    return '$<em>scheme://$</em>host/$_path'; }
+} 
+void main() {
+  final url = UrlBuilder() 
+	  .setScheme('https') 
+	  .setHost('dart.dev') 
+	  .setPath('/guides/language/language-tour#cascade-notation-') 
+	  .build();
+	  print(url); }</code></pre><p>The above is verbose and unnecessary</p><pre><code class="language-dart">class UrlBuilder { 
+  String scheme = '';
+  String host = ''; 
+  List<String> routes = []; 
+  @override 
+  String toString() { 
+    final paths = [host, if (routes != []) ...routes]; 
+    final path = paths.join('/'); 
+    return '$scheme://$path'; } }</code></pre><p>To populate the above class use the <em>*Cascade operator</em>*</p><pre><code class="language-dart">final url = UrlBuilder() 
+	..scheme = 'https' 
+	..host = 'dart.dev' 
+	..routes = [ 'guides',
+				 'language',
+				  'language-tour#cascade-notation', ];
+	 print(url);</code></pre><p>Another Cascade example</p><pre><code class="language-dart">final numbers = [342, 23423, 53, 232, 534]; 
+numbers.insert(0, 10);
+numbers.sort((a, b) => a.compareTo(b));</code></pre><p>The above becomes this with Cascade</p><pre><code class="language-dart">final numbers = [342, 23423, 53, 232, 534] 
+	..insert(0, 10) 
+	..sort((a, b) => a.compareTo(b));</code></pre><h5>Extensions</h5><p>Extensions allow methods and properties to be adding to existing classes without modifying the original class. Especially useful when the class cannot be changed...</p><pre><code class="language-dart">extension StringExtensions on String {
+  bool toBool() { return isNotEmpty; } 
+  }</code></pre><h4>Sound Null Safety</h4><p>Generally, variables that have no value are <code>null</code> but with <code>null</code> safety <em>variables cannot be assigned to a null value</em> BUT the use of <code>null</code> can be beneficial so now <code>null</code> values have to be explicitly allowed. To force a <em>Uncaught TypeError</em> use the <code>!</code></p><pre><code class="language-dart">void main() {
+ int? someNumber;
+ increaseValue(someNumber!);
+}
+void increaseValue(int value) {
+ value++; 
+ print (value);
+}</code></pre>
+</body>
+</html>

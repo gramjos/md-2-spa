@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Programming Basics</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h2>Web Programming Basics</h2><p>Javascript invented in 1994 for dynamic websites. > [!info]+ Jargon > <strong>Client-Side JavaScript</strong> > The term “client-side JavaScript” is synonymous with JavaScript written to run in a web browser; contrasted to “server-side”, runs in web servers. > And these two sides make up the endpoints of a network connection.</p><h5>The <code><script></code> tag</h5><p>Browsers run <code>html</code>. <code>html</code> includes <code><script> ... </script></code> tags where JavaScript is executed. The ellipsis denotes JavaScript but also defined in a script tag with the attribute <code>src="/path/file.js"</code>. If the JavaScript scripts contain the <code>import</code>/<code>export</code> directives then the <code>script</code> tag that references needs the attribute <code>type="module"</code>.  Below are examples of a boolean attribute, <code>defer</code> and <code>async</code>.</p><pre><code class="language-html"><script defer src="deferred.js"></script>
+<script async src="async.js"></script></code></pre><p>Initially, JavaScript's only method for content manipulation was <code>document.write()</code>, which injected HTML directly into the document's stream during the initial parsing phase. This legacy capability forces browsers to execute scripts synchronously by default, pausing all HTML parsing and rendering until the script completes, which can severely degrade page load performance. The modern way, <em>*`document.querySelector(selector)`</em>*: Returns the <em>first</em> element in the document that matches the specified CSS selector. It's the go-to method for targeting a specific, unique element. By default <code>script</code> tags are synchronous (blocking).  	<em>Both the `defer` and `async` attributes are ways of telling the browser that the linked script does not use `document.write()` to generate HTML output, and that the browser, therefore, can continue to parse and render the document while downloading the script. The `defer` attribute causes the browser to defer execution of the script until after the document has been fully loaded and parsed and is ready to be manipulated. The `async` attribute causes the browser to run the script as soon as possible but does not block document parsing while the script is being downloaded. If a `<script>` tag has both attributes, the `async` attribute takes precedence.</em> - Dave Flanagan Script tags with the <code>type="module"</code> are by default,  executed after the document has loaded, as if <code>defer</code> was set, but this script tag behavior can be over-written by explicitly setting <code>async</code>.</p><h5>Loading scripts on demand</h5><p>In the scenario where chunks of code is only needed if a certain action is took (button press), then these chunks can be loaded when that action is took.</p><pre><code class="language-javascript">// Asynchronously load and execute a script from a specified URL
+// Returns a Promise that resolves when the script has loaded.
+function importScript(url) {
+    return new Promise((resolve, reject) => {
+        let s = document.createElement("script"); // Create a <script> element
+        s.onload = () => { resolve(); };          // Resolve promise when loaded
+        s.onerror = (e) => { reject(e); };        // Reject on failure
+        s.src = url;                              // Set the script URL
+        document.head.append(s);                  // Add <script> to document
+    });
+}</code></pre><h6>Usage:</h6><pre><code class="language-javascript">importScript("someScript.js")
+  .then(() => { console.log("Script loaded!"); })
+  .catch((err) => { console.error("Failed to load script:", err); });</code></pre><p>> [!info]+ How to Block on Render > """<em>Only `script` elements in the document's `<head>` can possibly block rendering. Scripts do not render-blocking by default; if a `script` element does not include `type="module"`, `async`, or `defer`, then it blocks </em>parsing<em>, not </em>rendering<em>. If such a `script` element is added dynamically via script, you must set `blocking = "render"` for it to block rendering.</em>"""  > https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#blocking > Parsing Versus Rendering? To Parse is to build the DOM tree internally and to Render turns them to pixels.</p><h5>Document Object Model (DOM)</h5><p>All valid html can be parsed in a tree.  All html objects inherit from a <code>Node</code> parent class.</p><pre><code class="language-html"><html>
+  <head>
+    <title>Sample Document</title>
+  </head>
+  <body>
+    <h1>An HTML Document</h1>
+    <p>This is a <i>simple</i> document.
+  </body>
+</html></code></pre><p>!<a href="dom_tree.png">dom_tree.png</a></p><h5>The Global Object in Web Browsers</h5><p>Javascript's standard library is stored in the global object. One global object per window/tab. The global object also contains web browser specific functionality accessed through the <code>window</code> property.</p><h5>Scripts Share Namespace</h5><p>Given the the three lines below are in an html file.  <code><script src="main.js"></script></code> <code><script src="utils.js"></script></code> <code><script src="server.js"></script></code> Top level (scope) functions, variables, classes that are defined in <code>main</code> can be referenced in <code>server</code> without any explicit import statements. This is possible because the omission of <code>type="module"</code> attribute value pair in the script tag. Meaning, these three scripts share one large namespace.  To scope a module namespace include <code>type="module"</code>.</p><h5>Execution of Javascript Programs</h5><p>Whether an application designs it namespace with many module scopes or a single large one; they all share a global <code>window</code> object  In Two Phases: 1. The document content is loaded, and the code from <code><script></code> elements (both inline scripts and external scripts) is run. 	- defines call backs 2. Async Event Driven 	- call backs are triggered on <code>load</code>/<code>DOMContentLoaded</code> like events</p><h5>Client-side JavaScript threading model</h5><p>Javascript is single threaded, but 'web workers' are used for concurrent behavior. This 'web worker' does NOT have access to the document content, does not share any state with the main thread or other web workers, and can can only communicate with other web workers and the main thread through async messages. This framework guarantees the concurrency is not noticed by the main thread.</p><h5>Javascript Timeline</h5><ol><li>A Document object is created. Element object and there text nodes are added to the tree. <code>document.readyState</code> is set to 'loading.'</li><li>The html parser encounters script tags with no <code>async</code>, <code>defer</code> or <code>type="module"</code> attributes, so, default behavior is synchronous.  Meaning, the script that is being sourced has the opportunity to use a <code>document.wite()</code> for dynamic injection. Design wise, this is place good in the execution flow to declare other call backs.</li><li>The html parser encounters a script tag with a <code>async</code> attribute set (but not a type module). Then that scripts text begins downloading in the background because the html parser does not block execution to wait for it to load. </li><li>When the document is entirely parsed <code>document.readyState</code> turns to 'interactive.'</li><li>Any scripts with the <code>defer</code> tag are ran while other <code>async</code> tasks could be finishing up.</li><li><em>The browser fires a “DOMContentLoaded” event on the Document object. This marks the transition from synchronous script-execution phase to the asynchronous, event-driven phase of program execution. Note, however, that there may still be `async` scripts that have not yet executed at this point.</em> - D. Flanagan</li><li><em>The document is completely parsed at this point, but the browser may still be waiting for additional content, such as images, to load. When all such content finishes loading, and when all `async` scripts have loaded and executed, the `document.readyState` property changes to “complete” and the web browser fires a “load” event on the Window object.</em> - D. Flanagan</li><li><em>From this point on, event handlers are invoked asynchronously in response to user input events, network events, timer expirations, and so on.</em> - D. Flanagan</li></ol><h5>Program Errors</h5><p>When a browser javascript program 'crash' and there is no <code>catch</code> statement, then an error message will printed to the dev console and the event loop will continue.  The window object has a property <code>onerror</code> and this a callback function that is triggered when an uncaught error occurs.  <code>window.onunhandledrejection</code> callback function can be set for rejected promises.</p><h5>Web Security Model</h5><p>Client side Javascript has limited capabilities for security reasons:    - there is no way to write/read/delete arbitrary data to a the client computer.    - the http requests and web sockets APIs are limited on the client side. General purpose internet clients and servers cannot be written in client side Javascript.</p><h5>Same-Origin Policy</h5><p>A fundamental browser security model that restricts scripts from one origin from accessing content (e.g., Document Object Model, data) from another origin. <em>*Definition of an "Origin":</em><em> An origin is defined by the unique combination of the URL's: - </em><em>Protocol:</em><em> (e.g., `http://` and `https://`) - </em><em>Host:</em><em> (e.g., `www.example.com` and `api.example.com`) - </em><em>Port:</em><em> (e.g., `example.com:80` and `example.com:8080`) A change in any of these three components results in a different origin. During development local `file://` URLs are generally treated as unique, individual origins. </em><em>Primary Applications:</em><em> - </em><em>DOM Access:</em><em> A script in a document cannot access the properties of a document in an `<iframe>` if the frame's source is from a different origin. - </em><em>Scripted HTTP Requests:</em><em> JavaScript using APIs like `XMLHttpRequest` or `fetch()` cannot make requests to a different origin unless that origin explicitly permits it. </em><em>Execution Context:</em><em> - The policy applies based on the origin of the </em><em>_document_</em><em> in which a script is embedded, not the origin of the script file itself. 	_A script can read only the properties of windows and documents that have the same origin as the document that contains the script._  - D. Flanagan.  </em><em>Mechanisms for Relaxation -></em><em> </em><em>`document.domain` Property:</em><em> - Allows limited relaxation for pages on different subdomains of the same parent domain. - For example, scripts on pages from `orders.example.com` and `catalog.example.com` can both set `document.domain = "example.com";` to allow mutual access. - This can only be set to a super domain (a domain suffix), not an unrelated domain. </em><em>Cross-Origin Resource Sharing (CORS):</em><em> A server-side mechanism that allows a server to explicitly whitelist origins that are permitted to make requests. With specific HTTP headers: - </em><em>Request Header:</em><em> The browser sends an `Origin:` header indicating the origin of the requesting script's document. - </em><em>Response Header:</em><em> The server replies with an `Access-Control-Allow-Origin:` header, specifying the allowed origin(s) (or `</em>` for any origin). - The browser enforces this policy, granting the script access to the response only if the server sends the appropriate header.</p><h5>Cross-site scripting</h5><p><em>Cross-site scripting</em>, or XSS, is a term for a category of security issues in which an attacker injects HTML tags or scripts into a target website. Sanitizing user input is a must to combat this. Best practice to put untrusted content in an <code>iframe</code> and turn on the <code>sandbox</code> property.</p><p>Next: <a href="Events">Events</a></p>
+</body>
+</html>

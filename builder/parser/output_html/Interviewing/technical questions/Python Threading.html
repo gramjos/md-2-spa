@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Threading</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>Broadly speaking, threading allows for different parts of a program to run concurrently.  A thread is a separate flow of execution, meaning two things will happen at "<em>*once</em><em>" (not really for most python implementations) they merely appear to happen at once. Getting python to run multiple tasks simultaneously requires a non-standard implementation or using the multi-processing library. The mainstream CPython implementation causes threads to be ineffective is some situations dues to [[Python's GIL]] that </em>essentially* limits only one thread to run at once.</p><h4>What is a good candidate for threads?</h4><p>Tasks that spend time waiting for external resources</p><h4>What is <em>*NOT</em>* a good candidate for threads?</h4><p>CPU-bound problems. Then use the multi-processing library.</p><pre><code class="language-python">import logging
+import threading
+import time
+
+def thread_function(name):
+    logging.info("Thread %s: starting", name)
+    time.sleep(2)
+    logging.info("Thread %s: finishing", name)
+
+if <strong>name</strong> == "<strong>main</strong>":
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level=logging.INFO,
+                        datefmt="%H:%M:%S")
+
+    logging.info("Main    : before creating thread")
+    x = threading.Thread(target=thread_function, args=(1,))
+    logging.info("Main    : before running thread")
+    x.start()
+    logging.info("Main    : wait for the thread to finish")
+    # x.join()
+    logging.info("Main    : all done")
+</code></pre><pre><code class="language-shell">$ ./single_thread.py
+Main    : before creating thread
+Main    : before running thread
+Thread 1: starting
+Main    : wait for the thread to finish
+Main    : all done
+Thread 1: finishing</code></pre><p>In python a daemon thread is a type of thread that will shut down immediately after the program exits. If a program is running threads that are not daemons then the program will wait for those to finish before terminating the program.</p><p>--- [Source - Real Python](https://realpython.com/intro-to-python-threading/)</p>
+</body>
+</html>

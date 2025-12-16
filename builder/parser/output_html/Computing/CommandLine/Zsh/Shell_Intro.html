@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shell_Intro</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>How to determine the current shell? Below is a Zsh interaction</p><pre><code class="language-shell">echo $0
+-zsh</code></pre><p><code>$0</code> holds current shell</p><pre><code class="language-shell">$ ps -p $$
+  PID TTY           TIME CMD
+83328 ttys001    0:01.66 -zsh</code></pre><p><code>$$</code> represents the current <strong>PID</strong> which is the current shell</p><pre><code class="language-shell">$ echo $SHELL
+/bin/zsh</code></pre><p>From within Zsh, switch to Bash. Notice how the environment variable is still set to Zsh.</p><pre><code class="language-shell">$ bash
+$ echo $0
+bash
+$ ps -p $$
+  PID TTY           TIME CMD
+20504 ttys001    0:00.01 bash
+$ echo $SHELL
+/bin/zsh
+$ exit
+exit</code></pre><h6>Exit code of previous command</h6><p><code>$ echo $?</code></p><h6>Shell history expansion character</h6><p><code>$ !_</code> where the underscore is the starting of command in the recent history. Very similar to the reverse search of ctrl-r ('bck-i-search:')</p><h6>To Debug a script line by line</h6><p>At the top of file after the shebang line <code>set -xv</code> The above will output what line the script is on and show all errors (output) associated with each command for each line of the script. <code>-v</code> is for verbose.  <code>set -e</code> will exit on first error.</p><h4>Standard Error/Output Redirection</h4><h6>File Descriptor 1 is for standard output</h6><h6>File Descriptor 2 is for standard error</h6><h6><code>&</code> is for both unless prefixed by 1 or 2</h6><p><em>*All the errors from the 'command' will be written to the file</em><em> `$ command 2> error.txt` </em><em>Both standard error and standard output written to file</em><em> `$ command &> output.txt` </em><em>Redirecting standard error to the standard output stream</em>* <code>$ command > file.txt 2>&1</code></p><h5>Writing Error Messages</h5><p>Writing to the error stream (file descriptor 2) explicitly, <code>$ echo 'Default API call used. ${STATUS}' 1>&2</code> The above command redirects standard output to standard error. Aside, error message written to a log should begin the scripts name for clarity.</p><pre><code class="language-shell">echo <code>basename $0</code></code></pre><h4>Path Variable</h4><p>The environment variable <code>$PATH</code> is a colon separated list of directories. This list is searched every time a command is ran. <a href="Pipeline_example">Pipeline_example</a> works with one of the common directories <code>/bin/</code>  <a href="Computing/Data/ZacMWilson_6wk/Day1">Computing/Data/ZacMWilson_6wk/Day1</a></p><h5>Previous Command Substitution</h5><p>Replace the <code>x</code> for <code>y</code> from the previous command and run it. Replaces the first occurrence.</p><pre><code class="language-zsh">^x^y</code></pre><p>Need to replace every occurrence in the previous command? Use the <code>Global</code> modifier.</p><pre><code class="language-zsh">^x^y:G</code></pre>
+</body>
+</html>

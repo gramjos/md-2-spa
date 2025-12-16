@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Types</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>Shapefile</h5><ul><li>developed by ESRI</li><li>vector format</li><li>consists of many files: </li><li>.dbf for stores attributes</li><li>.sbn for</li><li>.shx stores spatial extent </li><li>.shp stores location geometry </li><li>.shp.xml for meta data </li><li>.prj stores coordinate system</li></ul><h5>Geodatabase</h5><p>is the native data structure for ArcGIS. Made up of - table, attribute data - feature class, vector - raster, image</p><h5>Raster V Vector</h5><p>!<a href="Raster_v_Vector.png">Raster_v_Vector</a> [Picture Source - ESRI](https://www.esri.com/content/dam/esrisites/en-us/media/pdf/teach-with-gis/raster-faster.pdf) Vector use point and line (or, vertices and paths, respectively) segments to identify locations on the Earth. Vector points are XY coordinates that latitude and longitude with a spatial reference. A vector polygon is made when a set of vertices are form a 'closed loop.'  Raster is pixels or grid cells. Usually square but do not have to be. appear pixelated because each pixel has its own class or value. for example each pixel in a satellite image has its own RGB value. Raster is ideal for continuous data.  - pixel size is the spatial resolution</p><h6>Raster Continuous V Discrete</h6><p><em>*Discrete</em><em> - usually are integers that represent a class  </em><em>Continuous</em>* -</p><p>Free GIS Data !<a href="free_gis_data.png">free_gis_data.png</a></p>
+</body>
+</html>

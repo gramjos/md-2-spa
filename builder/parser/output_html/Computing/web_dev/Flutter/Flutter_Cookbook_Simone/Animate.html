@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animate</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>Implicit Animation with <code>AnimatedContainer</code></h5><p>Its properties can change over a specific time period. The required property of the <code>AnimatedContainer</code> widget is <code>duration</code>.  It specifies the time length of said animation.  Animations are <em>*not</em>* bound to any other widget on the screen.  In a class that includes a <code>mixin</code> <code>class _ShapeAnimationState extends</code>     <code>State<ShapeAnimation>    </code>with SingleTickerProviderStateMixin {`</p><h5><code>mixin</code> <em>*is a class containing methods that can be used by other classes without inheriting from those other classes. Basically, we are including the class, not using it as a parent class</em>* -Simon[book]</h5><pre><code class="language-dart">late AnimationController contro;
+late Animation<double> ani;
+
+@override
+void initState() {
+  super.initState();
+  contro= AnimationController(
+    duration: const Duration(seconds: 3),
+    vsync: this,
+  );
+  ani = Tween<double>(begin:0,end:450)
+    .animate(contro)
+    ..addListener(() {
+  	  moveBall();
+  });
+}</code></pre><p>This will cause of the incrementing of a variable from 0-450 over 3 second period.</p><pre><code class="language-dart">void moveBall() {
+  setState(() {
+    posTop = animationTop.value;
+    posLeft = animationLeft.value;
+});
+}</code></pre><h6>Working from example projects animate1 & 2 & 3</h6><p>Going beyond Linear movement is achieved by using <code>CurvedAnimation</code>.</p><h6>Working from example project animate4</h6><p>New functionality: - finding the size of the space the animating object will move into. - curving the trajectory  <code>SafeArea</code> add padding to its children to avoid OS formatting.  <code>LayoutBuider</code> allows measuring of space in the current context and uses the sizing constraint of its parent.</p><h6>Working from example project animate5</h6><p>New functionality: - continuous animation</p>
+</body>
+</html>

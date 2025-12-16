@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Layouts</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>> [!info]+ Disable all CSS on a page from the Dev Tools js console > ``<code>js > document.querySelectorAll('style, link[rel="stylesheet"]') > 		.forEach(e => e.remove());</code> >```</p><p><strong>Note</strong>, disabling the css does not change the font or colors, just the layout</p><h5>Jargon: <code>Layout Viewport</code></h5><ul><li>The place where the browser arranges web components</li><li>Has a height and a width, measured in pixels (px) which is determined by the device. </li></ul><h5>Properties of the <code>viewport</code></h5><ul><li>By default the elements are placed in the top left of the <code>viewport</code>, then are stacked below</li><li>the top left of the <code>viewport</code> is (0,0) of a coordinate plane</li></ul><h5><strong>Pattern</strong>: <em>Box Model</em></h5><p>Describes how:  - HTML elements are relatively positioned  - elements contents are positioned within the element  -  properties of the elements border.  In a basic setup, the following attributes are able to be manipulated. All can be override ('hacked') in there own way.   !<a href="box_model.png">box_model.png</a></p><h4><code>display mode</code></h4><p>Changing the way how <code>viewport</code> is displays nested elements with <code>block</code>, <code>inline</code>, <code>grid</code>, and <code>flex</code>.</p><h5>Jargon: <em>flex box</em></h5><p>An element becomes a <em>flex box</em> when display mode is set to flex.</p><pre><code class="language-html"><!DOCTYPE html>  
+<html>  
+  ...  
+  <body>
+    <div id=”main-container”>
+      <h1 id=”one”>Hark</h1>  
+      <p class=”two”>the sound.</p>  
+    </div>  
+  </body>  
+</html></code></pre><h5>Jargon: <em>Flex Container</em></h5><p>Element that has the flex display mode enabled.</p><pre><code class="language-css">#main-container {
+  display: flex;
+  flex-direction: row;
+}</code></pre><h6>[Game-ified flex practice](https://flexboxfroggy.com)</h6>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parameter_Expansion</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>Removing character (singular)</h5><p>given the assignment, <code>$ x=./screens/location_detail/text_section.dart</code> task, remove the leading period <code>$ echo ${x#./}</code> <code>screens/location_detail/text_section.dart</code></p><h3><em>*General Rules</em>*</h3><h5>Replacing Sub-strings</h5><ul><li><code>${VAR/pattern/replacement}</code>: Replaces the first occurrence of <code>pattern</code> in <code>VAR</code> with <code>replacement</code>.</li><li><code>${VAR//pattern/replacement}</code>: Replaces all occurrences of <code>pattern</code> in <code>VAR</code> with <code>replacement</code>.</li><li><code>${VAR/#pattern/replacement}</code>: Replaces <code>pattern</code> at the beginning of <code>VAR</code> with <code>replacement</code>.</li><li><code>${VAR/%pattern/replacement}</code>: Replaces <code>pattern</code> at the end of <code>VAR</code> with <code>replacement</code>.</li></ul><h5>Default Values</h5><ul><li><code>${VAR:-default}</code>: Use <code>default</code> if <code>VAR</code> is unset or null.</li><li><code>${VAR:=default}</code>: Assign <code>default</code> to <code>VAR</code> if <code>VAR</code> is unset or null.</li><li><code>${VAR:+value}</code>: Use <code>value</code> if <code>VAR</code> is set.</li><li><code>${VAR:?message}</code>: Display an error message if <code>VAR</code> is unset or null.</li></ul><h5>Indirection</h5><p><code>${!VAR}</code>: Use the value of the variable <em>whose</em> name is the value of <code>VAR</code></p><pre><code class="language-zsh">ref="foo"
+foo="bar"
+echo ${!ref}  # Output: bar (the value of the variable named in ref)</code></pre>
+</body>
+</html>

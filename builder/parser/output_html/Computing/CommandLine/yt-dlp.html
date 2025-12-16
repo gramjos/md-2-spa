@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yt-dlp</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>only audio with highest quality</p><pre><code>yt-dlp -x --audio-format mp3 --audio-quality 0 "URL"</code></pre><p>For Long Audio</p><pre><code>yt-dlp -x --audio-format mp3 \
+  --audio-quality 0 \
+  --embed-thumbnail \
+  --add-metadata \
+  --output "~/Music/%(uploader)s - %(title)s.%(ext)s" \
+  --continue \
+  --no-part \
+  --retries infinite \
+  --fragment-retries infinite \
+  --buffer-size 32K \
+  --concurrent-fragments 4 \
+  "https://www.youtube.com/watch?v=VIDEO_ID"</code></pre>
+</body>
+</html>

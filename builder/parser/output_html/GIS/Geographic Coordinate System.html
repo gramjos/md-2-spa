@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geographic Coordinate System</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h2>What’s the difference between a spatial reference and a coordinate system?</h2><p>There isn’t one. At least not in Esri products. The terms are used interchangeably.</p><h2>What’s the difference between a GCS and a PCS?</h2><p>A <em>*geographic coordinate system (GCS)</em><em> is a reference framework that defines the locations of features on a model of the earth. It’s shaped like a globe—spherical. Its units are angular, usually degrees. A </em><em>projected coordinate system (PCS)</em>* is flat. It contains a GCS, but it converts that GCS into a flat surface, using math (the projection algorithm) and other parameters. Its units are linear, most commonly in meters</p><h2>Datum</h2><p><em>The spheroid origin</em> A datum is one parameter in a geographic coordinate system (GCS). While a spheroid approximates the shape of the Earth. A datum defines the position of the spheroid relative to the center of the Earth. Datums provide the origin for latitude  The <em>*datum</em><em> is the part of the GCS that determines which model (spheroid) is used to represent the earth’s surface and where it is positioned relative to the surface. Since the earth’s surface is not perfectly smooth or round, there are many different datums designed for different parts of the world. A </em><em>GCS</em>* is the full definition of how to tie coordinate values to real locations on the earth. In addition to a datum, a GCS includes a prime meridian (which specifies the location of 0° longitude), and an angular unit (often degrees) [Source  - ArcGIS blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/coordinate-systems-difference/#spatial)</p><h3>Defining Coordinates for the Earth is complicated by 4 main reasons</h3><ol><li>'Most' perceive geography as flat</li><li>The Earth is irregular shaped</li><li>Measurement error</li><li>Physical locations on the Earth change through time.</li></ol><p>Data is geographically referenced, meaning that the pixels (raster) or the points (vector) are the building block for the spatial data model. This is measured in respect to the universally recognized coordinate reference system (CRS). The CRS uses ellipsoid, datum and map projection.</p><p><em>*Coordinates</em>* are sets of numbers (usually X,Y) that unambiguously define locations.  Coordinates are <em>only</em> unique for: - a specified measurement, - calculation assumption, - and time range.</p>
+</body>
+</html>

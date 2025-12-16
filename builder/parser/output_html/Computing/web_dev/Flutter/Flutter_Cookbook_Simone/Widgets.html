@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Widgets</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>A class that inherits (<code>extends</code>) from a widget class</p><pre><code class="language-dart">class GradientContainer extends StatelessWidget {
+	const GradientContainer({super.key});
+	@override
+	Widget build(context) {}
+}</code></pre><h4>Required</h4><ol><li>class constructor defined</li></ol><ul><li><code>const GradientContainer({super.key});</code>  assigning required variable to/in the parent class</li></ul><ol><li><code>build</code> must return a <code>Widget</code></li></ol><ul><li><code>Widget build(context)</code> is the driver function of a given widget</li></ul><p>Linking widgets across files, see example below - <a href="SimpleCustomWidget.canvas">SimpleCustomWidget</a> !<a href="simpleCustomWidget.png">simpleCustomWidget.png</a></p><p>Passing Data  between widgets  - <a href="PassingData.canvas">PassingData</a> !<a href="passData.png">passData.png</a></p><h6>Alternative ways to declare the a class' constructor</h6><ol><li>'Classical way'</li></ol><pre><code class="language-dart">class GradientContainer extends StatelessWidget {
+  const GradientContainer(
+  this.color1, this.color2, {super.key}
+  );
+//... cut off for brevity </code></pre><p>The use...</p><pre><code class="language-dart">//... cut off for brevity 
+      home: Scaffold(
+        body: GradientContainer(
+          Color.fromARGB(255, 33, 5, 109),
+          Color.fromARGB(255, 68, 21, 149),
+        ),
+//... cut off for brevity </code></pre><ol><li>Require named arguments inside the {}</li></ol><pre><code class="language-dart">class GradientContainer extends StatelessWidget {
+  const GradientContainer(
+      {super.key, 
+      required this.color1, required this.color2}
+  );
+//... cut off for brevity </code></pre><p>the use...</p><pre><code class="language-dart">//... cut off for brevity 
+      home: Scaffold(
+        body: GradientContainer(
+          color1: Color.fromARGB(255, 33, 5, 109),
+          color2: Color.fromARGB(255, 68, 21, 149),
+        ),
+//... cut off for brevity </code></pre><ol><li>Named Constructor function. There can be many constructor functions per class</li></ol><pre><code class="language-dart">class GradientContainer extends StatelessWidget {
+  const GradientContainer(
+	  this.color1, this.color2, {super.key}
+  );
+
+  const GradientContainer.purp({super,key})
+	  : color1 = Color.deepPurple,
+	  : color2 = Color.indigo,
+//... cut off for brevity </code></pre><p>the use...</p><pre><code class="language-dart">//... cut off for brevity 
+      home: Scaffold(
+        body: GradientContainer.purp(),
+//... cut off for brevity </code></pre><p><em>*Note</em><em>, all of the above </em><em>constructors</em><em> are `const`. Meaning, only one global instance of this object is created and no field values can be changed during the life cycle of the object.  </em><em>Also, note,</em><em> all instance of `super.key` are in curly brackets `{}` meaning it is an </em><em>optional parameter</em>*. <code>super</code> refers to the parent class and <code>key</code> is <em>like a uuid</em>.</p><p>---</p><h5><code>Container</code></h5><p>Is rendered as a box with many styling options. The <code>child</code> of each <code>Container</code> widget is the <code>Padding</code> widget, but The widget <code>Container</code> has a <code>padding</code> (lowercase 'p') property the essentially does the same thing.</p><pre><code class="language-dart">@override 
+Widget build(BuildContext context) { 
+	return Container( 
+		color: Colors.green,
+		child: Padding( 
+			padding: const EdgeInsets.all(40),
+			child: Container( 
+				color: Colors.purple,
+				child: Padding(
+					padding: const EdgeInsets.all(50.0),
+					child: Container(
+						color: Colors.blue,
+						 ), ), ), ), ); }</code></pre><p>This scheme is also acceptable. Using the <code>Container</code>'s property to achieve padding.</p><pre><code class="language-dart">child: Container(
+	padding: EdgeInsets.all(24),
+	color: Colors.blue,
+	child: ...)</code></pre><p><code>Container</code>s provide their own transforms, paddings and margins. Also, two decorations: background and foreground decoration.</p><h4><code>Scaffold</code></h4><p>The root of the screen. Widgets that do not begin with <code>Scaffold</code> are intended to be components used to compose screens. This is a <em>*platform aware widget</em>*.</p><h4><code>Center</code></h4><p>Horizontally and vertically centers</p><h4><code>AspectRatio</code></h4><p>Tries the largest width possible in its context, and then set the height by applying the chosen ratio to the width. For example, an <code>AspectRatio</code> of 1 will set the height equal to the width.</p>
+</body>
+</html>

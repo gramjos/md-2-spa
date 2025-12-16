@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mastering The Widget Tree</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h3>Row and Column Widgets</h3><ul><li>A <code>Row</code> can be inserted into a <code>Column</code> and vice versa </li></ul><p>Both have the properties <code>CrossAxisAlignment</code> and <code>MainAxisAlignment</code> - both these properties are abstractions of <em>x y</em> axis and tweaking these values will alter the layout. Notice, the <code>MainAxisAligment</code> for <code>Column</code> widgets is vertically down and <code>Row</code> is horizontal across. Vice versa for the <code>CrossAxisAlignment</code> parameter.   !<a href="row_column_axis.png">300</a> <em>the only real difference between is their default orientation axis they start laying out children</em></p><h3>Stack Widget</h3><ul><li>expects the use of <code>Align</code>, <code>Transform</code>, and <code>Positioned</code> to form the layout. </li></ul><p><em>Note</em> use <code>SizedBox</code> over <code>Container</code> in <em>most</em> cases The developer tools in the browser has a show guide lines options to draw rendering reference lines.</p><h5>Flexible Interfaces account for myriad device layouts</h5><h5>Developing Proportional Widgets with Flexible and Expanded Widgets</h5><h3>Styling</h3><p>The <code>ThemeData</code> is a normal class that stores themes and sub-themes.  <code>Theme.of.(context)</code> is an inherited widget meaning, all the descendants of the <code>Theme</code> widget get its defined theme(style). Each widget travels up the widget tree until a <code>Theme</code> widget is found.  !<a href="findThemeData.png">390</a> <em>Can be used like...</em> <code>color: Theme.of(context).cardColor,</code> <code>style: Theme.of(context).textTheme.headlineMedium,</code> `style: Theme.of(context).textTheme.headlineMedium,</p><pre><code class="language-dart">color: selected
+  ? null
+  : Theme.of(context)
+	  .textTheme
+	  .titleMedium
+	  ?.color
+	  ?.withOpacity(0.5),</code></pre><p>The variable <code>context</code> of type <code>BuildContext</code> is the only object that is aware of the underlying widget tree. Many widgets are <em>theme aware</em>, meaning, by default the widget references it's parent theme properties.</p><p>Flutter places assets into a special archive called the <em>asset bundle</em> that apps read from at runtime</p>
+</body>
+</html>

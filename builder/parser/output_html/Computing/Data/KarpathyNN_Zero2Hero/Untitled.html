@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Untitled</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>YT Video: https://www.youtube.com/watch?v=VMj-3S1tku0</p><h4><code>micrograd</code> is an automatic gradient engine(back prop)</h4><p><em>Back Propagation</em> efficient evaluate the a gradient of a loss function with respect to the weight of a Neural Net (NN). Therefore, one can iteratively tune the weights to improve accuracy.</p><h4><code>micrograd</code> allows one to build mathematical expressions</h4><p>Aside, Rectified Linear Unit <code>.relu()</code>. Informally described as <em>keep or squash to zero</em>. Can otherwise be stated as, <code>relu = max(0, x)</code>, and with the latex expression. $$\text{relu }= \begin{cases} 0 & \text{if } x < 0 \\ x & \text{if } x \ge 0 \end{cases}$$ <strong>Jargon</strong>: "Forward pass," meaning the series of expression calculated before the <code>.backward()</code> call (initialize back prop at node <code>g</code>)</p><pre><code class="language-python">from micrograd.engine import Value
+
+a = Value(-4.0)
+b = Value(2.0)
+c = a + b
+d = a <em> b + b</em>*3
+c += c + 1
+c += 1 + c + (-a)
+d += d * 2 + (b + a).relu()
+d += 3 * d + (b - a).relu()
+e = c - d
+f = e**2
+g = f / 2.0
+g += 10.0 / f
+print(f'{g.data:.4f}') # prints 24.7041, the outcome of this forward pass
+g.backward()
+print(f'{a.grad:.4f}') # prints 138.8338, i.e. the numerical value of dg/da
+print(f'{b.grad:.4f}') # prints 645.5773, i.e. the numerical value of dg/db</code></pre><p>At node <code>g</code>, recursively, go through the expression graph to apply the chain rule from calculus. Every edge between nodes has a gradient, <code>a.grad</code>. <code>a.grad</code> how <code>a</code> is affecting <code>g</code>.  !<a href="hypothesis_node_graph_backprop.excalidraw">center</a></p><h4>Interpretation</h4><p><em>How does `g` respond when `a` is tweaked?</em>   If we make <code>a</code> slightly larger then because <code>138.8338</code> is positive <code>g</code> will grow and the slope of that growth is <code>138.8338</code>.</p><h2>Zooming Out</h2><p><code>micrograd</code> is a scalar value AutoGrad Engine. This is a pedagogical and in practice these scalars would n-dimensional tensors</p>
+</body>
+</html>

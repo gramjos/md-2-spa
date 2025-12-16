@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS, TS, and Build tools</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>[Source](https://www.youtube.com/watch?v=nfozkt8ft1o&list=PLfpeXtDSa8rVFk3ptnZIlj6XhERoxNavZ&index=33)</p><h5>Traditional Approach</h5><p><code>html</code> file</p><pre><code class="language-html"><html>
+  <head>
+    <title>Sample website</title>
+    <script src=”app.js”></script>
+  </head>  
+  <body>
+    <h1 id=”header”>Hello students! 👋</h1>
+    <p class=”text”>Welcome to COMP 426 😎</p>
+    <p class=”text”> We are super excited to have you in our class.
+    </p>
+    <img src=”url”></img>
+  </body>
+</html></code></pre><p><code>js</code> file</p><pre><code class="language-javascript">console.log(“Hello, world!”);
+// more code here...</code></pre><p><strong>Note</strong>, that the <code>script</code> tag is used to link to javascript while the <code>link</code> tag is used to link css.</p><pre><code class="language-html"><script src=”app.js”></script>
+<link rel=”stylesheet” href=”styles.css”></code></pre><h4>The <em>build</em> step ts --> js called transpilation</h4><p><em>ts is a type checking guard</em></p><h5>Jargon: <em>higher order function</em></h5><p>functions that take (as parameter) or return a function</p><h6>Maintaining state</h6><pre><code class="language-run-javascript">const updater = () => {
+  let counter = 0;
+  return () => {  
+    counter += 1;
+    console.log(counter);  
+  }  
+}  
+const update = updater();
+update();
+update();
+update();</code></pre><p><strong>Note</strong>, the scope referencing the variable <code>counter</code>. The function in the return statement is able to access the variable because it is 'child scope'.  This type referencing is called a <strong>closure</strong>. For completeness, the function returns just a reference so....</p><pre><code class="language-run-javascript">let updater = () => {  
+  let counter = 0;
+  return () => {  
+    counter += 1;
+    console.log(counter);  
+  }  
+}
+console.log(updater); 
+console.log(updater()); // just a reference to the return statement's function
+updater()(); // callthe function in the return statement. </code></pre>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>most common events</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>| Category     | Event Type         | Description                                                             | | ------------ | ------------------ | ----------------------------------------------------------------------- | | Mouse Events | <code>click</code>            | Fired when the user clicks an element.                                  | |              | <code>dblclick</code>         | Fired when the user double-clicks an element.                           | |              | <code>mousedown</code>        | Fired when a mouse button is pressed down.                              | |              | <code>mouseup</code>          | Fired when a mouse button is released.                                  | |              | <code>mousemove</code>        | Fired when the pointer is moved.                                        | |              | <code>mouseenter</code>       | Fired when the pointer enters an element (no bubbling).                 | |              | <code>mouseleave</code>       | Fired when the pointer leaves an element (no bubbling).                 | |              | <code>mouseover</code>        | Fired when the pointer moves onto an element (bubbles).                 | |              | <code>mouseout</code>         | Fired when the pointer moves out of an element (bubbles).               | | Keyboard     | <code>keydown</code>          | Fired when a key is pressed down.                                       | |              | <code>keypress</code>         | Fired when a key is pressed (deprecated, use <code>keydown</code>/<code>keyup</code>).        | |              | <code>keyup</code>            | Fired when a key is released.                                           | | Form Events  | <code>input</code>            | Fired when the value of <code><input></code>, <code><textarea></code>, or <code><select></code> changes. | |              | <code>change</code>           | Fired when an element loses focus after its value was modified.         | |              | <code>submit</code>           | Fired when a form is submitted.                                         | |              | <code>focus</code>            | Fired when an element receives focus (no bubbling).                     | |              | <code>blur</code>             | Fired when an element loses focus (no bubbling).                        | | Document/Win | <code>load</code>             | Fired when the document or resource has finished loading.               | |              | <code>DOMContentLoaded</code> | Fired when initial HTML is loaded and parsed (before images/styles).    | |              | <code>resize</code>           | Fired when the window is resized.                                       | |              | <code>scroll</code>           | Fired when the document or an element is scrolled.                      | | Clipboard    | <code>copy</code>             | Fired when content is copied to the clipboard.                          | |              | <code>cut</code>              | Fired when content is cut to the clipboard.                             | |              | <code>paste</code>            | Fired when content is pasted from the clipboard.                        | | Drag & Drop  | <code>drag</code>             | Fired while an element is being dragged.                                | |              | <code>dragstart</code>        | Fired when dragging starts.                                             | |              | <code>dragend</code>          | Fired when dragging ends.                                               | |              | <code>dragover</code>         | Fired when a dragged element is over a valid drop target.               | |              | <code>drop</code>             | Fired when a dragged element is dropped on a valid target.              | | Touch Events | <code>touchstart</code>       | Fired when a finger touches the surface.                                | |              | <code>touchmove</code>        | Fired when a finger moves along the surface.                            | |              | <code>touchend</code>         | Fired when a finger is lifted off the surface.                          | |              | <code>touchcancel</code>      | Fired when a touch event is disrupted (e.g., OS gesture).               |</p>
+</body>
+</html>

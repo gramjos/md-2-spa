@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>Async Event Driven Programming Model</h5><p>Events of all types (mouse hover, click, input text, network response) are waiting around to triggered. Events can be tied to any html element.   - Event Type: <code>str</code> that specifies event (<a href="most common events">most common events</a>) - Event Target: the associated object. Like, a <code>load</code> event is associated to window as <code>click</code> is to a button tag - Event Handler/Listener: specify how to handle event. Need to register with a event type and event target through the web browser. - Event Object: Contains event specific details.  - Event Propagation: events are delineated by where they are in the DOM tree. Event rules can be made by <code>div</code> membership for instance.</p><h5>Event Categories</h5><p>Limited Survey.. <em>*Device-dependent input events</em><em>   Events tied to specific devices like mouse, keyboard, or touch (e.g., `mousedown`, `mousemove`, `keydown`, `touchstart`). </em><em>Device-independent input events</em><em>   Events that represent actions regardless of input method, like `click`, `input`, and pointer events, working across mouse, keyboard, and touch. </em><em>User interface events</em><em>   Higher-level events on form elements, such as `focus`, `change`, and `submit`, that represent interactions with UI components. </em><em>State-change events</em><em>   Events triggered by browser or network changes, like `load`, `DOMContentLoaded`, `online`, `offline`, and `popstate`. </em><em>API-specific events</em>*   Events defined by specific web APIs, such as media events (<code>playing</code>, <code>volumechange</code>), IndexedDB events (<code>success</code>, <code>error</code>), or <code>XMLHttpRequest</code> events.</p><h5>Registering Event handler Property</h5><p><em>*2 Ways of Registering</em>* 1. <em>(old)</em> set a property of the document or object that is the event target. Limits one event target per each event type. 2. <em>(new)</em> pass the <code>addEventListener</code> method of the object or element. Any object can use the <code>addEventListener()</code> method with the arguments event type, callback function, and an optional third argument.</p><pre><code class="language-html"><button id="mybutton">Click me</button>
+<script>
+let b = document.querySelector("#mybutton");
+b.addEventListener("click", () => { console.log("Thanks again!"); });
+</script></code></pre>
+</body>
+</html>

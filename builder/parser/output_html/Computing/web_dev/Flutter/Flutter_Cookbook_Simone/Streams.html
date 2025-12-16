@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Streams</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>In contrast, <code>Future</code> can be used to <code>await</code> a single object, <em>*while</em>*, <code>Stream</code> is the class allows continuous flow. A data stream is <em>listened</em> to and waits for new data. Like a <code>Future</code>, a <code>Stream</code> can emit datum and errors.</p><h6>Working from example project color<em>stream</em>bg</h6><p>When creating a data stream the function signature is such, <code>Stream<T> myFunc() async*</code>. The asterisks and the return type are emblematic of a <code>Stream</code>. Conceptually, the main difference between a <code>Future</code> and a <code>Stream</code> is the number events being returned.  These <code>Stream</code> functions are called <em>*generators</em><em>. `Stream.periodic()` creates the event emitting `Stream`, which is prefaced with a `yield</em><code>. The _period_(interval) in which the </code>Stream<code> is spits out data specified in the first parameter to </code>Stream.periodic()<code>. The second parameter to </code>Stream.periodic()` is the total count of interval units (time) that have elapsed.</p><pre><code class="language-dart">Stream<List<dynamic>> getColors() async* {
+  yield* Stream.periodic(const 
+    Duration(milliseconds: 100), (int t) {
+	  int index = t % colors.length;
+	  return [colors[index], t];
+	});
+}</code></pre><p>Above is a fully functioning <code>Stream</code>. Now we need to <em>listen</em> to it.  First, we need to <em>initialize</em> the stream once.</p><pre><code class="language-dart">Color bgColor = Colors.blueGrey;
+late ColorStream colorStream;
+late int num;
+
+@override
+void initState() {
+	super.initState();
+	colorStream = ColorStream();
+	num = -1;
+	changeColor();
+}</code></pre><p>Conceptually, we need to <em>wait for</em> flow of data and process it accordingly.</p><pre><code class="language-dart">changeColor() async { 
+  await for (var eventColor in 
+    colorStream.getColors()) { 
+      setState(() { 
+        bgColor = eventColor; 
+        });
+} }</code></pre><p>Alternatively,</p><pre><code class="language-dart">colorStream.getColors().listen((eventColor) { 
+  setState(() { 
+    bgColor = eventColor; 
+  }); });</code></pre><h5><code>await for</code> <em>*vs</em>* <code>.listen()</code></h5><p>[Source - Dart Docs](https://dart.dev/tutorials/language/streams#listen-method) <code>.listen()</code> - Low level method. All other <code>Stream</code> methods depend on it.  <code>await for</code> - this is syntactic sugar around <code>.listen()</code>.</p><h4>Controller and Sinks</h4><p><code>StreamControllers</code> are for <code>Stream</code> management and their property <code>sinks</code> are used to insert events. Streams can be envisioned as a one-way funnel. !<a href="Streamcontrollerdraw">Streamcontrollerdraw</a> The creation of a <code>StreamController</code> and a helper function to add to the <code>controller</code>'s <code>sink</code> property.</p><pre><code class="language-dart">final StreamController<int> controller = 
+  StreamController<int>();
+
+void addNumberToSink(int newNumber) {
+  controller.sink.add(newNumber);
+}</code></pre><p>The function <code>addNumberToSink</code> is used to insert (integers, in this case) into a <code>Stream</code> by means of a <code>sink</code>.  The orchestration is assisted by class member variables.</p><pre><code class="language-dart"> int lastNumber = 0;
+ late StreamController numberStreamController;
+ late NumberStream numberStream;</code></pre><p>The two undeclared variables will be set in the <code>initState()</code></p><pre><code class="language-dart">@override
+void initState() {
+  numberStream = NumberStream();
+  numberStreamController = numberStream.controller;
+  Stream stream = numberStreamController.stream;
+  stream.listen((event) {
+    setState(() {
+  	lastNumber = event;
+    });
+  });
+  super.initState();
+}</code></pre><p>!<a href="Stream_controller.excalidraw">555</a> Throw an error is done with, <code>numberStream.addError()</code> And catching it done by,</p><pre><code class="language-dart">stream.listen((event) { 
+  setState(() { 
+    lastNumber = event; }); 
+}).onError((error) {
+  setState(() {
+    astNumber =-1; }); });</code></pre><h5>Manipulating emitted <code>Stream</code> data</h5><p>Using <code>StreamTransformer</code> allows an explicit time and place to modify stream data.</p><h6>Working from example project stream_trans</h6><p>Implementing, first, declare a member variable. <code>late StreamTransformer tx;</code> In the <code>initState()</code> configure a <code>StreamTransformer</code>,</p><pre><code class="language-dart">tx = StreamTransformer<int, int>.fromHandlers(
+	handleData: (value, sink) {
+	  sink.add(value * 10);
+	},
+	handleError: (error, trace, sink) {
+	  sink.add(-1);
+	},
+	handleDone: (sink) => sink.close());</code></pre><p>Wrangling the emitted stream data with a trivial operation.</p><h6>Working from example project stream_sub</h6><p>When <code>listen</code> is called on a <code>Stream</code> a <code>StreamSubscription</code> is returned. When subscriptions are explicitly created one can specify properties like <code>onDone</code>,  <code>onError</code>, or <code>cancelOnError</code>.</p><h4>Broadcast <code>Stream</code>s</h4><p>Multiple listeners on the same <code>Stream</code>.</p><h6>Working from example project stream_broad</h6><p>Many subscribers to one broadcast stream.</p><h3>Reactive interfaces with <code>StreamBuilder</code></h3><p><code>StreamBuilder</code> is an efficient way to rebuild widgets on the screen. Traditionally, a <code>setState()</code> will trigger a re-build() of an entire widget tree. Sometime, we only want to re-build certain widgets on the tree. <em>*Only widgets contained in `StreamBuilder` are re-drawn</em>*.</p><h6>Working from example project streambuilder_app</h6><h4>BLoC Design Pattern</h4><p><em>everything is a stream of events</em> in <em>*B</em><em>usiness </em><em>L</em><em>ogic </em><em>C</em>*omponent pattern. Separating the source data(HTTP data retrieval or JSON from a Database) from the user interface.</p><h6>Working from example project streambuilder_app2</h6><p>3 Concepts to adhere to: 1. Receive <code>Stream</code> (source data) 2. Transform data 3. Return <code>Stream</code> to subscribers  !<a href="streamBuilder.excalidraw">555</a> 10 tips for BLoC 1. Create a class that will serve as the BLoC. 2. In the class, declare the data that needs to be updated in the app. 3. Set <code>StreamControllers</code>. 4. Create the getters for streams and sinks. 5. Add the logic of the BLoC. 6. Add a constructor in which you’ll set the data. 7. Listen to changes. 8. Set a <code>dispose</code> method. 9. From the UI, create an instance of the BLoC. 10. Use <code>StreamBuilder</code> to build the widgets that will use the BLoC data. 11. Add events to the sink for any changes to the data (if required).</p>
+</body>
+</html>

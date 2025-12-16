@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intro, Tensors</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>We have torch installed but with what version of Nvidia' CUDA library? <strong>12.4</strong></p><pre><code class="language-python">print("torch version : {}".format(torch.<strong>version</strong>))</code></pre><p><em>torch version : 2.5.1+cu124</em></p><h4>Fundamental Data Structure of Machine Learning , <strong>Tensor</strong></h4><p>An image is an arrays of pixels.  Computer images are stored as 2 dimensional arrays, which can be thought a 2D mathematical matrix. A matrix with more than 2 dimensions is the same structure as a <strong>tensor</strong>.</p><h4>Batch, many images (as tensors) in one <em>`'batch tensor'`</em></h4><p>When working with an image what data structures are we using?</p><pre><code class="language-python"># Download some digit images from MNIST dataset
+# b/c the Marimo notebook
+from subprocess import run as shell_lst
+
+shell<em>lst(['curl','-s','https://learnopencv.com/wp-content/uploads/2024/07/mnist</em>1.jpg', '-o', 'mnist_1.jpg'])
+shell<em>lst(['curl','-s','https://learnopencv.com/wp-content/uploads/2024/07/mnist</em>0.jpg', '-o', 'mnist_0.jpg'])
+
+# with jupyter or colab way
+!wget -q "https://learnopencv.com/wp-content/uploads/2024/%% 07 %%/mnist<em>0.jpg" -O "mnist</em>0.jpg"
+import cv2
+digit<em>0</em>array<em>og = cv2.imread("mnist</em>0.jpg")
+digit<em>0</em>array_og.shape #  [ 28, 28, 3 ]
+
+from sys import maxsize
+np.set_printoptions(linewidth=100000, threshold=maxsize)
+digit<em>0</em>array_og
+# cell output below...
+array([[[  0,   0,   0],
+        [  0,   0,   0],
+        [  0,   0,   0],
+        [  0,   0,   0],
+        [  7,   7,   7],
+        [  1,   1,   1],
+        [  0,   0,   0],
+        [  3,   3,   3],
+        [  0,   0,   0],
+        [ 18,  18,  18],
+        [  0,   0,   0],
+        [  3,   3,   3],
+        [  0,   0,   0],
+        [  0,   0,   0],
+        [  3,   3,   3],
+        [  0,   0,   0],
+        [  0,   0,   0],
+        [  9,   9,   9],
+        [  0,   0,   0],
+        [  2,   2,   2],
+        [  0,   0,   0],
+        [ 11,  11,  11],
+        [  0,   0,   0],
+        [  1,   1,   1],
+        [  0,   0,   0],
+        [  0,   0,   0],
+        [  0,   0,   0],
+        [  0,   0,   0]], # NOTE: there are 27 more of these chunks</code></pre><p><code>digital_0_array_og</code> is a multi dimensional array from the numpy library called <code>ndarray</code>  (28, 28, 3) $\text{X,Y,Z}$. Can be read as grid of pixels, where each pixel is represented by 3 values. These three values typically correspond to the color channels Red, Green, and Blue (RGB). Therefore, this array structure holds the data for a 28 by 28 pixel color image > [!info]+ Quiz question > <em>*Question</em><em> Which of the following is a key difference between PyTorch tensors and NumPy arrays? > </em><em>Answer</em>* PyTorch tensors support GPU acceleration and automatic differentiation, whereas NumPy arrays do not. ></p><p>> [!info]+ Quiz question > <em>*Question</em><em> Which of the following is a key difference between PyTorch tensors and NumPy arrays? > </em><em>Answer</em>* PyTorch tensors support GPU acceleration and automatic differentiation, whereas NumPy arrays do not. ></p>
+</body>
+</html>

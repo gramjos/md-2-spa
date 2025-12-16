@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h4>Create, Read, Update, and Delete</h4><p>Getting data to persist, two options: 1. Local 2. Remote <em>*Both</em>* require the data to be transformed in JSON first. Working with persisted is all about sending and receiving JSON. Reading data from a web service or database (our case an asset file) is usually asynchronous work. Turning <code>Map</code>s into a strongly typed object see <a href="The_Dart_Language#Higher-Order Functions"> note: The Dart Language, section Higher-Order Functions</a>. In a world of messy JSON, one needs to guarantee they value of a JSON key is a <code>String</code> with <code>.toString()</code> then <code>T.tryParse()</code> for the <em>expected</em> type <code>T</code> and have a default coalescing value when <code>null</code> is found. see <a href="The_Dart_Language#Null-Aware Coalescing Operator">note: The Dart Language, section Null-Aware Coalescing Operator</a>.</p><pre><code class="language-dart">Pizza.fromJson(Map<String, dynamic> json) { 
+  id = int.tryParse(json['id'].toString()) ?? 0;
+  pizzaName = json['pizzaName'] != null ? json['pizzaName'].toString() : 'No name';
+  description = (json['description'] != null) ? json['description'].toString() : '';
+  price = double.tryParse(json['price'].toString()) ?? 0; 
+  imageUrl = json['imageUrl'] ?? '';}</code></pre><p>A common best practice when working with <code>String</code> is to make them of type <code>const</code>. <code>const keyId = 'id'; </code> So the <code>.fromJson</code> turns into, <code>id = int.tryParse(json[keyId].toString()) ?? 0;</code></p><h3>Persisting Data - <code>SharePreferences</code></h3><h6>Working example project shar_pref</h6><p>A quick and dirty way to store key-value pairs on disk [source](https://docs.flutter.dev/cookbook/persistence/key-value). Writing or reading from disk should always be done asynchronously.  <em>*Note</em>*, the data being persisted: 1. Not encrypted 2. Not guaranteed!  My thoughts, 'never use...' Upon a stateful app starting (after state is mounted - [Flutter Docs](https://api.flutter.dev/flutter/widgets/State-class.html)), <code>initState</code> is called. <code>initState</code> is called once on start up.</p><pre><code class="language-dart">@override
+void initState() {
+ super.initState();
+ readAndWritePreference();
+}
+
+Future readAndWritePreference() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  appCounter = prefs.getInt('appCounter') ?? 0;
+  appCounter++;
+  await prefs.setInt('appCounter', appCounter);
+  loadedAppCounter = prefs.getInt('appCounter2') ?? 0;
+setState(() {
+  loadedAppCounter = loadedAppCounter;
+  appCounter = appCounter;
+});
+}</code></pre><p>The first time <code>build()</code> is called it is provided the state(context) with variables <code>loadedAppCounter</code> and <code>appCounter</code> having the values that were retrieved from the instance of <code>SharedPreferences</code>.  > [!info]+ <code>SharedPreference</code> API > >|<em>*Type</em><em>|</em><em>Read(get)</em><em>|</em><em>Write(set)</em>*| > | ---- | ---- | ---- | > |<code>int</code>|<code> getInt(key)</code>|<code>setInt(key, value)</code>| > |<code>double</code>|<code>getDouble(key)</code>|<code>setDouble(key, value)</code>| > |<code>bool</code>|<code>getBool(key)</code>|<code>setBool(key, value)</code>| > |<code>String</code>|<code>getString(key)</code>|<code>setString(key, value)</code>| > |<code>stringList</code>|<code>getStringList(key)</code>|<code>setStringList(key, value)</code>| ></p><p>An <code>onPressed</code> event triggers the below function</p><pre><code class="language-dart">void _incrementCounter() async {
+  setState(() {
+    _counter++;
+    loadedAppCounter++;
+  });
+  saveOtherLike();
+  }</code></pre><p>The member variables are incremented and then the screen is re-drawn (<code>build()</code> is called with an updated <code>context</code> variable).  The call to <code>saveOtherLike()</code> writes the newly incremented value of <code>loadedAppCounter</code> is disk.  This is done inside an <code>async</code> that returns a <code>Future</code> with two lines</p><pre><code class="language-dart">SharedPreferences prefs = 
+	await SharedPreferences.getInstance();
+await prefs.setInt('appCounter2', loadedAppCounter);</code></pre><p><em>*Notice</em>*, how the second line is just a <em>write</em>. The on disk key <code>appCounter2</code> is overwritten. If the key did not exist, it does now.</p><h4><code>path_provider</code></h4><h6>Working from example project path_provide</h6><p>Is a library to write files to the systems directory(temporary or documents), regardless of device. For example, in the <code>initState()</code> function after the <code>super.initState()</code> call, is a good time retrieve the device's system paths. These paths are used to write and read from. Given two state variables,</p><pre><code class="language-dart">String documentsPath='';
+String tempPath='';</code></pre><p>These variables can be filled with the function call,</p><pre><code class="language-dart">Future getPaths() async { 
+  final docDir = await 
+    getApplicationDocumentsDirectory(); 
+  final tempDir = await getTemporaryDirectory();
+  setState(() { 
+    documentsPath = docDir.path;
+    tempPath = tempDir.path; 
+ }); }</code></pre><h1>No chrome web support</h1>
+</body>
+</html>

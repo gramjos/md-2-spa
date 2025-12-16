@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Variables</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p><em>variable</em> - a user defined symbols that hold a reference to some value. Aside, <a href="Variable Declaration versus Initialization">Variable Declaration versus Initialization</a> <code>var</code> - stores mutable references</p><h5>Null Safety</h5><p>Is a best practice that  prevents the error(s) of 'unintentionally' accessing a variable set to null - this error is called a 'null dereferenced error'  Dart compiler detects the possibility of the null dereferenced errors at compile time [Source - Dart Docs](https://dart.dev/language/variables#null-safety)</p><h4>Nullability in 3 steps</h4><ol><li>Must be use <code>?</code></li></ol><pre><code class="language-dart">String? name  // Nullable type. Can be <code>null</code> or string.
+
+String name   // Non-nullable type. Cannot be <code>null</code> but can be string.</code></pre><ol><li>Variable must be initialized before declaration</li><li>You cannot access properties or call methods on an expression with nullable types </li></ol><h5><code>late</code></h5><p>Use cases for <code>late</code> variables - Declaring a non-nullable variable that is initialized after its declaration</p><pre><code class="language-dart">late String description;
+
+void main() {
+  description = 'Feijoada!';
+  print(description);
+}</code></pre><ul><li>Lazy initializing of a variable</li></ul><p>In the following example if the variable <code>temperature</code> is never used then the function <code>readThermometer</code> is never called</p><pre><code class="language-dart">// This is the program's only call to readThermometer().
+late String temperature = readThermometer(); // Lazily initialized.</code></pre><h4><code>final</code> and <code>const</code></h4><p>variables that never change. <em>*Immutable</em>*  <code>const</code> 'compile-time constants' that will optimized runtime performance by storing the value in memory. Another way to say it, <code>const</code> variables must be determined at compile time</p><h6><code>const</code> <em>variables</em> and their <em>values</em></h6><pre><code class="language-dart">var foo = const [];
+final bar = const [];
+const baz = []; // Equivalent to <code>const []</code></code></pre><p>regarding the <code>foo</code> variable,  notice it has a <code>const</code> value, but <code>foo</code> itself is not a <code>const</code> variable. Therefore...</p><pre><code class="language-dart">foo = [1, 2, 3];  // is valid
+baz = [42]; // Error: Constant variables can't be assigned a value.</code></pre>
+</body>
+</html>

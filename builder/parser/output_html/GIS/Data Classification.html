@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Classification</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h4>How to Observe the Data</h4><p>[Source - Cartography Playground](https://cartography-playground.gitlab.io/playgrounds/data-classification-methods/) Use a histogram to visualize the frequency table. Four ways to group/bin/class an attribute to visualize the distribution. !<a href="data_classification_types.png">600</a></p><h6>Equal Interval</h6><p>divides the range of attributes values into equal sized bins. Therefore, number elements in each bin can differ</p><p>$$Interval\ Size = \frac{maxX<em>i - minX</em>i}{Number\ of\ Classes}$$ !<a href="equal_interval_pros_cons.png">500</a></p><h6>Quantile</h6><p>Each class has a equal number of features.</p><p>$$Number\ of\ Elements\ per\ class = \frac{Total\ Number\ of\ Elements}{Number\ of\ Quantiles}$$</p><h5>Quantile versus Equal Interval(EI)</h5><p>EI binning is based on the min/max (range) of the data, while quantile is based off the count of the features</p><h6>Jenks</h6><p>"the Jenks classification is not recommended for data that have a low variance" - [Wikipedia](https://en.wikipedia.org/wiki/Jenks<em>natural</em>breaks<em>optimization#Use</em>in_cartography)</p><h6>Standard Deviation</h6><ul><li>A measure of dispersion</li><li>Low SD means data is tight and much variation from the mean (expected value)</li><li>High SD values are spread out</li></ul><p>Population Formula below $$SD\ =\ \sqrt{\frac{\Sigma {\\|x-\mu\\|}^2}{N}}$$ "For a finite set of numbers, the population standard deviation is found by taking the square root of the average of the squared deviations of the values subtracted from their average value."</p><h3>Normalization</h3><p>think, does pure count have valid/meaningful comparison?  What should we normalize (divide) by</p><h5>Douglas-Peucker Algorithm</h5><p>Visualization at [Cartography Playground](https://cartography-playground.gitlab.io/playgrounds/douglas-peucker-algorithm/) <em>"iterative end point fit"</em> - Sungsoon Hwang Broadly, it smoothes poly-lines by reducing the number of points. This will preserve the rough shape of the object</p><h4>Ordinal or Nominal Data</h4><p>Ordinal - Can be "ordered" Nominal - Categorical Data with no rank (order)</p>
+</body>
+</html>

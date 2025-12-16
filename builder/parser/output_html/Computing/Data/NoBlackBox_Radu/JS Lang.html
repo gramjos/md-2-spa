@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Lang</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>My learnings about the language</h5><p><code>hoisting</code> the javascript default mechanism of moving all variable and function declarations to the top of there containing scope during compilation phase. <strong>Note</strong>, only declarations not initializations are hoisted.  Lifting up variable declarations to the top of file ... <code>hoisting them up</code> valid js below. <code>5</code> will appear in <code>demo</code>'s innerHTML</p><pre><code class="language-js"> <!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+	x = 5; // Assign 5 to x
+	elem = document.getElementById("demo"); // Find an element 
+	elem.innerHTML = x;           // Display x in the element
+	var x; // Declare x
+</script>
+</body>
+</html> </code></pre><p>The above techniques does not work for <code>let</code> (<code>ReferenceError</code>) and <code>const</code> (<em>just won't print it</em>). To avoid <code>hoisting</code> confusion just put all variables at the top of the file. The  <code>use strict</code> directive requires all variables to be declared before they are used.</p><pre><code class="language-js">var x = 5;  
+var y;  
+alert(y);  
+y = 7;</code></pre><p>The alert will be <code>undefined</code> because the assignment of <code>y</code> is not moved to the top.  > [!info]+ Note [Web3Schools](https://www.w3schools.com/js/js_variables.asp) The <code>var</code> keyword was used in all JavaScript code from 1995 to 2015. The <code>let</code> and <code>const</code> keywords were added to JavaScript in 2015. The <code>var</code> keyword should only be used in code written for older browsers.</p><ul><li>variables <code>let</code> V <code>var</code> V <code>const</code> </li><li><code>var</code>/<code>let</code> can be redeclare or updated. </li><li><code>const</code> cannot be changed</li></ul><p>--- <strong>Template Literal</strong> - a multi-line string surrounded with back ticks</p><p>--- [Canvas Reference](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)</p><p>--- Private methods for event listeners. Private meaning this method cannot called outside this class.</p><p>--- Creating objects for reuse.</p><p>--- The spread operator <code>...</code> turns an array into its individual components</p><p>--- mobile compatibility HTML with <code>meta</code> tag to prevent user from zooming in the meta tag set <code>user-scalable=0</code> Event listeners for the touch are different than the mouse, but we can use most of the same helper functions</p>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Variables</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h4>Checking if root user</h4><pre><code class="language-run-shell">if <a href=" $UID -ne 0 "> $UID -ne 0 </a>; then 
+  echo Non root user. Please run as root. 
+else 
+  echo Root user 
+fi</code></pre><h4>Environment variables</h4><p>e.i. <code> HOME PWD USER UID SHELL</code> <code>$0</code> is shortcut to  <code>$SHELL</code></p><pre><code class="language-run-shell">echo $0 
+echo $SHELL</code></pre><pre><code class="language-run-shell">var=12345678901234567890$
+echo ${#var}</code></pre>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h6>Asynchronous programming allows the app to complete time-consuming tasks (writing data to a server, retrieving web data, opening then reading/writing to a file), while running other tasks concurrently.</h6><p><code>Futures</code> - single async operation (uploading data to the web) <code>Streams</code> - multiple async operations (getting GPS coordinate<em>*s</em><em>) </em><em>Async Operations</em>* do not stop the main line of execution, allowing for other tasks to be completed in the meantime.  !<a href="async_exec_flow.png">async_exec_flow.png</a></p><h1>Dart is a single-threaded language</h1><p>But, still can use async patterns. Async operations for <em>certain</em> tasks keeps one's app responsive.</p><h6>Now referring the projects <code>async_books</code></h6><pre><code class="language-dart">          ElevatedButton(
+            child: const Text('GO!'),
+            onPressed: () {
+              setState(() {});
+              getData().then((value) async {
+                result = value.body.toString().substring(0, 450);
+                setState(() {});
+              }).catchError((_) {
+                result = 'An error occurred';
+                setState(() {});
+              });
+            },
+          ),</code></pre><p>In the <code>.then()</code> callback is when the value (<code>Future<Response></code>) is received. To reiterate, <em>*the `result` variable is only available in the `.then()`.</em><em> > [!info]+ Isolate and Event Loops > [Source - Flutter Youtube](https://www.youtube.com/watch?v=vl_AaCgudcY) and [Dart Docs - Isolate class](https://api.dart.dev/stable/2.3.1/dart-isolate/Isolate-class.html) > How does Dart simulate `async` despite being a single threaded language? The </em><em>Isolate</em><em>, an isolated Dart execution context.  > All dart code runs in a isolate. Isolates have their own private chunk of memory. Meaning, it can only access classes and values from within that same isolate. Communication between isolates is done with `sendPort` and `receivePort`.  > Isolates run code in its own event loop, and each event can run smaller tasks in a nested micro-task queue. Each thread is in its own isolate with its own memory and just process events. > There is no shared memory between isolates. Regarding, memory allocation and garbage collection, an isolate does not require locking because there is only one thread. So, if the event loop is not busy we know the memory is being mutated.  > </em><em>Event Loops</em>* > Imagine the life cycle of an application. A whole bunch of things happen. Many clicks/taps from the user, network requests and so on...  > !<a href="app_life_time.png">app_life_time.png</a> > The app cannot predict when or in what order these events will happen in. It has to handle all of this with a single thread that never blocks. So it runs an event loop. The event loop thread processes events one at a time. All the high level abstractions of async programming (<code>Futures</code>, <code>await</code>, <code>Streams</code>, <code>async</code>) are built around this simple event loop. > ``<code>dart  > RaisedButton( > child: Text('click me'), > onPressed: () { > 	final myFuture = http.get('...'); > 	myFuture.then((response){ > 		if(response.statusCode == 200){ > 			print('Success!'); > 	} > }); > }, > ) ></code>`` > Given the above button, it is rendered and then it is waiting for the button to be pressed. When the button is pressed a tap event enters the event loops queue.  > To recap, the button is waiting to be tapped and network request is waiting for a future, but these are just events in the queue.</p><h3>Definitions</h3><h4>Concurrency versus Parallelism</h4><h5>Asynchronous --> Concurrency</h5><ul><li>Allows waiting without blocking </li><li>Will not create a separate thread</li></ul><h5>Isolates --> Parallelism</h5><ul><li>New thread spawning</li></ul><h4>Using <code>async</code> and <code>await</code> to avoid <code>.then()</code> callbacks</h4><ul><li><code>asunc</code> is used to mark a method as asynchronous and it put before the body of the function.</li><li><code>await</code> tells the framework to wait for an operation to finish and return its value. </li></ul><p>Note, <code>await</code> <em>*must</em>* be used in an <code>async</code> function and if the await call another function, then that function must be labeled as <code>async</code> too.</p><h5>Side by side comparison</h5><p><em>*`.then()`</em>*</p><pre><code class="language-dart">Future<Response> getData(){
+	String url = '...'
+	return http.get(url);
+}
+void someMethod(){
+	getData()
+		.then((value) {
+			//operate on value
+			});
+}</code></pre><p><em>*`async/await`</em>*</p><pre><code class="language-dart">Future<Response> getData(){
+	String url = '...'
+	return http.get(url);
+}
+void someMethod() async {
+	var value = await getData();
+	//operate on value
+}</code></pre><p><em>*Note</em>*, there is explicit method <code>catchError</code> for the <code>async/await</code> pattern, but a traditional <code>try-catch</code> will suffice.</p><h3><code>Completer</code></h3><p>[Source - Flutter docs](https://api.flutter.dev/flutter/dart-async/Completer-class.html)</p><h6>In flutter example project async<em>books</em>pt3</h6><p>Another asynchronous technique is to use the <code>Completer</code> class. <code>Completer</code>'s create <code>Future</code> objects that can be <code>completed</code> later. This allows one to control when the <code>Future</code> is <code>completed</code>.  When a  service does not use <code>Futures</code> a <code>Completer</code> can be used. Given the button below,</p><pre><code class="language-dart">ElevatedButton(
+  child: const Text('GO!'),
+  onPressed: () {
+	getNumber().then((value) {
+	  setState(() {
+		result = value.toString();
+	  });
+	});
+  },
+),</code></pre><p>What is neat about <code>Completer</code> is the ability to decouple the returning of the <code>Future</code> and the executing of the computational time consuming task.</p><pre><code class="language-dart">late Completer completingGetNumber;
+Future getNumber() {
+	completingGetNumber = Completer<int>();
+	calculate();
+	return completingGetNumber.future;
+}</code></pre><p>See <a href="Computing/web_dev/Flutter/Flutter_Cookbook_Simone/Variables#`late`">late Variables</a> The above <em>*Sets up the Completer,</em>* which creates a <code>Completer</code> to establish a <code>Future</code> that can be resolved later. But wait, doesn't <code>calculate()</code> initiate asynchronous work? Where is the <code>await</code> prefix?  This is the power of the <code>Completer</code> class. The type of <code>completingGetNumber.future</code> had to be declared (could be <code>dynamic</code>). This is how the mechanism works...</p><h3>Multiple <code>Future</code>s with <code>FutureGroup</code></h3><p><em>*Aside</em><em>, `FutureGroup` resides in the external package </em><em>`'package:async/async.dart'`</em><em> while basic asynchronous utilities are in Dart built-in </em><em>`'dart:async'`</em><em>  `FutureGroup` returns a `List` in the same order in which they were added to the group. - `add()` put a `Future` in the collection - `close()` no more additions to this collection </em><em>If any of the group members error, then the whole group will return an error</em>*</p><pre><code class="language-dart">onPressed: () {
+		returnFG();
+}</code></pre><p>Calls the following function</p><pre><code class="language-dart">void returnFG() {
+	FutureGroup<int> futureGroup = FutureGroup<int>();
+	futureGroup.add(returnOneAsync());
+	futureGroup.add(returnTwoAsync());
+	futureGroup.add(returnThreeAsync());
+	futureGroup.close();
+	futureGroup.future.then((List<int> value) {
+	  int total = 0;
+	  for (var element in value) {
+		total += element;
+	  }
+	  setState(() {
+		result = total.toString();
+	  });
+	});
+}</code></pre><h4><code>Futures</code> with <code>StatefulWidgets</code></h4><h6>Now working with flutter example project geo_locate</h6><p>A valid question should arise, where to place the <code>getPosition()</code> call.</p><pre><code class="language-dart">  Future<Position> getPosition() async {
+    await Geolocator.requestPermission();
+    await Geolocator.isLocationServiceEnabled();
+    Position? position = await Geolocator.getCurrentPosition();
+    return position;
+  }</code></pre><p>Refer to <a href="Interactivity & Navigation#`State` Life Cycle">Interactivity & Navigation</a> for a review on <code>State</code> <code>initState</code> is only called once when the widget is loaded.  Best practices recommend to to be keep <code>initState</code> synchronous, but a <code>.then()</code> is OK.</p><h4>Letting Flutter handle <code>Future</code>s with <code>FutureBuilder</code></h4><h6>Now working with flutter example project geo<em>locate</em>pt2</h6><p>In the scenario of retrieving some data asynchronously and updating the user interface..There is a widget for this case. Enter <code>FutureBuilder</code>. It automatically updates content when the <code>Future</code> arrives (LOL). <code>FutureBuilder</code> build itself based off the status of said <code>Future</code> allowing the <code>setState</code> instruction to be skipped. this programming pattern is called <em>reactive</em> as it is a way for the UI to react to the data in a <code>Future</code>. Consider the snippet below,</p><pre><code class="language-dart">body: Center(
+	child: FutureBuilder(
+	  future: position,
+	  builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
+		if (snapshot.connectionState == ConnectionState.waiting) {
+		  return const CircularProgressIndicator();
+		} else if (snapshot.connectionState == ConnectionState.done) {
+		  if (snapshot.hasError) {
+			return const Text('Something terrible happened!');
+		  }
+		  return Text(snapshot.data.toString());
+		} else {
+		  return const Text('');
+		}
+	  },</code></pre><p>From the above we can infer the <code>Future</code> is a variable called <code>position</code>. This variable is initialized at the top of the class with <code>Future<Position>? position;</code>.  The declaration of this variable  occurs in the <code>initState()</code> with a call to <code>getPosition()</code>. See below,</p><pre><code class="language-dart">  @override
+  void initState() {
+    super.initState();
+    position = getPosition();
+  }</code></pre><p>The <code>FutureBuilder</code>s <code>builder</code> property is given an anonymous function with parameters <code>BuildContext</code> and <code>AsyncSnapshot<T></code> where <code>T</code> is said <code>Future</code>.  Checking the status of the of the <code>AsyncSnapshot</code>is done with its <code>connectionState</code> property and comparing it with the <code>enum</code> <code>ConnectionState</code>.</p><h3>Asynchronous Navigation</h3><h6>Using <code>Future</code>s with <code>Navigator</code>, specifically turning <code>Route</code> in to a <code>async</code> function.</h6><p>The scenario, a dialogue box pops up (some new screen) and its requires user input. Said again, push a new screen to the app and <code>await</code> the route to return some data to update the screen. An example, - simple button to launch a screen - second screen has options - once option is chosen the first screen will update</p><h6>Working from example projection async_nav</h6><p>The crux of this, <em>`await` the result of the navigation</em>. A button is pressed.</p><pre><code class="language-dart">ElevatedButton(
+	child: const Text('Change Color'),
+    onPressed: () {
+	  _navigateAndGetColor(context);
+            }),
+...
+  Future _navigateAndGetColor(BuildContext context) async {
+  color = await Navigator.push( 
+  context,
+  MaterialPageRoute(builder: (context) => 
+    const NavigationSecond()),
+        ) ?? Colors.blue;
+    setState(() {});
+  }</code></pre><p>The new screen is push on the app's stack. The return value of <code>Navigator.push</code> is assigned to the variable <code>color</code> then the screen is called to be redrawn with <code>setState</code>. !<a href="async_app_stack.excalidraw">async_app_stack.excalidraw</a> The second is a <code>StatefulWidget</code> with a column full of buttons like...</p><pre><code class="language-dart">ElevatedButton(
+  child: const Text('Red'),
+  onPressed: () {
+	color = Colors.red.shade700;
+	Navigator.pop(context, color);
+  })</code></pre><p>Given the above code, the return value of a <code>MaterialPageRoute</code> should make more sense.  Thanks <code>Navigator.pop()</code> A default value is given for <code>color</code> because the back arrow could be pressed on this page leaving no selection made.</p><h4><code>await</code> a Dialogue Window</h4><p>Very similar concept to the screen example above, but instead of a new screen its just a popup window.</p><h6>Working from example project async<em>nav</em>pt2</h6><p>Since no new page is being rendered there is no need for a <code>route</code>,  but just a <code>async</code> dialogue function that <code>await</code>s a dialogue box selection.  The function below is called from within a button,</p><pre><code class="language-dart">_showColorDialog(BuildContext context) async {
+await showDialog(
+  barrierDismissible: true,
+  context: context,
+  builder: (_) {
+	return AlertDialog(
+	  content: const Text('Please choose'),
+	  actions: <Widget>[
+		TextButton(
+			child: const Text('Red'),
+			onPressed: () {
+			  color = Colors.red.shade700;
+			  Navigator.pop(context, color);
+			}),
+		TextButton(...)
+		TextButton(...)
+	  ],
+	);
+  },
+).then((result) {
+  if (result == null) {
+	color = Colors.grey;
+  } else {
+	color = result;
+  }
+
+  setState(() {});
+});
+}</code></pre><p><em>*Notice</em>*, the <code>showDialog</code> property called <code>barrierDismissible</code>. This allows user to click outside the dialog box to exit the dialog box, which causes a <code>null</code> selection to the dialog question (user input prompt).  To handle this case, the <code>.then()</code> chain is used.</p>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit_Testing</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h1>Write a test first!</h1><p>Given the <code>flutter create project_name</code> basic template with a simple modification to change the color and font size based on the parity of button clicks</p><h6>Below is the full app the test file</h6><pre><code class="language-dart">import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+	        seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(
+	      title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+  Color color = Colors.red;
+  double font_size = 18;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+      if (isEven(_counter)) {
+        color = Colors.red;
+        font_size = 28;
+      } else {
+        color = Colors.green;
+        font_size = 18;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).
+	        colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+            'You have pushed the button this many times:',
+                style: TextStyle(
+                  color: color,
+                  fontSize: font_size,
+                )),
+            Text(
+              '$_counter',
+              style: Theme.of(context)
+	              .textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+bool isEven(int number) {
+  if (number % 2 == 0) {
+    return true;
+  } else {
+    return false;
+  }
+}</code></pre><h3>from lib/test/unit_test.dart</h3><pre><code class="language-dart">import 'package:flutter<em>test/flutter</em>test.dart';
+import 'package:hello_flutter/main.dart';
+
+void main() {
+  test('Is Even', () {
+    bool result = isEven(12);
+    expect(result, true);
+    result = isEven(123);
+    expect(result, false);
+  });
+}</code></pre><p>syntax for <code>test(test_name, function)</code> The above test is bad form because tests should only test one thing at a time. Better style below</p><pre><code class="language-dart">void main() {
+  test('Is Even', () {
+    bool result = isEven(12);
+    expect(result, true);
+  });
+  test('Is Odd', () {
+    bool result = isEven(123);
+    expect(result, false);
+  });
+}</code></pre><p>Purposefully fail. From the test named <code>Is Odd</code> change <code>expect(result, True);</code></p><pre><code class="language-shell">$ flutter test
+00:07 +1 -1: /Users/g<em>joss/Documents/Computation/flutter/cook</em>book<em>Alessandria/hello</em>flutter/test/unit_test.dart: Is Odd [E]
+  Expected: <true>
+    Actual: <false>
+  
+  package:matcher                                     expect
+  package:flutter<em>test/src/widget</em>tester.dart 454:18  expect
+  test/unit_test.dart 11:5                            main.<fn>
+  
+
+To run this test again: /Users/g<em>joss/Developer/flutter/bin/cache/dart-sdk/bin/dart test /Users/g</em>joss/Documents/Computation/flutter/cook<em>book</em>Alessandria/hello<em>flutter/test/unit</em>test.dart -p vm --plain-name 'Is Odd'
+00:09 +2 -1: Some tests failed.  </code></pre><p>Flutter tests have a grouping functionality to group similar tests.</p><pre><code class="language-dart">void main() {
+  group('Iseven group', () {
+    test('Is Even', () {
+      bool result = isEven(12);
+      expect(result, true);
+    });
+    test('Is Odd', () {
+      bool result = isEven(123);
+      expect(result, true);
+    });
+  });
+}</code></pre><p>With the same flawed code as above in the purposefully fail scenario. Below shows the shell message for a failing test within a group(seen immediately above)</p><pre><code class="language-shell">$ flutter test
+00:29 +1 -1: /Users/g<em>joss/Documents/Computation/flutter/cook</em>book<em>Alessandria/hello</em>flutter/test/unit_test.dart: Iseven group Is Odd [E]
+  Expected: <true>
+    Actual: <false>
+  
+  package:matcher                                     expect
+  package:flutter<em>test/src/widget</em>tester.dart 454:18  expect
+  test/unit_test.dart 12:7                            main.<fn>.<fn>
+  
+
+To run this test again: /Users/g<em>joss/Developer/flutter/bin/cache/dart-sdk/bin/dart test /Users/g</em>joss/Documents/Computation/flutter/cook<em>book</em>Alessandria/hello<em>flutter/test/unit</em>test.dart -p vm --plain-name 'Iseven group Is Odd'
+00:34 +2 -1: Some tests failed.  </code></pre><p>[Official Docu on Testing]( [https://docs.flutter.dev/testing](https://docs.flutter.dev/testing))</p>
+</body>
+</html>

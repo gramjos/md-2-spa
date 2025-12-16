@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>quick draw data engineering</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>running questions:</h5><ol><li>setting the <code>IFS</code> back after using in a command line command versus using it in a stand alone script. </li><li>how protable is <code>fzf</code>? </li></ol><h6>This document will walk through the process of selecting which drawing to download and then downloading them locally. Then create a web viewer that does an initial inspection.</h6><p>> [!info]+ ToC > 1. Virtual environment > 2. Download <code>gsutil</code> > 3.</p><p>> 1. Create a virtual environment for <code>pip</code> installed packages with <code>python -m venv ~/.envs/___</code> (where <code>___</code> is the newly create virtual environments name) 		- environment created: <code>quick_draw</code></p><pre><code class="language-shell">source ~/.envs/quick_draw/bin/activate</code></pre><ol><li>download the google suite command line tools requires to pull the bucket called "quickdraw_dataset" </li></ol><pre><code class="language-shell">curl https://sdk.cloud.google.com | bash</code></pre><p>The above command downloaded materials lives in <code>~/.envs/quick_draw/</code> Replace the current shell with environment's shell (zsh)</p><pre><code class="language-shell">exec -l $SHELL</code></pre><p>Launch interactive <em>Getting Started</em> workflow</p><pre><code class="language-shell">gcloud init</code></pre><p>From the above command's interactive menu: create new project called <code>quick-draw-me</code>  - show the dataset</p><pre><code class="language-shell">gsutil ls -l gs://quickdraw_dataset/full/binary/</code></pre><ul><li>show size </li></ul><pre><code class="language-shell">gsutil du -s -h gs://quickdraw_dataset/full/binary/</code></pre><ul><li>just see file names </li></ul><pre><code class="language-shell">gsutil ls -l gs://quickdraw_dataset/full/binary/ |awk -F "/" '{print $6}'|column</code></pre><ol><li>download quickdraw_dataset </li></ol><ul><li>Shell expansion displays the selected drawings</li></ul><pre><code class="language-shell">time gsutil cp gs://quickdraw_dataset/full/binary/{pig,van,dragon}.bin .</code></pre><p>outputs...</p><pre><code>Copying gs://quickdraw_dataset/full/binary/pig.bin...
+
+Copying gs://quickdraw_dataset/full/binary/van.bin...                           
+
+Copying gs://quickdraw_dataset/full/binary/dragon.bin...                        
+
+| [3 files][ 71.8 MiB/ 71.8 MiB]                                                
+
+Operation completed over 3 objects/71.8 MiB.                                     
+
+gsutil cp gs://quickdraw_dataset/full/binary/{pig,van,dragon}.bin .  1.02s user 0.74s system 30% cpu 5.801 total</code></pre><p>Use <code>tab</code> to perform multiple (<code>--multi</code>) selection</p><pre><code class="language-shell">gsutil ls -l gs://quickdraw_dataset/full/binary/ |awk -F "/" '{print $6}'|fzf --multi</code></pre><h5>TODO: Can the selection from <code>fzf</code> be parametrized as the shell expansion to download the from gsutil... solved, yes.</h5><pre><code class="language-shell"> gsutil ls -l gs://quickdraw_dataset/full/binary/ |
+   awk -F "/" '{print $6}' |
+   sed 's/\.bin$//'  |
+   fzf --multi  |
+   tr '\n' ','  |
+   sed 's/.$//'</code></pre><ol><li>exploratory data analysis</li></ol><ul><li>consists of building tools to visualize the raw data. </li></ul>
+</body>
+</html>

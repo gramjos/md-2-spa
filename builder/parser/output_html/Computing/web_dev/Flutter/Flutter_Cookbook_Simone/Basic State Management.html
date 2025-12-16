@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic State Management</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h6>Separating the UI from the Business Logic</h6><h5>Model-view Separation</h5><p><em>Architecturally</em> speaking,  <em>*Models</em><em> classes that deal with the data, while </em><em>Views</em><em> are classes that present data to the screen. A </em><em>View</em><em> will query a </em><em>Model</em><em> for meta data (size of an array).  ![simple image](plan.dart.png) </em><em>Now working with the MasterPlan project</em><em> Notice how the </em><em>Model</em><em> is immutable. ![[plan.dart.png]] ![[task.dart.png]] But the app seem to let the user change the text (description) and the checkbox (complete) at will.  ![[plan_checkbox.png]] The State of the widgets is owned by the model. The UI will query the model for the most up to date data. The `onChanged` call back takes the new data received from the view and stores it in the model.  The double dots (..) or the </em><em>cascade operator</em>* allows a sequence of operations on the same object.  !<a href="cascade_op.png">cascade_op.png</a> The more verbose way of achieving the same result is. !<a href="verbose_cascade_alt.png">verbose_cascade_alt.png</a> Aside, the <code>List.from()</code> dart method creates a new list from an existing list. A shallow copy</p><h3><code>InheritedWidget</code></h3><p>In contrast, <code>StatelessWidget</code> and <code>StatefulWidget</code> are widgets to configure the UI. <code>InheritedWidget</code> only passes data down to its children. This inheritance scheme is the bridge between <em>*view</em><em> and </em><em>model</em><em> layers.  </em><em>Now working from example master_plan_pt2</em>* <code>InheritedWidget</code> and <code>InheritedNotifier</code> only pass data down lower in the tree.</p><pre><code class="language-dart">class PlanProvider extends 
+	InheritedNotifier<ValueNotifier<Plan>></code></pre><p><code>PlanProvider</code> inherits from <code>InheritedNotifier</code> (<code>InheritedNotifier</code> inherits from <code>InheritedWidget</code>) and listens for objects that implement the <code>Listenable</code> interface.  <code>InheritedNotifier</code> widgets are generic, so we need to specify the the type, <code>ValueNotifier<Plan></code>. Whenever the <code>ValueNotifier</code> changes (the <code>Plan</code> changes) <code>notifyListeners()</code> is called to update values. Three main step to use <code>ValueNotify</code>: 1. <em>*create</em><em> 2. </em><em>listen</em><em> 3. </em><em>update</em><em>  Step 1 - </em>create*</p><pre><code class="language-dart">ValueNotifier<Plan> planNotifier = 
+    PlanProvider.of(context);</code></pre><p>Step 2 - <em>listen</em> By using the <code>ValueListenableBuilder</code> to automatically rebuild the UI when the value changes.  !<a href="listenableBuilder.png">listenableBuilder.png</a> Step 3 - <em>update</em> To update the value of <code>ValueNotifier</code>, change the <code>value</code> property and this will trigger the <code>notifyListeners()</code> method.  !<a href="notifierUpdate.png">notifierUpdate.png</a></p><h5>Providers</h5><p>Regarding, <code>plan_provider.dart</code> file and the static method, <code>ValueNotifier<Plan></code> !<a href="planProvider.png">planProvider.png</a> Static methods can be invoked directly from the class name itself without creating an instance of it. A static field or method is shared by all instances of the class. <code>!</code> is the non-null assertion operator (asserts the previous expression cannot be null).</p><p>--- <em>*Now starting from master_plan_pt3</em>*</p><h3>Making the app state visible across multiple screen</h3><p>"Lift state up" refers to the design best practice of placing <code>State</code> objects as high as possible in the widget tree. To make the <em>Master Plan</em> project work across multiple screens the State provider need to be "lifted" closer to the root.</p>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Layout</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h1>Important Layout details</h1><p><a href="Interactivity & Navigation#Scrolling#Constraints go down -> Sizes go up">Constraints Got Down -> Sizes Go Up</a></p><h2>Article Highlights:</h2><ul><li>A widget gets its own <em>*constraints</em><em> from its </em><em>parent</em>*. A <em>constraint</em> is just a set of 4 doubles: a minimum and maximum width, and a minimum and maximum height.</li><li>Then the widget goes through its own list of <em>*children</em><em>. One by one, the widget tells its children what their </em><em>constraints</em>* are (which can be different for each child), and then asks each child what size it wants to be.</li><li>Then, the widget positions its <em>*children</em>* (horizontally in the <code>x</code> axis, and vertically in the <code>y</code> axis), one by one.</li><li>And, finally, the widget tells its parent about its own <em>*size</em>* (within the original constraints, of course).</li></ul><p>Flutter’s layout engine is designed to be a one-pass process. This means that Flutter lays out its widgets very efficiently, but does result in a few limitations: - A widget can decide its own size only within the constraints given to it by its parent. This means a widget usually <em>*can’t have any size it wants</em><em>. - A widget </em><em>can’t know and doesn’t decide its own position in the screen</em><em>, since it’s the widget’s parent who decides the position of the widget. - Since the parent’s size and position, in its turn, also depends on its own parent, it’s impossible to precisely define the size and position of any widget without taking into consideration the tree as a whole. - If a child wants a different size from its parent and the parent doesn’t have enough information to align it, then the child’s size might be ignored. </em><em>Be specific when defining alignment.</em>* Constraints go down. Sizes go up. Positions are set by parents Positions are set by parents Sizes go up Constraints go down</p><p>Same article two different sources  [Source - 'The Advanced Layout Rule Even Beginners Must Know'](https://medium.com/flutter-community/flutter-the-advanced-layout-rule-even-beginners-must-know-edc9516d1a2) [Source - 'Understanding Constraints'](https://medium.com/flutter-community/flutter-the-advanced-layout-rule-even-beginners-must-know-edc9516d1a2)</p>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ctags</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>To create a tags file in the local directory.</p><pre><code class="language-shell">ctags -R .</code></pre><p>to be more explicit</p><pre><code class="language-zsh">$ tree
+.
+├── data
+│   ├── bnsf_rail.geojson
+│   └── pro_pic.jpg
+├── index.html
+├── js
+│   ├── app.js
+│   ├── basemap-control.js
+│   ├── charts-panel.js
+│   ├── landing-page.js
+│   ├── modal-info.js
+│   ├── table-interactions.js
+│   └── table-resize.js
+├── package.json
+├── README.md
+├── server.js
+├── styles.css
+
+$ ctags -R --languages=JavaScript,HTML,CSS \
+  --exclude=node_modules \
+  --exclude=dist \
+  --exclude=.git \
+  --exclude='*.geojson' \
+  --exclude='*.jpg'
+</code></pre><p>copyme version</p><pre><code class="language-zsh">ctags -R --languages=JavaScript,HTML,CSS --exclude=node_modules --exclude=dist --exclude=.git --exclude='<em>.geojson' -exclude='</em>.jpg'</code></pre>
+</body>
+</html>

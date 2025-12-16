@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Functional Programming</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h5>Jargon: <em>higher order function</em></h5><p>functions that take (as parameter) or return a function</p><h6>Maintaining state</h6><pre><code class="language-run-javascript">const updater = () => {
+  let counter = 0;
+  return () => {  
+    counter += 1;
+    console.log(counter);  
+  }  
+}  
+const update = updater();
+update();
+update();
+update();</code></pre><p><strong>Note</strong>, the scope referencing the variable <code>counter</code>. The function in the return statement is able to access the variable because it is 'child scope'.  This type referencing is called a <strong>closure</strong>. For completeness, the function returns just a reference so....</p><pre><code class="language-run-javascript">let updater = () => {  
+  let counter = 0;
+  return () => {  
+    counter += 1;
+    console.log(counter);  
+  }  
+}
+console.log(updater); 
+console.log(updater()); // just a reference to the return statement's function
+updater()(); // callthe function in the return statement. </code></pre>
+</body>
+</html>

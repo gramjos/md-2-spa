@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Everything is a Widget</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <p>Widget are classes that perform tasks on the user interface.  Every visual item inherits from the widget class. Even the screen is a widget. - <code>Text</code> widgets display text - <code>Padding</code> widgets adds space between widgets - <code>Scaffold</code> widget provides structure for a screen  All widgets together form the <em>*Widget Tree</em><em> (a nested tree data structure) Visual widgets come in two forms: </em><em>stateless</em><em> and </em><em>stateful</em><em> Stateless widgets are performant and </em><em>immutable</em><em> because there are no life cycles of states.The core of Stateless Widget the `build()` method. `build()` is called time a widget needs to be repainted (altered/changed) on the screen. When dealing with stateless widgets happens once at the start, if the device rotated and during a refresh(just like at the start)  </em><em>MaterialApp</em><em> are the primary building block for following Google's _Material Design_ specification. Using the MaterialApp automatically implements other design standards. Regarding Material design jargon, the `MaterialApp`'s child is called a home and the `Scaffold`'s child is called a body.  The below show an example with the `Center` `AspectRatio` `Container` `Scaffold` widgets. ![[Connecting_Widgets.excalidraw|550]] `Scaffold` is a </em><em>platform aware widget</em>*. Meaning it will change functionality based on the user's device. Using <code>Scaffold</code> is a good habit for design consistency.</p>
+</body>
+</html>

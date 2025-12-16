@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Setup</title>
+    <style>
+        body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+    </style>
+</head>
+<body>
+    <h3>Create Project at Command line</h3><p><code>$ flutter create hello_flutter</code> When developing with no internet access use <code>$ flutter create --offline hello_flutter</code> For command line help by command</p><pre><code class="language-shell">$ flutter <command> --help
+$ flutter create --help</code></pre><h6>Once a project is created there are several 'targets'</h6><ul><li>Connecting a device to your computer</li><li>Starting a simulator/emulator</li><li>running the app on a web browser</li><li>running the app on your desktop</li></ul><h6>Emulator versus Device</h6><p><em>*Devices</em><em> run in the developments native environment </em><em>Emulators</em>* simulate alien environments  On my MacBook, iOS and Android need to emulated, while devices are macOS desktop applications and Chrome applications are native</p><h5>Run Application in Chrome</h5><p><code>$ flutter run -d chrome</code></p><h4>Configure for Web Deployment</h4><p><code>$ flutter build web</code></p><h6>Language choice</h6><p>iOS went from Objective C to Swift Android went from Java to Kotlin</p><h6>Folder Structure</h6><p><code>android</code>, <code>ios</code>, <code>linux</code>, <code>web</code>, and <code>windows</code> folders are created from the from the <code>flutter create project_name</code> command. The <code>ios</code> and <code>android</code> folder be opened in Xcode and Android Studio, respectively, and will run like normal native apps</p><h4>Build</h4><p>Dart and Flutter support both Just-in-Time (JIT) and Ahead-of-Time (AOT) compilation.</p><h6>JIT</h6><ul><li>compile the source code of the app and translate into machine code <em>during execution</em></li><li>makes for faster development/testing because the code can be recompiled while the app is running</li></ul><h6>AOT</h6><ul><li>code is compiled before program execution </li><li>this builds a machine code executable that can run the target machine and lead to better performance</li></ul><h6>Flutter uses JIT for debug builds and AOT for release builds</h6><p>All artifacts from the compilation process are placed in the <code>build</code> folder. Add this folder to the <code>.gitignore</code></p><h6>Hot Reload - Refreshing without recompiling</h6><p>This is called a stateful hot reload, which is that Flutter can inject new code into your app while it is running without loosing your position (<strong>state</strong>) in your app</p>
+</body>
+</html>
