@@ -42,14 +42,12 @@ def main() -> None:
 
     Parses arguments, prepares directories, and initiates the manifest build.
     """
-    if len(sys.argv) != 2:
-        raise SystemExit(f"Usage: python {sys.argv[0]} /path/to/your/vault")
+    if len(sys.argv) != 2: raise SystemExit(f"Usage: python {sys.argv[0]} /path/to/your/vault")
 
     vault_path = sys.argv[1]
     source_root = Path(vault_path).resolve()
 
-    if not source_root.exists() or not source_root.is_dir():
-        raise SystemExit(f"Error: Vault path not found or is not a directory.\nProvided path: {source_root}")
+    if not source_root.exists() or not source_root.is_dir(): raise SystemExit(f"Error: Vault path not found or is not a directory.\nProvided path: {source_root}")
 
     output_root = Path(f"{source_root.name}{DEFAULT_OUTPUT_SUFFIX}").resolve()
 

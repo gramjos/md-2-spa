@@ -5,12 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File",
+            "name": "Debug: build.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "${workspaceFolder}/build.py",
             "console": "integratedTerminal",
             "args": ["/Users/gramjos/Documents/try1"]
+        },
+        {
+            "name": "Debug: parser.main (module)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "builder.parser.main",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

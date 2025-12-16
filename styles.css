@@ -1,6 +1,5 @@
-/* Design tokens keep light/dark theming centralized. */
+/* Design tokens keep theming centralized. */
 :root {
-    color-scheme: light dark;
     --bg: #fdfdfd;
     --fg: #1f2933;
     --accent: #2563eb;
@@ -188,34 +187,6 @@ a:focus-visible {
     text-align: center;
 }
 
-/* Respect OS dark mode, reusing the token palette above. */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #020617;
-        --fg: #e2e8f0;
-        --muted: #cbd5f5;
-        --border: #1f2937;
-    }
-
-    .view-container section,
-    .card {
-        background: rgba(15, 23, 42, 0.85);
-    }
-
-    .card {
-        border-color: #1f2937;
-    }
-
-    .card:hover {
-        border-color: var(--accent);
-    }
-
-    .notes-directory-panel {
-        background: rgba(15, 23, 42, 0.85);
-        border-color: #1f2937;
-    }
-}
-
 /* Notes content experience */
 .notes-view {
     display: flex;
@@ -314,6 +285,14 @@ a:focus-visible {
     margin: 0;
 }
 
+.notes-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+    border-radius: 8px;
+}
+
 /* Excalidraw embeds */
 .excalidraw-embed {
     width: 100%;
@@ -354,7 +333,7 @@ a:focus-visible {
 .tag {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background: var(--bg-subtle);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 999px;
     font-size: 0.875rem;
@@ -408,7 +387,7 @@ a:focus-visible {
 }
 
 .button-secondary:hover {
-    background: var(--bg-subtle);
+    background: var(--bg);
     border-color: var(--accent);
 }
 

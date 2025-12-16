@@ -51,40 +51,6 @@ def derive_title(value: str) -> str:
     return " ".join(word.capitalize() for word in words)
 
 
-def escape_html(value: str) -> str:
-    """
-    Escapes special HTML characters to prevent them from being interpreted.
-
-    Args:
-        value: The string to escape.
-
-    Returns:
-        The HTML-escaped string.
-    """
-    return (value.replace("&", "&amp;")
-                 .replace("<", "&lt;")
-                 .replace(">", "&gt;")
-                 .replace('"', "&quot;")
-                 .replace("'", "&#39;"))
-
-
-def posix_path(path: Path) -> str:
-    """
-    Converts a pathlib.Path object to a POSIX-style path string.
-
-    This ensures that all paths in the manifest and HTML are consistent,
-    using forward slashes, regardless of the operating system the build
-    script is run on.
-
-    Args:
-        path: The Path object to convert.
-
-    Returns:
-        A string representing the path with forward slashes.
-    """
-    return "/".join(path.parts)
-
-
 def posix_relpath(target: Path, start: Path) -> str:
     """
     Calculates the relative path from a start directory to a target path,

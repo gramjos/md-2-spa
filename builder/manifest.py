@@ -17,7 +17,7 @@ from .parser.renderer import HTMLRenderer
 from .constants import GRAPHICS_DIR_NAME, MARKDOWN_SUFFIX, README_NAME
 from .file_system import copy_file, copy_graphics_directory, find_readme
 from .models import BuildContext
-from .utils import derive_title, posix_path, slugify
+from .utils import derive_title, slugify
 
 
 def build_directory(ctx: BuildContext, directory: Path, slug_segments: List[str], ancestor_chain: List[Dict[str, str]]) -> Optional[Dict]:
@@ -103,7 +103,7 @@ def build_directory(ctx: BuildContext, directory: Path, slug_segments: List[str]
                     "title": derive_title(child.stem),
                     "slug": slugify(child.stem),
                     "slugPath": "/".join(file_slug_segments),
-                    "source": posix_path(relative_dir / child.name),
+                    "source": (relative_dir / child.name).as_posix(),
                     "html": html_rel_path,
                     "breadcrumbs": build_breadcrumbs(ancestor_chain + [current_crumb]),
                 })
@@ -118,7 +118,7 @@ def build_directory(ctx: BuildContext, directory: Path, slug_segments: List[str]
         "slug": slugify(directory.name) if not is_root else "",
         "slugPath": slug_path,
         "readme": {
-            "source": posix_path(relative_dir / README_NAME),
+            "source": (relative_dir / README_NAME).as_posix(),
             "html": readme_html_rel_path,
         },
         "breadcrumbs": breadcrumbs,
@@ -149,7 +149,7 @@ def convert_markdown_file(ctx: BuildContext, source: Path) -> str:
     html_content = renderer.render(doc)
 
     destination.write_text(html_content, encoding="utf-8")
-    return posix_path(destination.relative_to(ctx.output_root))
+    return destination.relative_to(ctx.output_root).as_posix()
 
 
 def build_breadcrumbs(chain: List[Dict[str, str]]) -> List[Dict[str, str]]:

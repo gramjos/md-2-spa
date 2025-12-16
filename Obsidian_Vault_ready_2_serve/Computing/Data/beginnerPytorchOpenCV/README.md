@@ -1,1 +1,0 @@
-https://courses.opencv.org/courses/course-v1:PyTorch+Bootcamp+Deep-Learning/course/
