@@ -9,7 +9,7 @@ async function init() {
 
 	try {
 		// Load manifest
-		const response = await fetch('/m.json')
+		const response = await fetch('/manifest.json')
 		if (!response.ok) throw new Error(`Failed to load manifest: ${response.status}`)
 		const manifest = await response.json()
 		

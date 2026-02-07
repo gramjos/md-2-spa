@@ -9,6 +9,9 @@ export function buildFileTree(manifest, router) {
 		const item = items[id];
 		if (!item) return '';
 
+		// Skip graphics nodes — they hold assets, not navigable pages
+		if (item.type === 'graphics') return '';
+
 		const route = router.pathToRoute(item.content_path)
 		const isDir = item.type === 'directory'
 		const hasChildren = item.children && item.children.length > 0

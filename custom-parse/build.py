@@ -26,11 +26,11 @@ from parser import parse_vault
 # ---------------------------------------------------------------------------
 
 DEFAULT_OUTPUT_DIR = "try_hosting_Vault_ready_2_serve"
-DEFAULT_MANIFEST_NAME = "m.json"
+DEFAULT_MANIFEST_NAME = "manifest.json"
 DEFAULT_TITLE = "Digi Garden"
 
 # When --spa is used, content goes into <spa_root>/content-store/
-# and the manifest goes into <spa_root>/m.json
+# and the manifest goes into <spa_root>/manifest.json
 CONTENT_STORE_DIR = "content-store"
 
 
@@ -44,7 +44,7 @@ def build(vault_path: str, output_dir: str, title: str, spa_root: str | None = N
     If *spa_root* is provided the output is placed directly into the
     file-explore SPA:
         <spa_root>/content-store/  ← HTML fragments + graphics
-        <spa_root>/m.json          ← manifest
+        <spa_root>/manifest.json   ← manifest
     """
     vault = Path(vault_path).resolve()
 
@@ -106,7 +106,7 @@ def main():
         default=None,
         metavar="SPA_ROOT",
         help="Path to the file-explore SPA root. When set, content is written "
-             "to <SPA_ROOT>/content-store/ and the manifest to <SPA_ROOT>/m.json.",
+             "to <SPA_ROOT>/content-store/ and the manifest to <SPA_ROOT>/manifest.json.",
     )
     ap.add_argument(
         "--title",

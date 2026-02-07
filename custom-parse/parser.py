@@ -117,20 +117,20 @@ def resolve_wiki_link(target: str, title_index: dict, slug_index: dict) -> tuple
 
 
 def resolve_image_embed(filename: str, asset_index: dict) -> str:
-    """Resolve an image embed filename to a relative path.
+    """Resolve an image embed filename to an absolute content path.
 
-    Returns paths *without* a leading slash so the SPA router can
-    prepend the content-store base URL at render time.
+    Returns paths with a leading slash so they are unambiguous
+    regardless of which page references them.  The SPA router
+    rewrites absolute paths by prepending /content-store.
 
-    e.g. "hap.png" → "moss/graphics/hap.png"
-         "img.png" → "graphics/img.png"
+    e.g. "hap.png" → "/moss/graphics/hap.png"
+         "img.png" → "/graphics/img.png"
     """
     filename = filename.strip()
     if filename in asset_index:
-        prefix = asset_index[filename].lstrip("/")
-        return prefix + filename
+        return asset_index[filename] + filename
     # Fallback: assume root graphics
-    return f"graphics/{filename}"
+    return f"/graphics/{filename}"
 
 
 # ---------------------------------------------------------------------------

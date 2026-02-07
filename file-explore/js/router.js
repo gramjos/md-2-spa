@@ -41,6 +41,9 @@ export class Router {
 			const item = items[id];
 			if (!item) return;
 
+			// Skip graphics nodes — they hold assets, not pages
+			if (item.type === 'graphics') return;
+
 			const subroute = this.pathToSubRoute(item.content_path)
 			const route = '/notes' + subroute
 			
@@ -279,7 +282,6 @@ export class Router {
 			})
 			
 			// Intercept content-area links for SPA navigation
-			// Rewrites href="/path.html" from the build into /notes/path routes
 			this.rewriteContentLinks(contentBody)
 		} catch (error) {
 			contentBody.innerHTML = `<p>Error loading: ${routeData.contentPath}</p>`

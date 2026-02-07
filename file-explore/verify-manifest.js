@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const m = require('./m.json');
+const m = require('./manifest.json');
 
 const errors = [];
 const ids = new Set(Object.keys(m.items));

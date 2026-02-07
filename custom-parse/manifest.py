@@ -1,7 +1,7 @@
 """
 Manifest Generator for Obsidian Vault → HTML conversion.
 
-Walks an Obsidian vault directory and produces a manifest JSON file (m.json)
+Walks an Obsidian vault directory and produces a manifest JSON file (manifest.json)
 that serves as the source of truth for the parser/converter.
 
 Rules:
@@ -270,8 +270,8 @@ def main():
     )
     parser.add_argument(
         "-o", "--output",
-        default="m.json",
-        help="Output file path for the manifest (default: m.json).",
+        default="manifest.json",
+        help="Output file path for the manifest (default: manifest.json).",
     )
     parser.add_argument(
         "--title",
