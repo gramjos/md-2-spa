@@ -56,8 +56,36 @@
         "hap.png"
       ]
     },
+    "moss-1-graphics": {
+      "id": "moss-1-graphics",
+      "type": "graphics",
+      "slug": "moss/moss-1/graphics",
+      "content_path": "/moss/moss-1/graphics/",
+      "assets": [
+        "Screenshot 2026-02-06 at 6.27.09 PM.png",
+        "f.png"
+      ]
+    },
     "look-file": {
       "id": "look-file",
+      "type": "file",
+      "title": "Look",
+      "slug": "moss/moss-1/look",
+      "content_path": "/moss/moss-1/look.html"
+    },
+    "moss-1-dir": {
+      "id": "moss-1-dir",
+      "type": "directory",
+      "title": "Moss 1",
+      "slug": "moss/moss-1",
+      "content_path": "/moss/moss-1/README.html",
+      "children": [
+        "moss-1-graphics",
+        "look-file"
+      ]
+    },
+    "moss/look-file": {
+      "id": "moss/look-file",
       "type": "file",
       "title": "Look",
       "slug": "moss/look",
@@ -71,7 +99,8 @@
       "content_path": "/moss/README.html",
       "children": [
         "moss-graphics",
-        "look-file"
+        "moss-1-dir",
+        "moss/look-file"
       ]
     },
     "root-dir": {

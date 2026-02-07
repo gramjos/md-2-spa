@@ -1,8 +1,10 @@
 {
   "name": "file-explore",
+  "main": "worker.js",
   "compatibility_date": "2026-02-06",
   "assets": {
     "directory": "./",
+    "binding": "ASSETS",
     "not_found_handling": "single-page-application"
   }
 }

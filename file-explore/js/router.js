@@ -154,12 +154,7 @@ export class Router {
 				this.updateBreadcrumb(route, routeData)
 				document.title = `${routeData.title} - Doc.`
 			} else {
-				const matchedRoute = this.findMatchingRoute(route)
-				if (matchedRoute) {
-					this.navigate(matchedRoute, true)
-				} else {
-					this.show404()
-				}
+				this.show404()
 			}
 			return
 		}

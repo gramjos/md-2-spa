@@ -223,11 +223,11 @@ def copy_graphics(manifest: dict, vault_path: Path, output_path: Path) -> None:
             continue
 
         slug = node["slug"]
-        src_dir = vault_path / slug
+        src_dir = _resolve_slug_to_dir(vault_path, slug)
         dst_dir = output_path / slug
 
-        if not src_dir.is_dir():
-            print(f"  [warn] Graphics dir not found: {src_dir}")
+        if src_dir is None or not src_dir.is_dir():
+            print(f"  [warn] Graphics dir not found: {vault_path / slug}")
             continue
 
         dst_dir.mkdir(parents=True, exist_ok=True)
@@ -282,7 +282,10 @@ def parse_readme_pages(manifest: dict, vault_path: Path, output_path: Path, md: 
         if is_root:
             src_dir = vault_path
         else:
-            src_dir = vault_path / slug
+            src_dir = _resolve_slug_to_dir(vault_path, slug)
+            if src_dir is None:
+                print(f"  [warn] Directory not found for slug: {slug}")
+                continue
 
         readme_file = _find_readme(src_dir)
         if readme_file is None:
@@ -290,11 +293,7 @@ def parse_readme_pages(manifest: dict, vault_path: Path, output_path: Path, md: 
             continue
 
         content = readme_file.read_text(encoding="utf-8")
-        html_body = md(content)
-
-        nav_html = _build_nav(node, items)
-
-        html = html_body + "\n" + nav_html
+        html = md(content)
 
         out_file = output_path / node["content_path"].lstrip("/")
         out_file.parent.mkdir(parents=True, exist_ok=True)
@@ -346,65 +345,42 @@ def _find_source_md(vault_path: Path, slug: str) -> Path | None:
     return None
 
 
+def _resolve_slug_to_dir(vault_path: Path, slug: str) -> Path | None:
+    """Resolve a slugified path back to the real filesystem directory.
+
+    Walks each segment of the slug, matching against actual directory names
+    via slugify() to handle spaces, mixed case, etc.
+    e.g. slug='moss/moss-1/graphics' → vault_path/'moss'/'moss 1'/'graphics'
+    """
+    from manifest import slugify
+
+    current = vault_path
+    for part in slug.split("/"):
+        # Try the literal name first (fast path)
+        candidate = current / part
+        if candidate.is_dir():
+            current = candidate
+            continue
+        # Fallback: scan siblings and match by slug
+        found = None
+        if current.is_dir():
+            for entry in current.iterdir():
+                if entry.is_dir() and slugify(entry.name) == part:
+                    found = entry
+                    break
+        if found:
+            current = found
+        else:
+            return None
+    return current
+
+
 def _find_readme(directory: Path) -> Path | None:
     """Find README.md (case-insensitive) in a directory."""
     for entry in directory.iterdir():
         if entry.is_file() and entry.name.lower() == "readme.md":
             return entry
     return None
-
-
-def _build_nav(dir_node: dict, items: dict) -> str:
-    """Build an HTML navigation fragment from a directory node's children.
-
-    Produces a <nav> with links to child files and child directories.
-    Graphics nodes are skipped.
-    """
-    children_ids = dir_node.get("children", [])
-    if not children_ids:
-        return ""
-
-    file_links = []
-    dir_links = []
-
-    for child_id in children_ids:
-        child = items.get(child_id)
-        if child is None or child["type"] == "graphics":
-            continue
-
-        href = child["content_path"]
-        title = child["title"]
-
-        if child["type"] == "file":
-            file_links.append(f'  <li><a href="{href}">{title}</a></li>')
-        elif child["type"] == "directory":
-            dir_links.append(f'  <li><a href="{href}">{title}</a></li>')
-
-    parts = []
-
-    if dir_links:
-        parts.append("<nav>")
-        parts.append("<h3>Sections</h3>")
-        parts.append("<ul>")
-        parts.extend(dir_links)
-        parts.append("</ul>")
-        parts.append("</nav>")
-
-    if file_links:
-        if not dir_links:
-            parts.append("<nav>")
-        else:
-            parts.append("")
-        parts.append("<h3>Pages</h3>")
-        parts.append("<ul>")
-        parts.extend(file_links)
-        parts.append("</ul>")
-        if not dir_links:
-            parts.append("</nav>")
-        else:
-            parts.append("</nav>")
-
-    return "\n".join(parts)
 
 
 # ---------------------------------------------------------------------------
