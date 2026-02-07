@@ -23,6 +23,8 @@ from pathlib import Path
 import mistune
 from mistune import escape as escape_text
 
+from frontmatter import extract_frontmatter
+
 
 # ---------------------------------------------------------------------------
 # Manifest helpers
@@ -316,6 +318,7 @@ def parse_file_pages(manifest: dict, vault_path: Path, output_path: Path, md: mi
                 continue
 
         content = src_file.read_text(encoding="utf-8")
+        _, content = extract_frontmatter(content)
         html = md(content)
 
         out_file = output_path / node["content_path"].lstrip("/")
@@ -350,6 +353,7 @@ def parse_readme_pages(manifest: dict, vault_path: Path, output_path: Path, md: 
             continue
 
         content = readme_file.read_text(encoding="utf-8")
+        _, content = extract_frontmatter(content)
         html = md(content)
 
         out_file = output_path / node["content_path"].lstrip("/")

@@ -103,6 +103,32 @@
         "moss/look-file"
       ]
     },
+    "excuses-file": {
+      "id": "excuses-file",
+      "type": "file",
+      "title": "Excuses",
+      "slug": "excuses",
+      "content_path": "/excuses.html",
+      "metadata": {
+        "faces": [
+          "gram",
+          "colin"
+        ],
+        "tags": [
+          "literature",
+          "art"
+        ],
+        "party_list": [
+          "mo",
+          "so\u00a0",
+          "to"
+        ],
+        "secret": 987,
+        "host": false,
+        "created-on": "2026-02-07T14:04:00",
+        "due-date": "2026-02-13"
+      }
+    },
     "root-dir": {
       "id": "root-dir",
       "type": "directory",
@@ -112,7 +138,8 @@
       "children": [
         "root-graphics",
         "math-dir",
-        "moss-dir"
+        "moss-dir",
+        "excuses-file"
       ]
     }
   }

@@ -18,6 +18,7 @@ import shutil
 import sys
 from pathlib import Path
 
+from frontmatter import enrich_manifest
 from manifest import generate_manifest
 from parser import parse_vault
 
@@ -67,16 +68,21 @@ def build(vault_path: str, output_dir: str, title: str, spa_root: str | None = N
     output.mkdir(parents=True, exist_ok=True)
 
     # --- Step 1: Generate manifest ---
-    print(f"[1/2] Generating manifest from: {vault}")
+    print(f"[1/3] Generating manifest from: {vault}")
     manifest = generate_manifest(str(vault), title=title)
+    print(f"  Manifest generated ({len(manifest['items'])} nodes)")
 
-    # Write manifest
+    # --- Step 2: Enrich manifest with front matter metadata ---
+    print(f"[2/3] Extracting front matter metadata")
+    enrich_manifest(manifest, vault)
+
+    # Write manifest (after enrichment so metadata is included)
     manifest_dest.parent.mkdir(parents=True, exist_ok=True)
     manifest_dest.write_text(json.dumps(manifest, indent=2) + "\n")
-    print(f"  Manifest written to {manifest_dest} ({len(manifest['items'])} nodes)")
+    print(f"  Manifest written to {manifest_dest}")
 
-    # --- Step 2: Parse vault ---
-    print(f"[2/2] Parsing vault → HTML")
+    # --- Step 3: Parse vault ---
+    print(f"[3/3] Parsing vault → HTML")
     parse_vault(manifest, vault, output)
 
     if spa_root:

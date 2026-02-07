@@ -81,3 +81,34 @@ try_hosting_Vault_ready_2_serve
 ```shell
 $ python build.py /Users/gramjos/Documents/try_hosting_Vault
 ```
+
+## Front Matter Metadata
+Files may include an optional YAML front matter block at the very beginning, delimited by `---`:
+
+```md
+---
+tags:
+  - literature
+  - art
+secret: 987
+host: false
+created-on: 2026-02-07T14:04:00
+due-date: 2026-02-13
+---
+```
+
+### Supported value types
+| Type | Example | JSON output |
+|------|---------|-------------|
+| datetime | `2026-02-07T14:04:00` | `"2026-02-07T14:04:00"` (ISO string) |
+| date | `2026-02-13` | `"2026-02-13"` (ISO string) |
+| number | `987` | `987` |
+| list | `- a\n- b` | `["a", "b"]` |
+| bool (checkbox) | `true` / `false` | `true` / `false` |
+| text | `hello world` | `"hello world"` |
+
+### Behaviour
+1. Front matter is stripped before the markdown is passed to the HTML parser — it never appears in the rendered output.
+2. Extracted metadata is stored on the manifest node under a `metadata` key.
+3. A `title` key in front matter **overrides** the filename-derived title in the manifest.
+4. Nodes without front matter omit the `metadata` key entirely (keeps the manifest compact).
