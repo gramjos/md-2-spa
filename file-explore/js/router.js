@@ -148,6 +148,9 @@ export class Router {
 		const route = this.getCurrentRoute()
 		const namedRouteName = this.resolveNamedRoute(route)
 		
+		// Reset scroll position on navigation
+		document.getElementById('content-display').scrollTop = 0
+		
 		// Apply layout for the named route
 		this.applyLayout(namedRouteName)
 		this.updateTopNav(namedRouteName)

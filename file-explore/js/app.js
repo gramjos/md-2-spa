@@ -2,6 +2,7 @@ import { Router } from './router.js'
 import { buildFileTree } from './file-tree.js'
 import { setupMobileMenu } from './mobile-menu.js'
 import { setupThemeToggle } from './theme-toggle.js'
+import { setupScrollToTop } from './scroll-top.js'
 
 // ===== Initialize App =====
 async function init() {
@@ -27,6 +28,9 @@ async function init() {
 		
 		// Setup theme toggle
 		setupThemeToggle()
+		
+		// Setup scroll-to-top button
+		setupScrollToTop()
 
 		// Intercept all internal link clicks (using data-link attribute)
 		document.addEventListener('click', (e) => {

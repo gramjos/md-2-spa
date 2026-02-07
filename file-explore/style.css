@@ -407,6 +407,39 @@ a:hover { text-decoration: underline; }
 @media (max-width: 480px) {
 	.sidebar { width: 85%; min-width: 85%; }
 	.content-body { padding: 24px 16px; }
+	.scroll-top { bottom: 16px; right: 16px; }
+}
+
+/* ===== Scroll-to-Top Button ===== */
+.scroll-top {
+	position: fixed;
+	bottom: 24px;
+	right: 24px;
+	z-index: 200;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 1px solid var(--border);
+	background: var(--bg-secondary);
+	color: var(--text-secondary);
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.25s, background 0.15s, color 0.15s;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-top.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.scroll-top:hover {
+	background: var(--hover);
+	color: var(--accent);
+	border-color: var(--accent);
 }
 
 /* ===== Home Page Layout (route-driven) ===== */
