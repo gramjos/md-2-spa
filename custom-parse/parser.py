@@ -19,6 +19,7 @@ import shutil
 from pathlib import Path
 
 import mistune
+from mistune import escape as escape_text
 
 
 # ---------------------------------------------------------------------------
@@ -208,6 +209,26 @@ def create_parser(manifest: dict) -> mistune.Markdown:
     md.renderer._title_index = title_index
     md.renderer._slug_index = slug_index
     md.renderer._asset_index = asset_index
+
+    # Override block_code renderer to add copy-to-clipboard button
+    def block_code(code, info=None):
+        escaped = escape_text(code)
+        if info:
+            lang = info.split()[0]
+            lang_attr = f' class="language-{lang}"'
+            lang_label = f'<span class="code-lang">{lang}</span>'
+        else:
+            lang_attr = ''
+            lang_label = ''
+        return (
+            f'<div class="code-block">'
+            f'{lang_label}'
+            f'<button class="copy-btn" aria-label="Copy code">Copy</button>'
+            f'<pre><code{lang_attr}>{escaped}</code></pre>'
+            f'</div>\n'
+        )
+
+    md.renderer.block_code = block_code
 
     return md
 

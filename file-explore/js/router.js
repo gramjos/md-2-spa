@@ -278,6 +278,17 @@ export class Router {
 			
 			// Intercept content-area links for SPA navigation
 			this.rewriteContentLinks(contentBody)
+
+			// Wire up copy-to-clipboard buttons on code blocks
+			contentBody.querySelectorAll('.copy-btn').forEach(btn => {
+				btn.addEventListener('click', () => {
+					const code = btn.closest('.code-block').querySelector('code').textContent
+					navigator.clipboard.writeText(code).then(() => {
+						btn.textContent = 'Copied!'
+						setTimeout(() => btn.textContent = 'Copy', 2000)
+					})
+				})
+			})
 		} catch (error) {
 			contentBody.innerHTML = `<p>Error loading: ${routeData.contentPath}</p>`
 		}

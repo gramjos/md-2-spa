@@ -447,3 +447,55 @@ a:hover { text-decoration: underline; }
 	background: var(--hover);
 	text-decoration: none;
 }
+
+/* ===== Code Blocks ===== */
+.code-block {
+	position: relative;
+	margin: 1rem 0;
+}
+
+.code-block pre {
+	margin: 0;
+	padding: 1rem;
+	padding-top: 2rem;
+	overflow-x: auto;
+	border-radius: 6px;
+	background: var(--bg-primary);
+	border: 1px solid var(--border);
+}
+
+.code-block code {
+	font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--text-primary);
+}
+
+.code-lang {
+	position: absolute;
+	top: 0.4rem;
+	right: 4.5rem;
+	font-size: 0.7rem;
+	color: var(--text-secondary);
+	text-transform: uppercase;
+	pointer-events: none;
+}
+
+.copy-btn {
+	position: absolute;
+	top: 0.4rem;
+	right: 0.5rem;
+	padding: 0.2rem 0.5rem;
+	font-size: 0.75rem;
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	background: var(--bg-secondary);
+	color: var(--text-secondary);
+	cursor: pointer;
+	transition: color 0.2s, border-color 0.2s;
+}
+
+.copy-btn:hover {
+	color: var(--text-primary);
+	border-color: var(--text-secondary);
+}
