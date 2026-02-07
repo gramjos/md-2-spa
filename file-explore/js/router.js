@@ -5,6 +5,9 @@ export class Router {
 		this.manifest = null
 		this.flatRoutes = []
 		
+		// Tag index: tagName → [{ title, route, type }]
+		this.tagIndex = new Map()
+		
 		// Named route definitions: each declares its layout
 		this.namedRoutes = {
 			home: {
@@ -24,6 +27,18 @@ export class Router {
 				title: 'Notes',
 				sidebar: true,
 				render: (routeData) => this.renderNotes(routeData)
+			},
+			tags: {
+				path: '/tags',
+				title: 'Tags',
+				sidebar: false,
+				render: () => this.renderTagIndex()
+			},
+			tag: {
+				path: '/tags/',
+				title: 'Tag',
+				sidebar: false,
+				render: (tagName) => this.renderTagPage(tagName)
 			}
 		}
 		
@@ -47,12 +62,15 @@ export class Router {
 			const subroute = this.pathToSubRoute(item.content_path)
 			const route = '/notes' + subroute
 			
+			const tags = item.metadata?.tags ?? []
+			
 			this.routes.set(route, {
 				title: item.title,
 				type: item.type,
 				contentPath: item.content_path,
 				parentPath: parentPath,
-				namedRoute: 'notes'
+				namedRoute: 'notes',
+				tags: tags
 			})
 			
 			this.flatRoutes.push({
@@ -61,6 +79,15 @@ export class Router {
 				type: item.type,
 				contentPath: item.content_path
 			})
+			
+			// Index tags
+			if (Array.isArray(tags)) {
+				for (const tag of tags) {
+					const key = String(tag).toLowerCase()
+					if (!this.tagIndex.has(key)) this.tagIndex.set(key, [])
+					this.tagIndex.get(key).push({ title: item.title, route, type: item.type })
+				}
+			}
 			
 			// Recurse through children IDs
 			if (item.children && item.children.length > 0) {
@@ -110,6 +137,8 @@ export class Router {
 	resolveNamedRoute(path) {
 		if (path === '/') return 'home'
 		if (path === '/about') return 'about'
+		if (path === '/tags') return 'tags'
+		if (path.startsWith('/tags/')) return 'tag'
 		if (path === '/notes' || path.startsWith('/notes/') || path.startsWith('/notes?')) return 'notes'
 		return null
 	}
@@ -135,6 +164,25 @@ export class Router {
 			return
 		}
 		
+		if (namedRouteName === 'tags') {
+			this.namedRoutes.tags.render()
+			this.updateTagsBar(null)
+			document.title = 'Tags - Doc.'
+			const breadcrumb = document.getElementById('breadcrumb')
+			breadcrumb.innerHTML = `<a href="/" data-link>Home</a><span>/</span>Tags`
+			return
+		}
+		
+		if (namedRouteName === 'tag') {
+			const tagName = decodeURIComponent(route.replace('/tags/', ''))
+			this.namedRoutes.tag.render(tagName)
+			this.updateTagsBar(null)
+			document.title = `Tag: ${tagName} - Doc.`
+			const breadcrumb = document.getElementById('breadcrumb')
+			breadcrumb.innerHTML = `<a href="/" data-link>Home</a><span>/</span><a href="/tags" data-link>Tags</a><span>/</span>${tagName}`
+			return
+		}
+		
 		if (namedRouteName === 'notes') {
 			// Default /notes to the first manifest entry
 			let routeData = this.routes.get(route)
@@ -152,6 +200,7 @@ export class Router {
 				await this.namedRoutes.notes.render(routeData)
 				this.updateActiveNav(route)
 				this.updateBreadcrumb(route, routeData)
+				this.updateTagsBar(routeData)
 				document.title = `${routeData.title} - Doc.`
 			} else {
 				this.show404()
@@ -170,9 +219,11 @@ export class Router {
 		const menuToggle = document.getElementById('menu-toggle')
 		const overlay = document.getElementById('overlay')
 		const breadcrumb = document.getElementById('breadcrumb')
+		const tagsBar = document.getElementById('tags-bar')
 		
 		const namedRoute = namedRouteName ? this.namedRoutes[namedRouteName] : null
 		const showSidebar = namedRoute?.sidebar ?? false
+		const isTagRoute = namedRouteName === 'tags' || namedRouteName === 'tag'
 		
 		if (showSidebar) {
 			app.classList.remove('home-page')
@@ -181,6 +232,17 @@ export class Router {
 			overlay.style.display = ''
 			breadcrumb.style.display = ''
 			document.getElementById('top-nav').classList.remove('no-sidebar')
+		} else if (isTagRoute) {
+			// Tag pages: no sidebar, but show breadcrumb
+			app.classList.add('home-page')
+			sidebar.style.display = 'none'
+			menuToggle.classList.add('hidden')
+			menuToggle.classList.remove('active')
+			sidebar.classList.remove('open')
+			overlay.classList.remove('active')
+			overlay.style.display = 'none'
+			breadcrumb.style.display = ''
+			document.getElementById('top-nav').classList.add('no-sidebar')
 		} else {
 			app.classList.add('home-page')
 			sidebar.style.display = 'none'
@@ -192,6 +254,9 @@ export class Router {
 			breadcrumb.style.display = 'none'
 			document.getElementById('top-nav').classList.add('no-sidebar')
 		}
+		
+		// Always hide tags bar during layout reset — handleRoute will show it if needed
+		tagsBar.classList.remove('visible')
 		
 		this.currentNamedRoute = namedRouteName
 	}
@@ -381,6 +446,90 @@ export class Router {
 		})
 		
 		breadcrumb.innerHTML = html
+	}
+	
+	// Update tags bar below breadcrumb
+	updateTagsBar(routeData) {
+		const tagsBar = document.getElementById('tags-bar')
+		const tags = routeData?.tags
+		
+		if (!tags || !Array.isArray(tags) || tags.length === 0) {
+			tagsBar.classList.remove('visible')
+			tagsBar.innerHTML = ''
+			return
+		}
+		
+		tagsBar.innerHTML = tags.map(tag => {
+			const encoded = encodeURIComponent(String(tag).toLowerCase())
+			return `<a class="tag-chip" href="/tags/${encoded}" data-link>#${tag}</a>`
+		}).join('')
+		
+		tagsBar.classList.add('visible')
+	}
+	
+	// Render tag index page (/tags)
+	renderTagIndex() {
+		const contentBody = document.getElementById('content-body')
+		
+		// Sort tags alphabetically
+		const sorted = [...this.tagIndex.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+		
+		if (sorted.length === 0) {
+			contentBody.innerHTML = `
+				<div class="tag-index">
+					<h1>Tags</h1>
+					<p>No tags found.</p>
+				</div>`
+			return
+		}
+		
+		const items = sorted.map(([tag, pages]) => {
+			const encoded = encodeURIComponent(tag)
+			return `<li class="tag-index-item">
+				<a href="/tags/${encoded}" data-link>#${tag}<span class="tag-count">${pages.length}</span></a>
+			</li>`
+		}).join('')
+		
+		contentBody.innerHTML = `
+			<div class="tag-index">
+				<h1>Tags</h1>
+				<ul class="tag-index-list">${items}</ul>
+			</div>`
+	}
+	
+	// Render individual tag page (/tags/:tagName)
+	renderTagPage(tagName) {
+		const contentBody = document.getElementById('content-body')
+		const key = tagName.toLowerCase()
+		const pages = this.tagIndex.get(key)
+		
+		if (!pages || pages.length === 0) {
+			contentBody.innerHTML = `
+				<div class="tag-page">
+					<h1>#${tagName}</h1>
+					<p>No pages found with this tag. <a href="/tags" data-link>View all tags</a></p>
+				</div>`
+			return
+		}
+		
+		const items = pages.map(p => {
+			const icon = p.type === 'directory' ? '📁' : '📄'
+			const slug = p.route.replace('/notes/', '').replace('/notes', '')
+			return `<li>
+				<a class="tag-page-link" href="${p.route}" data-link>
+					<span class="tag-page-icon">${icon}</span>
+					<span class="tag-page-title">${p.title}</span>
+					<span class="tag-page-path">${slug}</span>
+				</a>
+			</li>`
+		}).join('')
+		
+		contentBody.innerHTML = `
+			<div class="tag-page">
+				<h1>#${tagName}</h1>
+				<p class="tag-page-subtitle">${pages.length} page${pages.length === 1 ? '' : 's'}</p>
+				<ul class="tag-page-list">${items}</ul>
+			</div>`
 	}
 	
 	// Show 404

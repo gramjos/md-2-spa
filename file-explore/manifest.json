@@ -33,7 +33,14 @@
       "type": "file",
       "title": "Welcome",
       "slug": "math/welcome",
-      "content_path": "/math/welcome.html"
+      "content_path": "/math/welcome.html",
+      "metadata": {
+        "tags": [
+          "art",
+          "math",
+          "literature"
+        ]
+      }
     },
     "math-dir": {
       "id": "math-dir",
@@ -45,7 +52,14 @@
         "math-graphics",
         "guess-file",
         "welcome-file"
-      ]
+      ],
+      "metadata": {
+        "tags": [
+          "math",
+          "art",
+          "numbers"
+        ]
+      }
     },
     "moss-graphics": {
       "id": "moss-graphics",
@@ -71,7 +85,13 @@
       "type": "file",
       "title": "Look",
       "slug": "moss/moss-1/look",
-      "content_path": "/moss/moss-1/look.html"
+      "content_path": "/moss/moss-1/look.html",
+      "metadata": {
+        "tags": [
+          "art",
+          "literature"
+        ]
+      }
     },
     "moss-1-dir": {
       "id": "moss-1-dir",
@@ -101,7 +121,13 @@
         "moss-graphics",
         "moss-1-dir",
         "moss/look-file"
-      ]
+      ],
+      "metadata": {
+        "tags": [
+          "nature",
+          "forest"
+        ]
+      }
     },
     "excuses-file": {
       "id": "excuses-file",
@@ -140,7 +166,14 @@
         "math-dir",
         "moss-dir",
         "excuses-file"
-      ]
+      ],
+      "metadata": {
+        "tags": [
+          "art",
+          "literature",
+          "math"
+        ]
+      }
     }
   }
 }

@@ -512,3 +512,154 @@ div.math {
 span.math {
 	display: inline;
 }
+
+/* ===== Tags Bar (below breadcrumb on notes pages) ===== */
+.tags-bar {
+	display: none;
+	flex-wrap: wrap;
+	gap: 6px;
+	padding: 8px 24px;
+	background: var(--bg-primary);
+	border-bottom: 1px solid var(--border);
+}
+
+.tags-bar.visible {
+	display: flex;
+}
+
+.tag-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 3px 10px;
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.3px;
+	color: var(--accent);
+	background: var(--bg-secondary);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	transition: background 0.15s, border-color 0.15s;
+	text-decoration: none;
+}
+
+.tag-chip:hover {
+	background: var(--hover);
+	border-color: var(--accent);
+	text-decoration: none;
+}
+
+/* ===== Tag Index Page (/tags) ===== */
+.tag-index {
+	max-width: 640px;
+	margin: 0 auto;
+	padding: 48px 24px;
+}
+
+.tag-index h1 {
+	margin-bottom: 1.5rem;
+}
+
+.tag-index-list {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.tag-index-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.tag-index-item a {
+	display: inline-flex;
+	align-items: center;
+	padding: 6px 14px;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--accent);
+	background: var(--bg-secondary);
+	border: 1px solid var(--border);
+	border-radius: 16px;
+	transition: background 0.15s, border-color 0.15s;
+	text-decoration: none;
+}
+
+.tag-index-item a:hover {
+	background: var(--hover);
+	border-color: var(--accent);
+	text-decoration: none;
+}
+
+.tag-count {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--text-secondary);
+	background: var(--bg-primary);
+	border-radius: 8px;
+	padding: 1px 6px;
+	margin-left: 2px;
+}
+
+/* ===== Tag Detail Page (/tags/:name) ===== */
+.tag-page {
+	max-width: 640px;
+	margin: 0 auto;
+	padding: 48px 24px;
+}
+
+.tag-page h1 {
+	margin-bottom: 0.5rem;
+}
+
+.tag-page .tag-page-subtitle {
+	color: var(--text-secondary);
+	font-size: 13px;
+	margin-bottom: 2rem;
+}
+
+.tag-page-list {
+	list-style: none;
+}
+
+.tag-page-list li {
+	border-bottom: 1px solid var(--border);
+}
+
+.tag-page-list li:last-child {
+	border-bottom: none;
+}
+
+.tag-page-link {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 8px;
+	color: var(--text-primary);
+	transition: background 0.15s;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+.tag-page-link:hover {
+	background: var(--hover);
+	text-decoration: none;
+}
+
+.tag-page-icon {
+	font-size: 16px;
+	flex-shrink: 0;
+}
+
+.tag-page-title {
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.tag-page-path {
+	font-size: 11px;
+	color: var(--text-secondary);
+	margin-left: auto;
+	white-space: nowrap;
+}
