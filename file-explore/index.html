@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Doc.</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+	<!-- Top navigation bar (persistent across all pages) -->
+	<header class="top-nav" id="top-nav">
+		<div class="top-nav-brand">
+			<a href="/" data-link>Doc.</a>
+		</div>
+		<nav class="top-nav-links">
+			<a href="/" data-link class="nav-link" data-nav="home">Home</a>
+			<a href="/notes" data-link class="nav-link" data-nav="notes">Notes</a>
+			<a href="/about" data-link class="nav-link" data-nav="about">About</a>
+			<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+				<span class="theme-icon">🌙</span>
+			</button>
+		</nav>
+	</header>
+
+	<div class="app" id="app">
+		<!-- Mobile menu toggle (notes route only) -->
+		<button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+			<span></span><span></span><span></span>
+		</button>
+
+		<!-- Sidebar file explorer (notes route only) -->
+		<aside id="sidebar" class="sidebar">
+			<div class="sidebar-header">
+				<h2>📂 Explorer</h2>
+			</div>
+			<nav id="file-tree" class="file-tree"></nav>
+		</aside>
+
+		<!-- Main content area -->
+		<main id="content-display" class="content">
+			<div class="breadcrumb" id="breadcrumb"></div>
+			<article class="content-body" id="content-body">
+				<p>Loading...</p>
+			</article>
+		</main>
+
+		<!-- Overlay for mobile -->
+		<div class="overlay" id="overlay"></div>
+	</div>
+
+	<script type="module" src="/js/app.js"></script>
+</body>
+</html>
+
