@@ -27,7 +27,7 @@ async function init() {
 		
 		// Setup theme toggle
 		setupThemeToggle()
-		
+
 		// Intercept all internal link clicks (using data-link attribute)
 		document.addEventListener('click', (e) => {
 			const link = e.target.closest('a[data-link]')

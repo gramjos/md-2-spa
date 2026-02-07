@@ -279,6 +279,17 @@ export class Router {
 			// Intercept content-area links for SPA navigation
 			this.rewriteContentLinks(contentBody)
 
+			// Render LaTeX math (once, after all DOM mutations are done)
+			if (typeof renderMathInElement === 'function') {
+				renderMathInElement(contentBody, {
+					delimiters: [
+						{ left: '\\[', right: '\\]', display: true },
+						{ left: '\\(', right: '\\)', display: false }
+					],
+					throwOnError: false
+				})
+			}
+
 			// Wire up copy-to-clipboard buttons on code blocks
 			contentBody.querySelectorAll('.copy-btn').forEach(btn => {
 				btn.addEventListener('click', () => {

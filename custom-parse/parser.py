@@ -12,6 +12,8 @@ Supports:
   - ![alt](url)     → <img> (mistune built-in)
   - [text](url)     → <a>   (mistune built-in)
   - Horizontal rules (---)
+  - $inline math$  → <span class="math">\\(...\\)</span> (rendered by KaTeX on client)
+  - $$display math$$ → <div class="math">\\[...\\]</div> (rendered by KaTeX on client)
 """
 
 import re
@@ -198,7 +200,7 @@ def create_parser(manifest: dict) -> mistune.Markdown:
     """
     md = mistune.create_markdown(
         escape=False,
-        plugins=[plugin_wiki_embed, plugin_wiki_link],
+        plugins=['math', plugin_wiki_embed, plugin_wiki_link],
     )
 
     # Attach manifest indexes to the renderer for link/image resolution
@@ -229,6 +231,40 @@ def create_parser(manifest: dict) -> mistune.Markdown:
         )
 
     md.renderer.block_code = block_code
+
+    # ── Math rendering overrides ──────────────────────────────────────
+    # Mistune 3.x math plugin issues:
+    #   1. Block math ($$...$$) ONLY works multi-line; single-line $$x$$
+    #      falls through to inline, producing garbled output.
+    #   2. Block renderer keeps raw $$ delimiters; inline uses \( \).
+    #
+    # Fix: override both renderers to emit \( \) and \[ \],
+    # and register an inline pattern for single-line $$...$$.
+
+    # Override renderers to use consistent \( \) and \[ \] delimiters
+    def render_inline_math(renderer, text):
+        return f'<span class="math">\\({text}\\)</span>'
+
+    def render_block_math(renderer, text):
+        return f'<div class="math">\\[{text}\\]</div>\n'
+
+    md.renderer.register('inline_math', render_inline_math)
+    md.renderer.register('block_math', render_block_math)
+
+    # Handle single-line $$...$$ (mistune's block pattern requires newlines)
+    INLINE_DISPLAY_PATTERN = r'\$\$(?P<display_math_text>.+?)\$\$'
+
+    def parse_inline_display_math(inline, m, state):
+        text = m.group('display_math_text')
+        state.append_token({'type': 'block_math', 'raw': text})
+        return m.end()
+
+    md.inline.register(
+        'inline_display_math',
+        INLINE_DISPLAY_PATTERN,
+        parse_inline_display_math,
+        before='inline_math',   # must match before single-$ inline math
+    )
 
     return md
 
