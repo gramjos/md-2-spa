@@ -1,26 +1,26 @@
 <p><em>keep in mind that every PCS contains a GCS as part of its definition</em>
 <em>Equal Area</em> - preserves proportional area among regions.
-<img src="/graphics/equal_area_project.png|200" alt="equal_area_project" />
+<img src="/gis/graphics/equal_area_project.png" alt="equal_area_project" />
 <em>Conformal</em>  - shape is correct of small areas. graticule lines intersect at 90-degree angles, and at any point on the map the scale is the same in all directions.
-<img src="/graphics/small_mercator_projection.png|200" alt="small_mercator_projection" />
+<img src="/gis/graphics/small_mercator_projection.png" alt="small_mercator_projection" />
 <a href="https://support.esri.com/en-us/gis-dictionary/conformal-projection">ESRI GIS-dictionary</a></p>
 <p><em>Conformal projections preserve angles locally, so the shapes of features appear true. But the cost of this quality is the distortion of areas and distances. Equal area projections preserve area, at the expense of angles, so the shapes of some places appear skewed. Equidistant projections preserve distances, although only from certain points or along certain lines on the map.</em>
 <img src="/gis/graphics/3_projects_distorts.png" alt="3_projects_distorts" />
 <a href="https://learn.arcgis.com/en/projects/choose-the-right-projection/">ESRI - Learn</a></p>
 <h5>Process of Defining a Coordinate System</h5>
 <p>Use the geoid (mean sea level) to approximate the real rugged surface.
-<img src="/graphics/geoid_1.png|590" alt="geoid_1" />
+<img src="/gis/graphics/geoid_1.png" alt="geoid_1" />
 <img src="/gis/graphics/geoid_2.png" alt="geoid_2" /></p>
 <h4>Datum</h4>
 <h5>To measure Latitude and Longitude we have to define the Earth's shape as 3D geometric object/surface</h5>
 <p>When dealing with a projected coordinate system (Cartesian plane) negative values are shifted out of the area of interest. This process is called called false easting/northing depending on the direction of the shift.</p>
 <h3>Universal Transverse Mercator (UTM)</h3>
 <p>The world is divided into 6˚ longitudinal strips
-<img src="/graphics/trans_mercator_project.png|290" alt="trans_mercator_project" /></p>
+<img src="/gis/graphics/trans_mercator_project.png" alt="trans_mercator_project" /></p>
 <h3>Lambert Conformal Conic (LCC)</h3>
-<p><img src="/graphics/lambert_conformal_conic_project.png|300" alt="lambert_conformal_conic_project" /></p>
+<p><img src="/gis/graphics/lambert_conformal_conic_project.png" alt="lambert_conformal_conic_project" /></p>
 <h3>State Plane Coordinate system</h3>
-<p><img src="/graphics/state_plane_zones.png|300" alt="state_plane_zones" />
+<p><img src="/gis/graphics/state_plane_zones.png" alt="state_plane_zones" />
 Notice, within each state and within each section, the pattern based off which projection is chosen.
 <strong>wider regions need to two standard parallels like Tennessee while thin, long regions can use a cylindrical intersection meridian</strong></p>
 <p>Central meridian is the term used for single point of tangency

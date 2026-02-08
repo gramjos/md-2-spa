@@ -162,6 +162,9 @@ def plugin_wiki_embed(md: mistune.Markdown) -> None:
 
     def render_wiki_embed(text):
         filename = text
+        # Strip Obsidian pipe suffix (e.g. "img.png|350" → "img.png")
+        if "|" in filename:
+            filename = filename.split("|", 1)[0]
         src = resolve_image_embed(filename, md.renderer._asset_index)
         alt = filename.rsplit(".", 1)[0] if "." in filename else filename
         return f'<img src="{src}" alt="{alt}" />'

@@ -26,7 +26,7 @@ print(f'{a.grad:.4f}') # prints 138.8338, i.e. the numerical value of dg/da
 print(f'{b.grad:.4f}') # prints 645.5773, i.e. the numerical value of dg/db
 </code></pre></div>
 <p>At node <code>g</code>, recursively, go through the expression graph to apply the chain rule from calculus. Every edge between nodes has a gradient, <code>a.grad</code>. <code>a.grad</code> how <code>a</code> is affecting <code>g</code>.
-<img src="/graphics/hypothesis_node_graph_backprop.excalidraw|center" alt="hypothesis_node_graph_backprop" /></p>
+<img src="/graphics/hypothesis_node_graph_backprop.excalidraw" alt="hypothesis_node_graph_backprop" /></p>
 <h4>Interpretation</h4>
 <p><em>How does <code>g</code> respond when <code>a</code> is tweaked?</em>
 If we make <code>a</code> slightly larger then because <code>138.8338</code> is positive <code>g</code> will grow and the slope of that growth is <code>138.8338</code>.</p>
