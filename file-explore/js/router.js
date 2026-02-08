@@ -367,6 +367,43 @@ export class Router {
 				}
 			})
 			
+			// Wrap images in figure with caption + fullscreen button
+			contentBody.querySelectorAll('img').forEach(img => {
+				// Skip if already wrapped
+				if (img.closest('.media-figure')) return
+
+				const figure = document.createElement('figure')
+				figure.className = 'media-figure'
+
+				const footer = document.createElement('figcaption')
+				footer.className = 'media-figure-footer'
+
+				const caption = document.createElement('span')
+				caption.className = 'media-figure-caption'
+				caption.textContent = img.alt || ''
+
+				const fsBtn = document.createElement('button')
+				fsBtn.className = 'media-fullscreen-btn'
+				fsBtn.setAttribute('aria-label', 'View fullscreen')
+				fsBtn.title = 'Fullscreen'
+				fsBtn.innerHTML = '&#x26F6;'
+				fsBtn.addEventListener('click', () => {
+					const lightbox = document.getElementById('media-lightbox')
+					const lbImg = document.getElementById('lightbox-img')
+					lbImg.src = img.src
+					lbImg.alt = img.alt || ''
+					lightbox.classList.add('active')
+					document.body.style.overflow = 'hidden'
+				})
+
+				footer.appendChild(caption)
+				footer.appendChild(fsBtn)
+
+				img.parentNode.insertBefore(figure, img)
+				figure.appendChild(img)
+				figure.appendChild(footer)
+			})
+
 			// Intercept content-area links for SPA navigation
 			this.rewriteContentLinks(contentBody)
 

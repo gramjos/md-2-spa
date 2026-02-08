@@ -32,6 +32,20 @@ async function init() {
 		// Setup scroll-to-top button
 		setupScrollToTop()
 
+		// Setup media lightbox close handlers
+		const lightbox = document.getElementById('media-lightbox')
+		const closeLightbox = () => {
+			lightbox.classList.remove('active')
+			document.body.style.overflow = ''
+		}
+		document.getElementById('lightbox-close').addEventListener('click', closeLightbox)
+		lightbox.addEventListener('click', (e) => {
+			if (e.target === lightbox) closeLightbox()
+		})
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox()
+		})
+
 		// Intercept all internal link clicks (using data-link attribute)
 		document.addEventListener('click', (e) => {
 			const link = e.target.closest('a[data-link]')

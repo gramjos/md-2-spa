@@ -20,6 +20,8 @@
 	--paper-bg: #1e1e38;
 	--surface-bg: #0a0a1a;
 	--paper-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+	--inline-code-bg: #3a3a5c;
+	--inline-code-text: #f0c674;
 }
 
 /* Light theme */
@@ -38,6 +40,8 @@
 	--paper-bg: #ffffff;
 	--surface-bg: #d4d4d8;
 	--paper-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+	--inline-code-bg: #e4e4e9;
+	--inline-code-text: #1a1a2e;
 }
 
 /* Retro Synthwave theme */
@@ -56,6 +60,8 @@
 	--paper-bg: #fef8fc;
 	--surface-bg: #f9eaf5;
 	--paper-shadow: 0 2px 14px rgba(217, 79, 154, 0.12), 0 1px 6px rgba(0, 0, 0, 0.06);
+	--inline-code-bg: #f0d4f4;
+	--inline-code-text: #3d2244;
 }
 
 /* Retro theme: font & cursor */
@@ -84,7 +90,7 @@
 
 html, body {
 	height: 100%;
-	font-family: system-ui, -apple-system, sans-serif;
+	font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
 	font-size: 14px;
 	background: var(--bg-content);
 	color: var(--text-primary);
@@ -366,12 +372,103 @@ a:hover { text-decoration: underline; }
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
 .content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
 
-/* Content images: constrain to 50% of container width */
+/* Content images: responsive symmetric sizing */
 .content-body img {
-	max-width: 50%;
+	max-width: 100%;
 	height: auto;
 	display: block;
-	margin-bottom: 1em;
+	border-radius: 6px 6px 0 0;
+	border: 1px solid var(--border);
+	border-bottom: none;
+}
+
+/* ===== Media Figure (image wrapper) ===== */
+.media-figure {
+	max-width: 60%;
+	margin: 1em auto;
+}
+
+.media-figure-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 6px 10px;
+	background: var(--bg-secondary);
+	border: 1px solid var(--border);
+	border-top: none;
+	border-radius: 0 0 6px 6px;
+}
+
+.media-figure-caption {
+	font-size: 0.8rem;
+	color: var(--text-secondary);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+}
+
+.media-fullscreen-btn {
+	flex-shrink: 0;
+	padding: 2px 8px;
+	font-size: 0.85rem;
+	line-height: 1;
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	background: var(--bg-primary);
+	color: var(--text-secondary);
+	cursor: pointer;
+	transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.media-fullscreen-btn:hover {
+	color: var(--text-primary);
+	border-color: var(--text-secondary);
+	background: var(--hover);
+}
+
+/* ===== Media Lightbox (fullscreen overlay) ===== */
+.media-lightbox {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	background: rgba(0, 0, 0, 0.92);
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+}
+
+.media-lightbox.active {
+	display: flex;
+}
+
+.lightbox-img {
+	max-width: 95%;
+	max-height: 95vh;
+	object-fit: contain;
+	border-radius: 4px;
+	border: none;
+}
+
+.lightbox-close {
+	position: absolute;
+	top: 16px;
+	right: 24px;
+	font-size: 2rem;
+	line-height: 1;
+	color: #fff;
+	background: none;
+	border: none;
+	cursor: pointer;
+	opacity: 0.7;
+	transition: opacity 0.2s;
+	z-index: 10000;
+}
+
+.lightbox-close:hover {
+	opacity: 1;
 }
 
 .content-body video,
@@ -464,6 +561,10 @@ a:hover { text-decoration: underline; }
 		padding: 6px 10px;
 		font-size: 12px;
 	}
+
+	.media-figure {
+		max-width: 80%;
+	}
 }
 
 @media (max-width: 480px) {
@@ -480,6 +581,14 @@ a:hover { text-decoration: underline; }
 		border-top: none;
 		border-bottom: none;
 	}
+	.media-figure {
+		max-width: 100%;
+	}
+
+	.media-figure-footer {
+		border-radius: 0 0 4px 4px;
+	}
+
 	.scroll-top { bottom: 16px; right: 16px; }
 }
 
@@ -618,6 +727,16 @@ a:hover { text-decoration: underline; }
 .copy-btn:hover {
 	color: var(--text-primary);
 	border-color: var(--text-secondary);
+}
+
+/* ===== Inline Code ===== */
+.content-body code:not(.code-block code) {
+	font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+	font-size: 0.875em;
+	padding: 0.15em 0.4em;
+	border-radius: 4px;
+	background: var(--inline-code-bg);
+	color: var(--inline-code-text);
 }
 
 /* Block (display) math — centered with vertical padding */
