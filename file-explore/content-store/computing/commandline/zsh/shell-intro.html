@@ -24,38 +24,38 @@ $ echo $SHELL
 $ exit
 exit
 </code></pre></div>
-<h6>Exit code of previous command</h6>
+<h6 id="exit-code-of-previous-command"><a class="heading-anchor" href="#exit-code-of-previous-command" data-link>Exit code of previous command</a></h6>
 <p><code>$ echo $?</code></p>
-<h6>Shell history expansion character</h6>
+<h6 id="shell-history-expansion-character"><a class="heading-anchor" href="#shell-history-expansion-character" data-link>Shell history expansion character</a></h6>
 <p><code>$ !_</code>
 where the underscore is the starting of command in the recent history. Very similar to the reverse search of ctrl-r ('bck-i-search:')</p>
-<h6>To Debug a script line by line</h6>
+<h6 id="to-debug-a-script-line-by-line"><a class="heading-anchor" href="#to-debug-a-script-line-by-line" data-link>To Debug a script line by line</a></h6>
 <p>At the top of file after the shebang line
 <code>set -xv</code>
 The above will output what line the script is on and show all errors (output) associated with each command for each line of the script. <code>-v</code> is for verbose.
 <code>set -e</code>
 will exit on first error.</p>
-<h4>Standard Error/Output Redirection</h4>
-<h6>File Descriptor 1 is for standard output</h6>
-<h6>File Descriptor 2 is for standard error</h6>
-<h6><code>&amp;</code> is for both unless prefixed by 1 or 2</h6>
+<h4 id="standard-error-output-redirection"><a class="heading-anchor" href="#standard-error-output-redirection" data-link>Standard Error/Output Redirection</a></h4>
+<h6 id="file-descriptor-1-is-for-standard-output"><a class="heading-anchor" href="#file-descriptor-1-is-for-standard-output" data-link>File Descriptor 1 is for standard output</a></h6>
+<h6 id="file-descriptor-2-is-for-standard-error"><a class="heading-anchor" href="#file-descriptor-2-is-for-standard-error" data-link>File Descriptor 2 is for standard error</a></h6>
+<h6 id="amp-is-for-both-unless-prefixed-by-1-or-2"><a class="heading-anchor" href="#amp-is-for-both-unless-prefixed-by-1-or-2" data-link><code>&amp;</code> is for both unless prefixed by 1 or 2</a></h6>
 <p><strong>All the errors from the 'command' will be written to the file</strong>
 <code>$ command 2&gt; error.txt</code>
 <strong>Both standard error and standard output written to file</strong>
 <code>$ command &amp;&gt; output.txt</code>
 <strong>Redirecting standard error to the standard output stream</strong>
 <code>$ command &gt; file.txt 2&gt;&amp;1</code></p>
-<h5>Writing Error Messages</h5>
+<h5 id="writing-error-messages"><a class="heading-anchor" href="#writing-error-messages" data-link>Writing Error Messages</a></h5>
 <p>Writing to the error stream (file descriptor 2) explicitly,
 <code>$ echo 'Default API call used. ${STATUS}' 1&gt;&amp;2</code>
 The above command redirects standard output to standard error.
 Aside, error message written to a log should begin the scripts name for clarity.</p>
 <div class="code-block"><span class="code-lang">shell</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-shell">echo `basename $0`
 </code></pre></div>
-<h4>Path Variable</h4>
+<h4 id="path-variable"><a class="heading-anchor" href="#path-variable" data-link>Path Variable</a></h4>
 <p>The environment variable <code>$PATH</code> is a colon separated list of directories. This list is searched every time a command is ran. <a href="#">Pipeline_example</a> works with one of the common directories <code>/bin/</code>
 <a href="#">Computing/Data/ZacMWilson_6wk/Day1</a></p>
-<h5>Previous Command Substitution</h5>
+<h5 id="previous-command-substitution"><a class="heading-anchor" href="#previous-command-substitution" data-link>Previous Command Substitution</a></h5>
 <p>Replace the <code>x</code> for <code>y</code> from the previous command and run it. Replaces the first occurrence.</p>
 <div class="code-block"><span class="code-lang">zsh</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-zsh">^x^y
 </code></pre></div>

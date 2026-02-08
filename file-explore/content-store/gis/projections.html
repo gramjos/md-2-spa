@@ -7,19 +7,19 @@
 <p><em>Conformal projections preserve angles locally, so the shapes of features appear true. But the cost of this quality is the distortion of areas and distances. Equal area projections preserve area, at the expense of angles, so the shapes of some places appear skewed. Equidistant projections preserve distances, although only from certain points or along certain lines on the map.</em>
 <img src="/gis/graphics/3_projects_distorts.png" alt="3_projects_distorts" />
 <a href="https://learn.arcgis.com/en/projects/choose-the-right-projection/">ESRI - Learn</a></p>
-<h5>Process of Defining a Coordinate System</h5>
+<h5 id="process-of-defining-a-coordinate-system"><a class="heading-anchor" href="#process-of-defining-a-coordinate-system" data-link>Process of Defining a Coordinate System</a></h5>
 <p>Use the geoid (mean sea level) to approximate the real rugged surface.
 <img src="/gis/graphics/geoid_1.png" alt="geoid_1" />
 <img src="/gis/graphics/geoid_2.png" alt="geoid_2" /></p>
-<h4>Datum</h4>
-<h5>To measure Latitude and Longitude we have to define the Earth's shape as 3D geometric object/surface</h5>
+<h4 id="datum-1"><a class="heading-anchor" href="#datum-1" data-link>Datum</a></h4>
+<h5 id="to-measure-latitude-and-longitude-we-have-to-define-the-earth-s-shape-as-3d-geometric-object-surface"><a class="heading-anchor" href="#to-measure-latitude-and-longitude-we-have-to-define-the-earth-s-shape-as-3d-geometric-object-surface" data-link>To measure Latitude and Longitude we have to define the Earth's shape as 3D geometric object/surface</a></h5>
 <p>When dealing with a projected coordinate system (Cartesian plane) negative values are shifted out of the area of interest. This process is called called false easting/northing depending on the direction of the shift.</p>
-<h3>Universal Transverse Mercator (UTM)</h3>
+<h3 id="universal-transverse-mercator-utm"><a class="heading-anchor" href="#universal-transverse-mercator-utm" data-link>Universal Transverse Mercator (UTM)</a></h3>
 <p>The world is divided into 6˚ longitudinal strips
 <img src="/gis/graphics/trans_mercator_project.png" alt="trans_mercator_project" /></p>
-<h3>Lambert Conformal Conic (LCC)</h3>
+<h3 id="lambert-conformal-conic-lcc"><a class="heading-anchor" href="#lambert-conformal-conic-lcc" data-link>Lambert Conformal Conic (LCC)</a></h3>
 <p><img src="/gis/graphics/lambert_conformal_conic_project.png" alt="lambert_conformal_conic_project" /></p>
-<h3>State Plane Coordinate system</h3>
+<h3 id="state-plane-coordinate-system"><a class="heading-anchor" href="#state-plane-coordinate-system" data-link>State Plane Coordinate system</a></h3>
 <p><img src="/gis/graphics/state_plane_zones.png" alt="state_plane_zones" />
 Notice, within each state and within each section, the pattern based off which projection is chosen.
 <strong>wider regions need to two standard parallels like Tennessee while thin, long regions can use a cylindrical intersection meridian</strong></p>

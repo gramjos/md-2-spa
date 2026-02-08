@@ -1,9 +1,9 @@
-<h5>running questions:</h5>
+<h5 id="running-questions"><a class="heading-anchor" href="#running-questions" data-link>running questions:</a></h5>
 <ol>
 <li>setting the <code>IFS</code> back after using in a command line command versus using it in a stand alone script.</li>
 <li>how protable is <code>fzf</code>?</li>
 </ol>
-<h6>This document will walk through the process of selecting which drawing to download and then downloading them locally. Then create a web viewer that does an initial inspection.</h6>
+<h6 id="this-document-will-walk-through-the-process-of-selecting-which-drawing-to-download-and-then-downloading-them-locally-then-create-a-web-viewer-that-does-an-initial-inspection"><a class="heading-anchor" href="#this-document-will-walk-through-the-process-of-selecting-which-drawing-to-download-and-then-downloading-them-locally-then-create-a-web-viewer-that-does-an-initial-inspection" data-link>This document will walk through the process of selecting which drawing to download and then downloading them locally. Then create a web viewer that does an initial inspection.</a></h6>
 <blockquote>
 <p>[!info]+ ToC</p>
 <ol>
@@ -72,7 +72,7 @@ gsutil cp gs://quickdraw_dataset/full/binary/{pig,van,dragon}.bin .  1.02s user
 <p>Use <code>tab</code> to perform multiple (<code>--multi</code>) selection</p>
 <div class="code-block"><span class="code-lang">shell</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-shell">gsutil ls -l gs://quickdraw_dataset/full/binary/ |awk -F &quot;/&quot; '{print $6}'|fzf --multi
 </code></pre></div>
-<h5>TODO: Can the selection from <code>fzf</code> be parametrized as the shell expansion to download the from gsutil... solved, yes.</h5>
+<h5 id="todo-can-the-selection-from-fzf-be-parametrized-as-the-shell-expansion-to-download-the-from-gsutil-solved-yes"><a class="heading-anchor" href="#todo-can-the-selection-from-fzf-be-parametrized-as-the-shell-expansion-to-download-the-from-gsutil-solved-yes" data-link>TODO: Can the selection from <code>fzf</code> be parametrized as the shell expansion to download the from gsutil... solved, yes.</a></h5>
 <div class="code-block"><span class="code-lang">shell</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-shell"> gsutil ls -l gs://quickdraw_dataset/full/binary/ |
    awk -F &quot;/&quot; '{print $6}' |
    sed 's/\.bin$//'  |

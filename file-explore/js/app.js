@@ -7,76 +7,88 @@ import { setupScrollToTop } from './scroll-top.js'
 // ===== Initialize App =====
 async function init() {
 	const contentBody = document.getElementById('content-body')
+	const fileTree = document.getElementById('file-tree')
 
+	// --- Phase 1: Immediate UI (no manifest needed) ---
+	const router = new Router()
+
+	setupThemeToggle()
+	setupMobileMenu()
+	setupScrollToTop()
+
+	// Lightbox close handlers
+	const lightbox = document.getElementById('media-lightbox')
+	const closeLightbox = () => {
+		lightbox.classList.remove('active')
+		document.body.style.overflow = ''
+	}
+	document.getElementById('lightbox-close').addEventListener('click', closeLightbox)
+	lightbox.addEventListener('click', (e) => {
+		if (e.target === lightbox) closeLightbox()
+	})
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox()
+	})
+
+	// Intercept all internal link clicks (using data-link attribute)
+	document.addEventListener('click', (e) => {
+		const link = e.target.closest('a[data-link]')
+		if (link) {
+			e.preventDefault()
+			const href = link.getAttribute('href')
+			
+			// Same-page heading anchor: scroll without re-rendering
+			if (href.startsWith('#')) {
+				const target = document.getElementById(decodeURIComponent(href.slice(1)))
+				if (target) {
+					history.pushState(null, '', href)
+					target.scrollIntoView({ behavior: 'smooth' })
+				}
+				return
+			}
+			
+			router.navigate(href)
+		}
+	})
+
+	// Handle folder toggle clicks (delegated — works after tree populates)
+	fileTree.addEventListener('click', (e) => {
+		const link = e.target.closest('.tree-link')
+		if (!link) return
+
+		const hasChildren = link.dataset.hasChildren === 'true'
+		if (hasChildren) {
+			const arrow = link.querySelector('.arrow')
+			const children = link.nextElementSibling
+
+			if (children) {
+				children.classList.toggle('open')
+				arrow.classList.toggle('expanded')
+			}
+		}
+	})
+
+	// Render the initial route immediately.
+	// Home and About render inline HTML — no manifest needed.
+	// Notes/Tags routes will await router.whenReady inside handleRoute().
+	router.handleRoute()
+
+	// --- Phase 2: Deferred manifest load (background) ---
 	try {
-		// Load manifest
 		const response = await fetch('/manifest.json')
 		if (!response.ok) throw new Error(`Failed to load manifest: ${response.status}`)
 		const manifest = await response.json()
-		
-		// Initialize router
-		const router = new Router()
+
 		router.manifest = manifest
 		router.buildRoutes(manifest)
-		
-		// Build file tree
-		const fileTree = document.getElementById('file-tree')
+
 		fileTree.innerHTML = buildFileTree(manifest, router)
-		
-		// Setup mobile menu
-		const closeMenu = setupMobileMenu()
-		
-		// Setup theme toggle
-		setupThemeToggle()
-		
-		// Setup scroll-to-top button
-		setupScrollToTop()
 
-		// Setup media lightbox close handlers
-		const lightbox = document.getElementById('media-lightbox')
-		const closeLightbox = () => {
-			lightbox.classList.remove('active')
-			document.body.style.overflow = ''
-		}
-		document.getElementById('lightbox-close').addEventListener('click', closeLightbox)
-		lightbox.addEventListener('click', (e) => {
-			if (e.target === lightbox) closeLightbox()
-		})
-		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox()
-		})
-
-		// Intercept all internal link clicks (using data-link attribute)
-		document.addEventListener('click', (e) => {
-			const link = e.target.closest('a[data-link]')
-			if (link) {
-				e.preventDefault()
-				const href = link.getAttribute('href')
-				router.navigate(href)
-			}
-		})
-		
-		// Handle folder toggle clicks
-		fileTree.addEventListener('click', (e) => {
-			const link = e.target.closest('.tree-link')
-			if (!link) return
-			
-			const hasChildren = link.dataset.hasChildren === 'true'
-			if (hasChildren) {
-				const arrow = link.querySelector('.arrow')
-				const children = link.nextElementSibling
-				
-				if (children) {
-					children.classList.toggle('open')
-					arrow.classList.toggle('expanded')
-				}
-			}
-		})
-		
-		// Handle initial route
-		router.handleRoute()
+		// Manifest is ready — unblock any pending notes/tags renders
+		router.markReady()
 	} catch (error) {
 		console.error('App init failed:', error)
+		router.markReady() // unblock to avoid hanging deep-link navigations
 		contentBody.innerHTML = `
 			<div class="home-hero">
 				<h1>Failed to load</h1>

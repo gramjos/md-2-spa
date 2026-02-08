@@ -19,6 +19,13 @@ export class Router {
 		// Tag index: tagName → [{ title, route, type }]
 		this.tagIndex = new Map()
 		
+		// Deferred promise — resolved once manifest is loaded and routes are built.
+		// Home and About render instantly; notes/tags routes await this.
+		this._readyResolve = null
+		this.whenReady = new Promise(resolve => {
+			this._readyResolve = resolve
+		})
+		
 		// Named route definitions: each declares its layout
 		this.namedRoutes = {
 			home: {
@@ -56,6 +63,14 @@ export class Router {
 		this.currentNamedRoute = null
 		
 		window.addEventListener('popstate', () => this.handleRoute())
+	}
+	
+	// Signal that manifest has been loaded and routes are built
+	markReady() {
+		if (this._readyResolve) {
+			this._readyResolve()
+			this._readyResolve = null
+		}
 	}
 	
 	// Build routes from flat manifest structure
@@ -179,6 +194,7 @@ export class Router {
 		}
 		
 		if (namedRouteName === 'tags') {
+			await this.whenReady
 			this.namedRoutes.tags.render()
 			contentDisplay.scrollTop = 0
 			this.updateTagsBar(null)
@@ -189,6 +205,7 @@ export class Router {
 		}
 		
 		if (namedRouteName === 'tag') {
+			await this.whenReady
 			const tagName = decodeURIComponent(route.replace('/tags/', ''))
 			this.namedRoutes.tag.render(tagName)
 			contentDisplay.scrollTop = 0
@@ -200,6 +217,9 @@ export class Router {
 		}
 		
 		if (namedRouteName === 'notes') {
+			// Wait for manifest to be loaded before resolving note routes
+			await this.whenReady
+			
 			// Default /notes to the first manifest entry
 			let routeData = this.routes.get(route)
 			
@@ -214,7 +234,20 @@ export class Router {
 			
 			if (routeData) {
 				await this.namedRoutes.notes.render(routeData)
-				contentDisplay.scrollTop = 0
+				
+				// Scroll to heading anchor if URL has a hash, otherwise scroll to top
+				const hash = window.location.hash?.slice(1)
+				if (hash) {
+					const target = document.getElementById(decodeURIComponent(hash))
+					if (target) {
+						target.scrollIntoView({ behavior: 'smooth' })
+					} else {
+						contentDisplay.scrollTop = 0
+					}
+				} else {
+					contentDisplay.scrollTop = 0
+				}
+				
 				this.updateActiveNav(route)
 				this.updateBreadcrumb(route, routeData)
 				this.updateTagsBar(routeData)

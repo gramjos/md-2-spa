@@ -197,6 +197,25 @@ def plugin_wiki_link(md: mistune.Markdown) -> None:
 # Parser factory
 # ---------------------------------------------------------------------------
 
+def slugify_heading(text: str) -> str:
+    """Convert heading text to a URL-friendly slug for anchor IDs.
+
+    Strips HTML tags, lowercases, replaces non-alphanumeric runs with
+    hyphens, and trims leading/trailing hyphens.
+
+    e.g. "Practice Problem" → "practice-problem"
+         "What is O(n log n)?" → "what-is-on-log-n"
+    """
+    # Strip any inline HTML tags
+    slug = re.sub(r'<[^>]+>', '', text)
+    slug = slug.lower()
+    # Replace non-alphanumeric (keep hyphens) with hyphens
+    slug = re.sub(r'[^a-z0-9-]+', '-', slug)
+    # Collapse multiple hyphens
+    slug = re.sub(r'-{2,}', '-', slug)
+    return slug.strip('-')
+
+
 def create_parser(manifest: dict) -> mistune.Markdown:
     """Create a configured mistune Markdown parser with Obsidian plugins.
 
@@ -253,6 +272,21 @@ def create_parser(manifest: dict) -> mistune.Markdown:
         )
 
     md.renderer.block_code = block_code
+
+    # Override heading renderer to add slugified id attributes for anchor links
+    # Tracks seen slugs per-render to deduplicate (e.g. "foo", "foo-1", "foo-2")
+    heading_slug_counts: dict[str, int] = {}
+
+    def heading(text, level, **attrs):
+        slug = slugify_heading(text)
+        if slug in heading_slug_counts:
+            heading_slug_counts[slug] += 1
+            slug = f'{slug}-{heading_slug_counts[slug]}'
+        else:
+            heading_slug_counts[slug] = 0
+        return f'<h{level} id="{slug}"><a class="heading-anchor" href="#{slug}" data-link>{text}</a></h{level}>\n'
+
+    md.renderer.heading = heading
 
     # ── Math rendering overrides ──────────────────────────────────────
     # Mistune 3.x math plugin issues:

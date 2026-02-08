@@ -1,21 +1,21 @@
-<h4>How to Observe the Data</h4>
+<h4 id="how-to-observe-the-data"><a class="heading-anchor" href="#how-to-observe-the-data" data-link>How to Observe the Data</a></h4>
 <p><a href="https://cartography-playground.gitlab.io/playgrounds/data-classification-methods/">Source - Cartography Playground</a>
 Use a histogram to visualize the frequency table. Four ways to group/bin/class an attribute to visualize the distribution.
 <img src="/gis/graphics/data_classification_types.png" alt="data_classification_types" /></p>
-<h6>Equal Interval</h6>
+<h6 id="equal-interval"><a class="heading-anchor" href="#equal-interval" data-link>Equal Interval</a></h6>
 <p>divides the range of attributes values into equal sized bins. Therefore, number elements in each bin can differ</p>
 <p><div class="math">\[Interval\ Size = \frac{maxX_i - minX_i}{Number\ of\ Classes}\]</div>
 
 <img src="/gis/graphics/equal_interval_pros_cons.png" alt="equal_interval_pros_cons" /></p>
-<h6>Quantile</h6>
+<h6 id="quantile"><a class="heading-anchor" href="#quantile" data-link>Quantile</a></h6>
 <p>Each class has a equal number of features.</p>
 <p><div class="math">\[Number\ of\ Elements\ per\ class = \frac{Total\ Number\ of\ Elements}{Number\ of\ Quantiles}\]</div>
 </p>
-<h5>Quantile versus Equal Interval(EI)</h5>
+<h5 id="quantile-versus-equal-interval-ei"><a class="heading-anchor" href="#quantile-versus-equal-interval-ei" data-link>Quantile versus Equal Interval(EI)</a></h5>
 <p>EI binning is based on the min/max (range) of the data, while quantile is based off the count of the features</p>
-<h6>Jenks</h6>
+<h6 id="jenks"><a class="heading-anchor" href="#jenks" data-link>Jenks</a></h6>
 <p>&quot;the Jenks classification is not recommended for data that have a low variance&quot; - <a href="https://en.wikipedia.org/wiki/Jenks_natural_breaks_optimization#Use_in_cartography">Wikipedia</a></p>
-<h6>Standard Deviation</h6>
+<h6 id="standard-deviation"><a class="heading-anchor" href="#standard-deviation" data-link>Standard Deviation</a></h6>
 <ul>
 <li>A measure of dispersion</li>
 <li>Low SD means data is tight and much variation from the mean (expected value)</li>
@@ -25,13 +25,13 @@ Population Formula below
 
 &quot;For a finite set of numbers, the population standard deviation is found by taking the square root of the average of the squared deviations of the values subtracted from their average value.&quot;</li>
 </ul>
-<h3>Normalization</h3>
+<h3 id="normalization"><a class="heading-anchor" href="#normalization" data-link>Normalization</a></h3>
 <p>think, does pure count have valid/meaningful comparison?
 What should we normalize (divide) by</p>
-<h5>Douglas-Peucker Algorithm</h5>
+<h5 id="douglas-peucker-algorithm"><a class="heading-anchor" href="#douglas-peucker-algorithm" data-link>Douglas-Peucker Algorithm</a></h5>
 <p>Visualization at <a href="https://cartography-playground.gitlab.io/playgrounds/douglas-peucker-algorithm/">Cartography Playground</a>
 <em>&quot;iterative end point fit&quot;</em> - Sungsoon Hwang
 Broadly, it smoothes poly-lines by reducing the number of points. This will preserve the rough shape of the object</p>
-<h4>Ordinal or Nominal Data</h4>
+<h4 id="ordinal-or-nominal-data"><a class="heading-anchor" href="#ordinal-or-nominal-data" data-link>Ordinal or Nominal Data</a></h4>
 <p>Ordinal - Can be &quot;ordered&quot;
 Nominal - Categorical Data with no rank (order)</p>

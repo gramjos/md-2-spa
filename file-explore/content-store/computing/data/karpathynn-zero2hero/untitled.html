@@ -1,7 +1,7 @@
 <p>YT Video: https://www.youtube.com/watch?v=VMj-3S1tku0</p>
-<h4><code>micrograd</code> is an automatic gradient engine(back prop)</h4>
+<h4 id="micrograd-is-an-automatic-gradient-engine-back-prop"><a class="heading-anchor" href="#micrograd-is-an-automatic-gradient-engine-back-prop" data-link><code>micrograd</code> is an automatic gradient engine(back prop)</a></h4>
 <p><em>Back Propagation</em> efficient evaluate the a gradient of a loss function with respect to the weight of a Neural Net (NN). Therefore, one can iteratively tune the weights to improve accuracy.</p>
-<h4><code>micrograd</code> allows one to build mathematical expressions</h4>
+<h4 id="micrograd-allows-one-to-build-mathematical-expressions"><a class="heading-anchor" href="#micrograd-allows-one-to-build-mathematical-expressions" data-link><code>micrograd</code> allows one to build mathematical expressions</a></h4>
 <p>Aside, Rectified Linear Unit <code>.relu()</code>. Informally described as <em>keep or squash to zero</em>. Can otherwise be stated as, <code>relu = max(0, x)</code>, and with the latex expression.
 <div class="math">\[\text{relu }= \begin{cases} 0 & \text{if } x < 0 \\ x & \text{if } x \ge 0 \end{cases}\]</div>
 
@@ -27,8 +27,8 @@ print(f'{b.grad:.4f}') # prints 645.5773, i.e. the numerical value of dg/db
 </code></pre></div>
 <p>At node <code>g</code>, recursively, go through the expression graph to apply the chain rule from calculus. Every edge between nodes has a gradient, <code>a.grad</code>. <code>a.grad</code> how <code>a</code> is affecting <code>g</code>.
 <img src="/graphics/hypothesis_node_graph_backprop.excalidraw" alt="hypothesis_node_graph_backprop" /></p>
-<h4>Interpretation</h4>
+<h4 id="interpretation"><a class="heading-anchor" href="#interpretation" data-link>Interpretation</a></h4>
 <p><em>How does <code>g</code> respond when <code>a</code> is tweaked?</em>
 If we make <code>a</code> slightly larger then because <code>138.8338</code> is positive <code>g</code> will grow and the slope of that growth is <code>138.8338</code>.</p>
-<h2>Zooming Out</h2>
+<h2 id="zooming-out"><a class="heading-anchor" href="#zooming-out" data-link>Zooming Out</a></h2>
 <p><code>micrograd</code> is a scalar value AutoGrad Engine. This is a pedagogical and in practice these scalars would n-dimensional tensors</p>

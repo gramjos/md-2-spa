@@ -1,4 +1,4 @@
-<h5>Data Model</h5>
+<h5 id="data-model"><a class="heading-anchor" href="#data-model" data-link>Data Model</a></h5>
 <p>Describes three things about the stored data:</p>
 <ol>
 <li>Structure</li>
@@ -11,20 +11,20 @@
 <li>Columns are called <strong>attributes</strong></li>
 <li>Every <strong>component</strong> in a <strong>tuple</strong> must have value taken from the <strong>attributes</strong> domain (specified data type)</li>
 </ul>
-<h6>Candidate Keys</h6>
+<h6 id="candidate-keys"><a class="heading-anchor" href="#candidate-keys" data-link>Candidate Keys</a></h6>
 <p>A set of attributes for which each tuple in the relation must have a unique set values, and for which no subset of the set has this property. This property must hold for all possible instances of the relation.</p>
-<h6>Primary Keys</h6>
+<h6 id="primary-keys"><a class="heading-anchor" href="#primary-keys" data-link>Primary Keys</a></h6>
 <p>A chose of the candidate keys. There may be many candidate keys, but only one chosen primary key.</p>
-<h6>Foreign Keys</h6>
+<h6 id="foreign-keys"><a class="heading-anchor" href="#foreign-keys" data-link>Foreign Keys</a></h6>
 <p>Two tables (relations) are linked using a shared key that is the primary key in one of the relations. The primary key of the other table that is shared is known as this tables foreign key. Every foreign key must be the value of the corresponding primary key in some tuple. Thus, the foreign key associates each tuple with exactly one tuple in the relation that is references.</p>
-<h6>Referential Integrity</h6>
+<h6 id="referential-integrity"><a class="heading-anchor" href="#referential-integrity" data-link>Referential Integrity</a></h6>
 <p>Every foreign key value must appear as the value of the primary key in some row of the table it references.
 This restricts the changes that can be made:</p>
 <ul>
 <li>We can add a row containing a foreign key only if the value of the foreign key appears among the values of the referenced primary key</li>
 <li>We can remove a row containing a primary key only if the value of the primary key does not appear among the values of any referencing foreign key</li>
 </ul>
-<h6>Constraints</h6>
+<h6 id="constraints"><a class="heading-anchor" href="#constraints" data-link>Constraints</a></h6>
 <p>Maintained by the DBMS:</p>
 <ul>
 <li>Domain: data type of attributes</li>
@@ -32,7 +32,7 @@ This restricts the changes that can be made:</p>
 <li>Entity Integrity: each set of tuples must have a unique set of values in its primary key and no NULLs</li>
 <li>Referential Integrity: Every foreign key must appear as the value of the primary key in some tuple of the relation (table) it references.</li>
 </ul>
-<h6>Instance V. Schema</h6>
+<h6 id="instance-v-schema"><a class="heading-anchor" href="#instance-v-schema" data-link>Instance V. Schema</a></h6>
 <p><strong>Schema</strong></p>
 <ul>
 <li>Lists the attributes and domain of each relation</li>

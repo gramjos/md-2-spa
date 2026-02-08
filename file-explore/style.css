@@ -298,6 +298,7 @@ a:hover { text-decoration: underline; }
 .content {
 	flex: 1;
 	overflow-y: auto;
+	scroll-behavior: smooth;
 	background: var(--surface-bg);
 }
 
@@ -371,6 +372,25 @@ a:hover { text-decoration: underline; }
 
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
 .content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
+
+/* Heading anchors: offset for sticky top-nav so anchored headings aren't hidden */
+.content-body h1,
+.content-body h2,
+.content-body h3,
+.content-body h4,
+.content-body h5,
+.content-body h6 { scroll-margin-top: 64px; }
+
+/* Clickable heading permalink anchors */
+.heading-anchor {
+	color: inherit;
+	text-decoration: none;
+}
+.heading-anchor:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 4px;
+}
 
 /* Content images: responsive symmetric sizing */
 .content-body img {
