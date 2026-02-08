@@ -1,3 +1,6 @@
+/* ===== Google Fonts ===== */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 /* ===== CSS Variables ===== */
 
 /* Dark theme (default) */
@@ -37,22 +40,39 @@
 	--paper-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Retro theme */
+/* Retro Synthwave theme */
 [data-theme="retro"] {
-	--bg-primary: #2b1b0e;
-	--bg-secondary: #3c2415;
-	--bg-content: #1e1008;
-	--text-primary: #ffd59a;
-	--text-secondary: #c49a6c;
-	--accent: #ff9f43;
-	--folder-color: #f0c040;
-	--file-color: #66cc99;
-	--border: #5a3a1e;
-	--hover: #4a2e14;
-	--active: #6b4226;
-	--paper-bg: #f5e6c8;
-	--surface-bg: #1a0e04;
-	--paper-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+	--bg-primary: #f5e1f7;
+	--bg-secondary: #edd3f5;
+	--bg-content: #fdf0f8;
+	--text-primary: #3d2244;
+	--text-secondary: #7a5480;
+	--accent: #d94f9a;
+	--folder-color: #e0943a;
+	--file-color: #3ea8a0;
+	--border: #dfc0e6;
+	--hover: #f0d4f4;
+	--active: #e4b8ee;
+	--paper-bg: #fef8fc;
+	--surface-bg: #f9eaf5;
+	--paper-shadow: 0 2px 14px rgba(217, 79, 154, 0.12), 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Retro theme: font & cursor */
+[data-theme="retro"] {
+	font-family: 'VT323', monospace;
+	cursor: crosshair;
+}
+
+[data-theme="retro"] a,
+[data-theme="retro"] button,
+[data-theme="retro"] .tree-link,
+[data-theme="retro"] .nav-link {
+	cursor: pointer;
+}
+
+[data-theme="retro"] .content-body {
+	font-size: 1.15rem;
 }
 
 /* ===== Reset ===== */
@@ -152,7 +172,7 @@ a:hover { text-decoration: underline; }
 /* ===== App Layout ===== */
 .app {
 	display: flex;
-	height: calc(100vh - 48px);
+	height: calc(100% - 48px);
 	overflow: hidden;
 }
 
@@ -273,8 +293,6 @@ a:hover { text-decoration: underline; }
 	flex: 1;
 	overflow-y: auto;
 	background: var(--surface-bg);
-	display: flex;
-	flex-direction: column;
 }
 
 .breadcrumb {
@@ -300,11 +318,10 @@ a:hover { text-decoration: underline; }
 }
 
 .content-body {
-	flex: 1;
 	width: 100%;
 	max-width: 816px; /* ~8.5in at 96dpi, loose-leaf paper width */
 	margin: 32px auto;
-	padding: 48px 40px;
+	padding: 48px 40px 64px;
 	line-height: 1.7;
 	background: var(--paper-bg);
 	box-shadow: var(--paper-shadow);
@@ -312,18 +329,39 @@ a:hover { text-decoration: underline; }
 	min-height: 600px;
 }
 
-/* Retro parchment edge flair */
+/* Retro synthwave parchment flair */
 [data-theme="retro"] .content-body {
-	border-top: 3px solid rgba(196, 154, 108, 0.2);
-	border-bottom: 3px solid rgba(196, 154, 108, 0.2);
-	color: #3c2415;
+	border-top: 3px solid rgba(217, 79, 154, 0.2);
+	border-bottom: 3px solid rgba(62, 168, 160, 0.2);
+	color: #3d2244;
 }
-[data-theme="retro"] .content-body p { color: #5a3a1e; }
+[data-theme="retro"] .content-body p { color: #7a5480; }
 [data-theme="retro"] .content-body h1,
 [data-theme="retro"] .content-body h2,
-[data-theme="retro"] .content-body h3 { color: #2b1b0e; }
-[data-theme="retro"] .content-body a { color: #b35a00; }
-[data-theme="retro"] .content-body a:hover { color: #8b4000; }
+[data-theme="retro"] .content-body h3 { color: #c24488; }
+[data-theme="retro"] .content-body a { color: #3ea8a0; }
+[data-theme="retro"] .content-body a:hover { color: #d94f9a; }
+
+/* ===== Page Footer ===== */
+.page-footer {
+	margin-top: 48px;
+	padding-top: 24px;
+	text-align: center;
+	font-size: 12px;
+	color: var(--text-secondary);
+	opacity: 0.6;
+}
+
+.page-footer-divider {
+	width: 60px;
+	height: 1px;
+	background: var(--border);
+	margin: 0 auto 16px;
+}
+
+[data-theme="retro"] .page-footer {
+	color: #7a5480;
+}
 
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
 .content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
@@ -478,13 +516,21 @@ a:hover { text-decoration: underline; }
 }
 
 /* ===== Home Page Layout (route-driven) ===== */
-.home-page {
-	justify-content: center;
-}
-
 .home-page .content {
+	flex: 0 1 auto;
+	width: 100%;
 	max-width: 800px;
 	margin: 0 auto;
+}
+
+.home-page .content-body {
+	max-width: none;
+	margin: 0;
+	padding: 0 24px;
+	background: transparent;
+	box-shadow: none;
+	border-radius: 0;
+	min-height: 0;
 }
 
 .home-hero {
@@ -494,6 +540,12 @@ a:hover { text-decoration: underline; }
 	justify-content: center;
 	min-height: calc(80vh - 48px);
 	text-align: center;
+	padding: 48px 0;
+}
+
+.home-hero ul {
+	text-align: left;
+	padding-left: 1.5em;
 }
 
 .home-hero h1 {

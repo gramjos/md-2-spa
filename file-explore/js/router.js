@@ -1,4 +1,15 @@
 // ===== SPA Router (History API) with Named Routes =====
+
+// Page footer appended to every content render
+function pageFooter() {
+	const year = new Date().getFullYear()
+	return `
+		<footer class="page-footer">
+			<div class="page-footer-divider"></div>
+			<p>&copy; ${year} Doc. &mdash; Built with vanilla JS, no frameworks.</p>
+		</footer>`
+}
+
 export class Router {
 	constructor() {
 		this.routes = new Map()
@@ -147,9 +158,7 @@ export class Router {
 	async handleRoute() {
 		const route = this.getCurrentRoute()
 		const namedRouteName = this.resolveNamedRoute(route)
-		
-		// Reset scroll position on navigation
-		document.getElementById('content-display').scrollTop = 0
+		const contentDisplay = document.getElementById('content-display')
 		
 		// Apply layout for the named route
 		this.applyLayout(namedRouteName)
@@ -157,18 +166,21 @@ export class Router {
 		
 		if (namedRouteName === 'home') {
 			this.namedRoutes.home.render()
+			contentDisplay.scrollTop = 0
 			document.title = 'Home - Doc.'
 			return
 		}
 		
 		if (namedRouteName === 'about') {
 			this.namedRoutes.about.render()
+			contentDisplay.scrollTop = 0
 			document.title = 'About - Doc.'
 			return
 		}
 		
 		if (namedRouteName === 'tags') {
 			this.namedRoutes.tags.render()
+			contentDisplay.scrollTop = 0
 			this.updateTagsBar(null)
 			document.title = 'Tags - Doc.'
 			const breadcrumb = document.getElementById('breadcrumb')
@@ -179,6 +191,7 @@ export class Router {
 		if (namedRouteName === 'tag') {
 			const tagName = decodeURIComponent(route.replace('/tags/', ''))
 			this.namedRoutes.tag.render(tagName)
+			contentDisplay.scrollTop = 0
 			this.updateTagsBar(null)
 			document.title = `Tag: ${tagName} - Doc.`
 			const breadcrumb = document.getElementById('breadcrumb')
@@ -201,6 +214,7 @@ export class Router {
 			
 			if (routeData) {
 				await this.namedRoutes.notes.render(routeData)
+				contentDisplay.scrollTop = 0
 				this.updateActiveNav(route)
 				this.updateBreadcrumb(route, routeData)
 				this.updateTagsBar(routeData)
@@ -280,7 +294,7 @@ export class Router {
 				<h1>Welcome Home</h1>
 				<p>This is the home page of Doc.</p>
 			</div>
-		`
+		` + pageFooter()
 	}
 	
 	// Render about page
@@ -312,7 +326,7 @@ export class Router {
 				<p>When you click a link, the SPA router intercepts it, updates the URL via the History API, and fetches the corresponding HTML fragment — no full page reloads.</p>
 				
 			</div>
-		`
+		` + pageFooter()
 	}
 	
 	// Render notes content
@@ -332,7 +346,7 @@ export class Router {
 					if (attr.name.startsWith('on')) el.removeAttribute(attr.name)
 				}
 			})
-			contentBody.innerHTML = doc.body.innerHTML
+			contentBody.innerHTML = doc.body.innerHTML + pageFooter()
 			
 			// Rewrite asset paths (images, videos, etc.)
 			// Handles both relative paths and absolute /graphics/... paths
@@ -378,7 +392,7 @@ export class Router {
 				})
 			})
 		} catch (error) {
-			contentBody.innerHTML = `<p>Error loading: ${routeData.contentPath}</p>`
+			contentBody.innerHTML = `<p>Error loading: ${routeData.contentPath}</p>` + pageFooter()
 		}
 	}
 	
@@ -506,7 +520,7 @@ export class Router {
 			<div class="tag-index">
 				<h1>Tags</h1>
 				<ul class="tag-index-list">${items}</ul>
-			</div>`
+			</div>` + pageFooter()
 	}
 	
 	// Render individual tag page (/tags/:tagName)
@@ -541,13 +555,13 @@ export class Router {
 				<h1>#${tagName}</h1>
 				<p class="tag-page-subtitle">${pages.length} page${pages.length === 1 ? '' : 's'}</p>
 				<ul class="tag-page-list">${items}</ul>
-			</div>`
+			</div>` + pageFooter()
 	}
 	
 	// Show 404
 	show404() {
 		const contentBody = document.getElementById('content-body')
-		contentBody.innerHTML = `<h1>404</h1><p>Page not found. <a href="/" data-link>Go home</a></p>`
+		contentBody.innerHTML = `<h1>404</h1><p>Page not found. <a href="/" data-link>Go home</a></p>` + pageFooter()
 		document.getElementById('breadcrumb').innerHTML = `<a href="/" data-link>Home</a> <span>/</span> 404`
 	}
 }
