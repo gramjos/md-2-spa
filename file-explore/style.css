@@ -14,6 +14,9 @@
 	--border: #27273a;
 	--hover: #27273a;
 	--active: #3b3b5c;
+	--paper-bg: #1e1e38;
+	--surface-bg: #0a0a1a;
+	--paper-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
 }
 
 /* Light theme */
@@ -29,6 +32,9 @@
 	--border: #d4d4d8;
 	--hover: #e4e4e7;
 	--active: #d1d5db;
+	--paper-bg: #ffffff;
+	--surface-bg: #d4d4d8;
+	--paper-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Retro theme */
@@ -44,6 +50,9 @@
 	--border: #5a3a1e;
 	--hover: #4a2e14;
 	--active: #6b4226;
+	--paper-bg: #f5e6c8;
+	--surface-bg: #1a0e04;
+	--paper-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 /* ===== Reset ===== */
@@ -263,7 +272,7 @@ a:hover { text-decoration: underline; }
 .content {
 	flex: 1;
 	overflow-y: auto;
-	background: var(--bg-content);
+	background: var(--surface-bg);
 	display: flex;
 	flex-direction: column;
 }
@@ -294,10 +303,27 @@ a:hover { text-decoration: underline; }
 	flex: 1;
 	width: 100%;
 	max-width: 816px; /* ~8.5in at 96dpi, loose-leaf paper width */
-	margin: 0 auto;
+	margin: 32px auto;
 	padding: 48px 40px;
 	line-height: 1.7;
+	background: var(--paper-bg);
+	box-shadow: var(--paper-shadow);
+	border-radius: 2px;
+	min-height: 600px;
 }
+
+/* Retro parchment edge flair */
+[data-theme="retro"] .content-body {
+	border-top: 3px solid rgba(196, 154, 108, 0.2);
+	border-bottom: 3px solid rgba(196, 154, 108, 0.2);
+	color: #3c2415;
+}
+[data-theme="retro"] .content-body p { color: #5a3a1e; }
+[data-theme="retro"] .content-body h1,
+[data-theme="retro"] .content-body h2,
+[data-theme="retro"] .content-body h3 { color: #2b1b0e; }
+[data-theme="retro"] .content-body a { color: #b35a00; }
+[data-theme="retro"] .content-body a:hover { color: #8b4000; }
 
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
 .content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
@@ -404,7 +430,18 @@ a:hover { text-decoration: underline; }
 
 @media (max-width: 480px) {
 	.sidebar { width: 85%; min-width: 85%; }
-	.content-body { padding: 24px 16px; }
+	.content-body {
+		padding: 24px 16px;
+		box-shadow: none;
+		border-radius: 0;
+		margin: 0 auto;
+		min-height: auto;
+		background: transparent;
+	}
+	[data-theme="retro"] .content-body {
+		border-top: none;
+		border-bottom: none;
+	}
 	.scroll-top { bottom: 16px; right: 16px; }
 }
 
