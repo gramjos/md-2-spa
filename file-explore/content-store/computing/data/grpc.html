@@ -1,0 +1,10 @@
+<p>source: https://www.youtube.com/watch?v=UQ-nXHwdSFU
+Google Remote Procedure Call created to facilitate communication between distributed systems so clients can call methods store on a server as if they were local. Built with <code>Protobuf</code> a language and platform neutral way to serialize data that can be translated to any languages function signatures.
+<img src="/computing/data/graphics/how-protobuf.png" alt="how-protobuf" />
+Under the hood gRPC relies on HTTP/2 for:</p>
+<ul>
+<li>multiplexing - a single TCP connection can handle many RPC calls (concurrently). <img src="/computing/data/graphics/binary-enocde-multiplex.png" alt="binary-enocde-multiplex" /></li>
+<li>header compression</li>
+<li>duplex streaming
+<strong>Note</strong>, REST APIs are built on HTTP 1.1</li>
+</ul>

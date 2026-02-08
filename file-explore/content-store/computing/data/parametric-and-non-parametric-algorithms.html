@@ -1,0 +1,46 @@
+<p><a href="https://machinelearningmastery.com/parametric-and-nonparametric-machine-learning-algorithms/">Source</a></p>
+<h5><em>Machine learning can be summarized as learning a function <span class="math">\((f)\)</span> that maps input variables <span class="math">\((X)\)</span> to output variables <span class="math">\((Y)\)</span>.</em></h5>
+<p><div class="math">\[ Y = f(x)\]</div>
+
+An algorithm learns this target mapping function from training data.
+The form of the function is unknown, so our job as machine learning practitioners is to evaluate different machine learning algorithms and see which is better at approximating the underlying function.</p>
+<h2>Parametric Machine Learning Algorithms</h2>
+<p>Assumptions can greatly simplify the learning process, but can also limit what can be learned. Algorithms that simplify the function to a known form are called parametric machine learning algorithms.</p>
+<blockquote>
+<p>[!info]+ — <a href="https://amzn.to/2Y0QDox">Artificial Intelligence: A Modern Approach</a>, page 737
+A learning model that summarizes data with a set of parameters of fixed size (independent of the number of training examples) is called a parametric model. No matter how much data you throw at a parametric model, it won’t change its mind about how many parameters it needs.</p>
+</blockquote>
+<p>The algorithms involve two steps</p>
+<ol>
+<li>Select a form for the function.</li>
+<li>Learn the coefficients for the function from the training data.
+An easy to understand functional form for the mapping function is a line, as is used in linear regression:
+<div class="math">\[ b_{0} + b_{1}*x_{1} + b_{2}*x_{2} = 0 \]</div>
+
+Where <span class="math">\(b_{0}, b_{1} \scriptstyle{\text{ \& }} b_{2}\)</span> are the coefficients of the line that control the intercept and slope, and <span class="math">\(x_{1} \text{ \& } x_{2}\)</span> are two input variables.
+Assuming the functional form of a line greatly simplifies the learning process. Now, all we need to do is estimate the coefficients of the line equation and we have a predictive model for the problem.
+Often the assumed functional form is a linear combination of the input variables and as such parametric machine learning algorithms are often also called “<em>linear machine learning algorithms</em>“.
+The problem is, the actual unknown underlying function may not be a linear function like a line. It could be almost a line and require some minor transformation of the input data to work right. Or it could be nothing like a line in which case the assumption is wrong and the approach will produce poor results.
+Some more examples of parametric machine learning algorithms include:</li>
+</ol>
+<ul>
+<li>Logistic Regression</li>
+<li>Linear Discriminant Analysis</li>
+<li>Perceptron</li>
+<li>Naive Bayes</li>
+<li>Simple Neural Networks</li>
+</ul>
+<h2>Nonparametric Machine Learning Algorithms</h2>
+<p>Algorithms that do not make strong assumptions about the form of the mapping function are called nonparametric machine learning algorithms. By not making assumptions, they are free to learn any functional form from the training data.</p>
+<blockquote>
+<p>[!info]+ <a href="https://amzn.to/2Y0QDox">Artificial Intelligence: A Modern Approach</a>, page 757
+Nonparametric methods are good when you have a lot of data and no prior knowledge, and when you don’t want to worry too much about choosing just the right features.
+Nonparametric methods seek to best fit the training data in constructing the mapping function, whilst maintaining some ability to generalize to unseen data. As such, they are able to fit a large number of functional forms.</p>
+</blockquote>
+<p>An easy to understand nonparametric model is the k-nearest neighbors algorithm that makes predictions based on the k most similar training patterns for a new data instance. The method does not assume anything about the form of the mapping function other than patterns that are close are likely to have a similar output variable.
+Some more examples of popular nonparametric machine learning algorithms are:</p>
+<ul>
+<li>k-Nearest Neighbors</li>
+<li>Decision Trees like CART and C4.5</li>
+<li>Support Vector Machines</li>
+</ul>

@@ -1,0 +1,41 @@
+<p>Plugin Documentation <a href="https://blacksmithgu.github.io/obsidian-dataview/">here</a></p>
+<h4>List all the files that have a <code>zsh</code> tag</h4>
+<p><code>LIST FROM #zsh</code>
+The above code has to be in a <code>dataview</code> triple back tick code block</p>
+<div class="code-block"><span class="code-lang">dataview</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-dataview">table from #shell
+</code></pre></div>
+<hr />
+<p>Get files from a specific folder
+<code>LIST FROM &quot;Computing/Data&quot; or &quot;Computing/vim</code></p>
+<div class="code-block"><span class="code-lang">dataview</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-dataview">LIST
+FROM &quot;Computing/Data&quot; or &quot;Computing/vim&quot;
+</code></pre></div>
+<hr />
+<p><code>LIST FROM #zsh WHERE faces</code>
+get all files with the #zsh tag that have a #faces tag</p>
+<div class="code-block"><span class="code-lang">dataview</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-dataview">LIST
+FROM #zsh
+WHERE faces 
+</code></pre></div>
+<hr />
+<p>Custom YAML queries. return any file with a 'faces' key with a value 'gram'
+<code>list where econtains(faces, &quot;gram&quot;)</code></p>
+<div class="code-block"><span class="code-lang">dataview</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-dataview">list
+where econtains(faces, &quot;gram&quot;)
+</code></pre></div>
+<hr />
+<p>specify to search within a folders/sub-folders
+<code>list from &quot;Computing&quot; where econtains(faces, &quot;gram&quot;)</code></p>
+<div class="code-block"><span class="code-lang">dataview</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-dataview">list
+from &quot;Computing&quot;
+where econtains(faces, &quot;gram&quot;)
+</code></pre></div>
+<hr />
+<p><code>list from &quot;Computing/compilers&quot; where econtains(faces, &quot;gram&quot;)</code></p>
+<div class="code-block"><span class="code-lang">dataview</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-dataview">list
+from &quot;Computing/compilers&quot;
+where econtains(faces, &quot;gram&quot;)
+</code></pre></div>
+<hr />
+<h3>Implicit Field</h3>
+<p><a href="https://blacksmithgu.github.io/obsidian-dataview/annotation/metadata-pages/#implicit-fields">Implicit Field - Source - https://blacksmithgu.github.io/obsidian-dataview/</a></p>

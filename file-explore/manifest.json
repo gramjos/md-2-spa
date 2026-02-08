@@ -1,46 +1,1410 @@
 {
   "rootId": "root-dir",
   "items": {
+    "home-server-file": {
+      "id": "home-server-file",
+      "type": "file",
+      "title": "Home Server",
+      "slug": "backups/home-server",
+      "content_path": "/backups/home-server.html",
+      "metadata": {
+        "tags": [
+          "data",
+          "data_storage"
+        ]
+      }
+    },
+    "keeping-backups-up-to-date-file": {
+      "id": "keeping-backups-up-to-date-file",
+      "type": "file",
+      "title": "Keeping Backups Up To Date",
+      "slug": "backups/keeping-backups-up-to-date",
+      "content_path": "/backups/keeping-backups-up-to-date.html",
+      "metadata": {
+        "tags": [
+          "data",
+          "data_storage"
+        ]
+      }
+    },
+    "backups-dir": {
+      "id": "backups-dir",
+      "type": "directory",
+      "title": "Backups",
+      "slug": "backups",
+      "content_path": "/backups/README.html",
+      "children": [
+        "home-server-file",
+        "keeping-backups-up-to-date-file"
+      ],
+      "metadata": {
+        "tags": [
+          "data",
+          "data_storage"
+        ]
+      }
+    },
+    "zsh-graphics": {
+      "id": "zsh-graphics",
+      "type": "graphics",
+      "slug": "computing/commandline/zsh/graphics",
+      "content_path": "/computing/commandline/zsh/graphics/",
+      "assets": [
+        "pipeline_example.png"
+      ]
+    },
+    "builtins-file": {
+      "id": "builtins-file",
+      "type": "file",
+      "title": "Builtins",
+      "slug": "computing/commandline/zsh/builtins",
+      "content_path": "/computing/commandline/zsh/builtins.html",
+      "metadata": {
+        "tags": [
+          "zsh",
+          "shell",
+          "builtins",
+          "history_search",
+          "history_previous_command",
+          "alias"
+        ],
+        "faces": [
+          "gram",
+          "sam"
+        ]
+      }
+    },
+    "glossary-file": {
+      "id": "glossary-file",
+      "type": "file",
+      "title": "Glossary",
+      "slug": "computing/commandline/zsh/glossary",
+      "content_path": "/computing/commandline/zsh/glossary.html",
+      "metadata": {
+        "tags": [
+          "glossary",
+          "zsh",
+          "shell",
+          "unix_like"
+        ]
+      }
+    },
+    "help-file": {
+      "id": "help-file",
+      "type": "file",
+      "title": "Help",
+      "slug": "computing/commandline/zsh/help",
+      "content_path": "/computing/commandline/zsh/help.html",
+      "metadata": {
+        "tags": [
+          "help",
+          "man",
+          "man_pages"
+        ],
+        "face": [
+          "gram"
+        ]
+      }
+    },
+    "loops-file": {
+      "id": "loops-file",
+      "type": "file",
+      "title": "Loops",
+      "slug": "computing/commandline/zsh/loops",
+      "content_path": "/computing/commandline/zsh/loops.html",
+      "metadata": {
+        "tags": [
+          "loops",
+          "zsh",
+          "linux",
+          "command_line",
+          "iteration",
+          "c_shell",
+          "foreach"
+        ]
+      }
+    },
+    "parameter-expansion-file": {
+      "id": "parameter-expansion-file",
+      "type": "file",
+      "title": "Parameter Expansion",
+      "slug": "computing/commandline/zsh/parameter-expansion",
+      "content_path": "/computing/commandline/zsh/parameter-expansion.html",
+      "metadata": {
+        "tags": "zsh, variables, shell, parameter_exspansion"
+      }
+    },
+    "pipeline-example-file": {
+      "id": "pipeline-example-file",
+      "type": "file",
+      "title": "Pipeline Example",
+      "slug": "computing/commandline/zsh/pipeline-example",
+      "content_path": "/computing/commandline/zsh/pipeline-example.html",
+      "metadata": {
+        "tags": [
+          "zsh",
+          "pipe",
+          "pipeline",
+          "linux",
+          "command_cut",
+          "command_column",
+          "command_grep",
+          "history_substitution_operator",
+          "standard_error",
+          "redirection"
+        ]
+      }
+    },
+    "processes-file": {
+      "id": "processes-file",
+      "type": "file",
+      "title": "Processes",
+      "slug": "computing/commandline/zsh/processes",
+      "content_path": "/computing/commandline/zsh/processes.html",
+      "metadata": {
+        "tags": "zsh, shell, processes, process, pid"
+      }
+    },
+    "shell-intro-file": {
+      "id": "shell-intro-file",
+      "type": "file",
+      "title": "Shell Intro",
+      "slug": "computing/commandline/zsh/shell-intro",
+      "content_path": "/computing/commandline/zsh/shell-intro.html",
+      "metadata": {
+        "tags": [
+          "shell",
+          "zsh",
+          "processes",
+          "debug",
+          "file_descriptors",
+          "redirect_standard_in",
+          "redirect_standard_out",
+          "exit_code",
+          "path",
+          "env_path"
+        ]
+      }
+    },
+    "types-of-commands-file": {
+      "id": "types-of-commands-file",
+      "type": "file",
+      "title": "Types Of Commands",
+      "slug": "computing/commandline/zsh/types-of-commands",
+      "content_path": "/computing/commandline/zsh/types-of-commands.html",
+      "metadata": {
+        "tags": "path, builtins"
+      }
+    },
+    "variables-file": {
+      "id": "variables-file",
+      "type": "file",
+      "title": "Variables",
+      "slug": "computing/commandline/zsh/variables",
+      "content_path": "/computing/commandline/zsh/variables.html",
+      "metadata": {
+        "tags": "environment_variables, root_user"
+      }
+    },
+    "zsh-dir": {
+      "id": "zsh-dir",
+      "type": "directory",
+      "title": "Zsh",
+      "slug": "computing/commandline/zsh",
+      "content_path": "/computing/commandline/zsh/README.html",
+      "children": [
+        "zsh-graphics",
+        "builtins-file",
+        "glossary-file",
+        "help-file",
+        "loops-file",
+        "parameter-expansion-file",
+        "pipeline-example-file",
+        "processes-file",
+        "shell-intro-file",
+        "types-of-commands-file",
+        "variables-file"
+      ]
+    },
+    "convert-file": {
+      "id": "convert-file",
+      "type": "file",
+      "title": "Convert",
+      "slug": "computing/commandline/convert",
+      "content_path": "/computing/commandline/convert.html",
+      "metadata": {
+        "tags": [
+          "convert",
+          "ffmpeg",
+          "zsh",
+          "shell",
+          "command_line",
+          "shell_scripting",
+          "media_editting",
+          "gif"
+        ]
+      }
+    },
+    "ctags-file": {
+      "id": "ctags-file",
+      "type": "file",
+      "title": "Ctags",
+      "slug": "computing/commandline/ctags",
+      "content_path": "/computing/commandline/ctags.html",
+      "metadata": {
+        "tags": [
+          "unix",
+          "homebrew",
+          "vim",
+          "tags",
+          "ctags"
+        ]
+      }
+    },
+    "yt-dlp-file": {
+      "id": "yt-dlp-file",
+      "type": "file",
+      "title": "Yt Dlp",
+      "slug": "computing/commandline/yt-dlp",
+      "content_path": "/computing/commandline/yt-dlp.html"
+    },
+    "commandline-dir": {
+      "id": "commandline-dir",
+      "type": "directory",
+      "title": "Commandline",
+      "slug": "computing/commandline",
+      "content_path": "/computing/commandline/README.html",
+      "children": [
+        "zsh-dir",
+        "convert-file",
+        "ctags-file",
+        "yt-dlp-file"
+      ]
+    },
+    "intro-tensors-file": {
+      "id": "intro-tensors-file",
+      "type": "file",
+      "title": "Intro, Tensors",
+      "slug": "computing/data/beginnerpytorchopencv/intro-tensors",
+      "content_path": "/computing/data/beginnerpytorchopencv/intro-tensors.html",
+      "metadata": {
+        "tags": [
+          "python",
+          "tensor",
+          "data",
+          "ai",
+          "torch",
+          "marimo"
+        ],
+        "web_code": null
+      }
+    },
+    "beginnerpytorchopencv-dir": {
+      "id": "beginnerpytorchopencv-dir",
+      "type": "directory",
+      "title": "Beginnerpytorchopencv",
+      "slug": "computing/data/beginnerpytorchopencv",
+      "content_path": "/computing/data/beginnerpytorchopencv/README.html",
+      "children": [
+        "intro-tensors-file"
+      ]
+    },
+    "untitled-file": {
+      "id": "untitled-file",
+      "type": "file",
+      "title": "Untitled",
+      "slug": "computing/data/karpathynn-zero2hero/untitled",
+      "content_path": "/computing/data/karpathynn-zero2hero/untitled.html"
+    },
+    "design-llm-app-s-pai-dir": {
+      "id": "design-llm-app-s-pai-dir",
+      "type": "directory",
+      "title": "Design Llm App S Pai",
+      "slug": "computing/data/design-llm-app-s-pai",
+      "content_path": "/computing/data/design-llm-app-s-pai/README.html",
+      "children": [
+        "untitled-file"
+      ]
+    },
+    "intro-file": {
+      "id": "intro-file",
+      "type": "file",
+      "title": "Intro",
+      "slug": "gis/sds-anselin/intro",
+      "content_path": "/gis/sds-anselin/intro.html",
+      "metadata": {
+        "tags": [
+          "data",
+          "spatial_data_science",
+          "gis",
+          "database",
+          "map",
+          "data_analysis",
+          "luc_anselin_course"
+        ]
+      }
+    },
+    "docai-course-dir": {
+      "id": "docai-course-dir",
+      "type": "directory",
+      "title": "Docai Course",
+      "slug": "computing/data/docai-course",
+      "content_path": "/computing/data/docai-course/README.html",
+      "children": [
+        "intro-file"
+      ],
+      "metadata": {
+        "tags": [
+          "ai",
+          "huggingface"
+        ]
+      }
+    },
+    "data-graphics": {
+      "id": "data-graphics",
+      "type": "graphics",
+      "slug": "computing/data/graphics",
+      "content_path": "/computing/data/graphics/",
+      "assets": [
+        "algo_map.jpg",
+        "binary-enocde-multiplex.png",
+        "how-protobuf.png"
+      ]
+    },
+    "karpathynn-zero2hero-dir": {
+      "id": "karpathynn-zero2hero-dir",
+      "type": "directory",
+      "title": "Karpathynn Zero2Hero",
+      "slug": "computing/data/karpathynn-zero2hero",
+      "content_path": "/computing/data/karpathynn-zero2hero/README.html",
+      "children": [
+        "untitled-file"
+      ]
+    },
+    "knowledgegraph-springerbrief-dir": {
+      "id": "knowledgegraph-springerbrief-dir",
+      "type": "directory",
+      "title": "Knowledgegraph Springerbrief",
+      "slug": "computing/data/knowledgegraph-springerbrief",
+      "content_path": "/computing/data/knowledgegraph-springerbrief/README.html",
+      "children": [],
+      "metadata": {
+        "tags": [
+          "data",
+          "data_storage",
+          "database",
+          "knowledge_graph"
+        ]
+      }
+    },
+    "css-lang-file": {
+      "id": "css-lang-file",
+      "type": "file",
+      "title": "Css Lang",
+      "slug": "computing/data/noblackbox-radu/css-lang",
+      "content_path": "/computing/data/noblackbox-radu/css-lang.html",
+      "metadata": {
+        "tags": [
+          "css"
+        ]
+      }
+    },
+    "js-lang-file": {
+      "id": "js-lang-file",
+      "type": "file",
+      "title": "Js Lang",
+      "slug": "computing/data/noblackbox-radu/js-lang",
+      "content_path": "/computing/data/noblackbox-radu/js-lang.html",
+      "metadata": {
+        "tags": [
+          "javascript"
+        ]
+      }
+    },
+    "present-draw-class-devexcalidraw-file": {
+      "id": "present-draw-class-devexcalidraw-file",
+      "type": "file",
+      "title": "Present Draw Class Dev.Excalidraw",
+      "slug": "computing/data/noblackbox-radu/present-draw-class-devexcalidraw",
+      "content_path": "/computing/data/noblackbox-radu/present-draw-class-devexcalidraw.html",
+      "metadata": {
+        "excalidraw-plugin": "parsed",
+        "tags": [
+          "excalidraw"
+        ]
+      }
+    },
+    "quick-draw-data-engineering-file": {
+      "id": "quick-draw-data-engineering-file",
+      "type": "file",
+      "title": "Quick Draw Data Engineering",
+      "slug": "computing/data/noblackbox-radu/quick-draw-data-engineering",
+      "content_path": "/computing/data/noblackbox-radu/quick-draw-data-engineering.html",
+      "metadata": {
+        "tags": [
+          "python",
+          "data"
+        ]
+      }
+    },
+    "noblackbox-radu-dir": {
+      "id": "noblackbox-radu-dir",
+      "type": "directory",
+      "title": "Noblackbox Radu",
+      "slug": "computing/data/noblackbox-radu",
+      "content_path": "/computing/data/noblackbox-radu/README.html",
+      "children": [
+        "css-lang-file",
+        "js-lang-file",
+        "present-draw-class-devexcalidraw-file",
+        "quick-draw-data-engineering-file"
+      ],
+      "metadata": {
+        "tags": [
+          "data",
+          "javascript",
+          "data_science",
+          "html",
+          "web_dev",
+          "hoisting"
+        ]
+      }
+    },
+    "fundamentals-file": {
+      "id": "fundamentals-file",
+      "type": "file",
+      "title": "Fundamentals",
+      "slug": "computing/data/vision-pytorch-reddy/fundamentals",
+      "content_path": "/computing/data/vision-pytorch-reddy/fundamentals.html",
+      "metadata": {
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "nn-tmp-1excalidraw-file": {
+      "id": "nn-tmp-1excalidraw-file",
+      "type": "file",
+      "title": "Nn Tmp 1.Excalidraw",
+      "slug": "computing/data/vision-pytorch-reddy/nn-tmp-1excalidraw",
+      "content_path": "/computing/data/vision-pytorch-reddy/nn-tmp-1excalidraw.html",
+      "metadata": {
+        "excalidraw-plugin": "parsed",
+        "tags": [
+          "excalidraw"
+        ]
+      }
+    },
+    "nn-tmpexcalidraw-file": {
+      "id": "nn-tmpexcalidraw-file",
+      "type": "file",
+      "title": "Nn Tmp.Excalidraw",
+      "slug": "computing/data/vision-pytorch-reddy/nn-tmpexcalidraw",
+      "content_path": "/computing/data/vision-pytorch-reddy/nn-tmpexcalidraw.html",
+      "metadata": {
+        "excalidraw-plugin": "parsed",
+        "tags": [
+          "excalidraw"
+        ]
+      }
+    },
+    "q-file": {
+      "id": "q-file",
+      "type": "file",
+      "title": "Q",
+      "slug": "computing/data/vision-pytorch-reddy/q",
+      "content_path": "/computing/data/vision-pytorch-reddy/q.html"
+    },
+    "vision-pytorch-reddy-dir": {
+      "id": "vision-pytorch-reddy-dir",
+      "type": "directory",
+      "title": "Vision Pytorch Reddy",
+      "slug": "computing/data/vision-pytorch-reddy",
+      "content_path": "/computing/data/vision-pytorch-reddy/README.html",
+      "children": [
+        "fundamentals-file",
+        "nn-tmp-1excalidraw-file",
+        "nn-tmpexcalidraw-file",
+        "q-file"
+      ],
+      "metadata": {
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "grpc-file": {
+      "id": "grpc-file",
+      "type": "file",
+      "title": "Grpc",
+      "slug": "computing/data/grpc",
+      "content_path": "/computing/data/grpc.html"
+    },
+    "parametric-and-non-parametric-algorithms-file": {
+      "id": "parametric-and-non-parametric-algorithms-file",
+      "type": "file",
+      "title": "Parametric And Non Parametric Algorithms",
+      "slug": "computing/data/parametric-and-non-parametric-algorithms",
+      "content_path": "/computing/data/parametric-and-non-parametric-algorithms.html",
+      "metadata": {
+        "tags": [
+          "data",
+          "algorithm",
+          "machine_learning"
+        ]
+      }
+    },
+    "data-dir": {
+      "id": "data-dir",
+      "type": "directory",
+      "title": "Data",
+      "slug": "computing/data",
+      "content_path": "/computing/data/README.html",
+      "children": [
+        "beginnerpytorchopencv-dir",
+        "design-llm-app-s-pai-dir",
+        "docai-course-dir",
+        "data-graphics",
+        "karpathynn-zero2hero-dir",
+        "knowledgegraph-springerbrief-dir",
+        "noblackbox-radu-dir",
+        "vision-pytorch-reddy-dir",
+        "grpc-file",
+        "parametric-and-non-parametric-algorithms-file"
+      ]
+    },
+    "caolesce-file": {
+      "id": "caolesce-file",
+      "type": "file",
+      "title": "Caolesce",
+      "slug": "computing/databasing/caolesce",
+      "content_path": "/computing/databasing/caolesce.html",
+      "metadata": {
+        "tags": [
+          "sql",
+          "coalesce"
+        ]
+      }
+    },
+    "case-statements-file": {
+      "id": "case-statements-file",
+      "type": "file",
+      "title": "Case Statements",
+      "slug": "computing/databasing/case-statements",
+      "content_path": "/computing/databasing/case-statements.html",
+      "metadata": {
+        "tags": [
+          "sql",
+          "case"
+        ]
+      }
+    },
+    "init-manu-bizsql-file": {
+      "id": "init-manu-bizsql-file",
+      "type": "file",
+      "title": "Init Manu Biz.Sql",
+      "slug": "computing/databasing/init-manu-bizsql",
+      "content_path": "/computing/databasing/init-manu-bizsql.html"
+    },
+    "initialize-file": {
+      "id": "initialize-file",
+      "type": "file",
+      "title": "Initialize",
+      "slug": "computing/databasing/initialize",
+      "content_path": "/computing/databasing/initialize.html"
+    },
+    "manu-biz-schemasql-file": {
+      "id": "manu-biz-schemasql-file",
+      "type": "file",
+      "title": "Manu Biz Schema.Sql",
+      "slug": "computing/databasing/manu-biz-schemasql",
+      "content_path": "/computing/databasing/manu-biz-schemasql.html"
+    },
+    "open-database-connectivity-file": {
+      "id": "open-database-connectivity-file",
+      "type": "file",
+      "title": "Open Database Connectivity",
+      "slug": "computing/databasing/open-database-connectivity",
+      "content_path": "/computing/databasing/open-database-connectivity.html",
+      "metadata": {
+        "tags": [
+          "database",
+          "sql",
+          "microsoft",
+          "odbc"
+        ]
+      }
+    },
+    "partitions-file": {
+      "id": "partitions-file",
+      "type": "file",
+      "title": "Partitions",
+      "slug": "computing/databasing/partitions",
+      "content_path": "/computing/databasing/partitions.html",
+      "metadata": {
+        "tags": [
+          "sql",
+          "partition"
+        ]
+      }
+    },
+    "relation-model-file": {
+      "id": "relation-model-file",
+      "type": "file",
+      "title": "Relation Model",
+      "slug": "computing/databasing/relation-model",
+      "content_path": "/computing/databasing/relation-model.html",
+      "metadata": {
+        "tags": [
+          "database",
+          "sql",
+          "data",
+          "relational"
+        ]
+      }
+    },
+    "structured-query-language-file": {
+      "id": "structured-query-language-file",
+      "type": "file",
+      "title": "Structured Query Language",
+      "slug": "computing/databasing/structured-query-language",
+      "content_path": "/computing/databasing/structured-query-language.html",
+      "metadata": {
+        "tags": [
+          "datbase",
+          "sql",
+          "data",
+          "relational"
+        ]
+      }
+    },
+    "what-is-a-database-file": {
+      "id": "what-is-a-database-file",
+      "type": "file",
+      "title": "What Is A Database",
+      "slug": "computing/databasing/what-is-a-database",
+      "content_path": "/computing/databasing/what-is-a-database.html",
+      "metadata": {
+        "tags": [
+          "datbase",
+          "sql",
+          "data"
+        ]
+      }
+    },
+    "databasing-dir": {
+      "id": "databasing-dir",
+      "type": "directory",
+      "title": "Databasing",
+      "slug": "computing/databasing",
+      "content_path": "/computing/databasing/README.html",
+      "children": [
+        "caolesce-file",
+        "case-statements-file",
+        "init-manu-bizsql-file",
+        "initialize-file",
+        "manu-biz-schemasql-file",
+        "open-database-connectivity-file",
+        "partitions-file",
+        "relation-model-file",
+        "structured-query-language-file",
+        "what-is-a-database-file"
+      ]
+    },
+    "marimo-notebooks-dir": {
+      "id": "marimo-notebooks-dir",
+      "type": "directory",
+      "title": "Marimo Notebooks",
+      "slug": "computing/marimo-notebooks",
+      "content_path": "/computing/marimo-notebooks/README.html",
+      "children": []
+    },
+    "computing-dir": {
+      "id": "computing-dir",
+      "type": "directory",
+      "title": "Computing",
+      "slug": "computing",
+      "content_path": "/computing/README.html",
+      "children": [
+        "commandline-dir",
+        "data-dir",
+        "databasing-dir",
+        "marimo-notebooks-dir"
+      ]
+    },
+    "gis-graphics": {
+      "id": "gis-graphics",
+      "type": "graphics",
+      "slug": "gis/graphics",
+      "content_path": "/gis/graphics/",
+      "assets": [
+        "3_projects_distorts.png",
+        "Circle_fract.jpeg",
+        "Raster_v_Vector.png",
+        "coordinate_conventions.png",
+        "coordinate_sphere_measurements.png",
+        "data_classification_types.png",
+        "equal_area_project.png",
+        "equal_interval_pros_cons.png",
+        "free_gis_data.png",
+        "geoid_1.png",
+        "geoid_2.png",
+        "lambert_conformal_conic_project.png",
+        "lines_V_angular_lat_long.png",
+        "oblate_ellipsoid.png",
+        "small_mercator_projection.png",
+        "spherical_coordinates.png",
+        "state_plane_zones.png",
+        "trans_mercator_project.png",
+        "weed.png"
+      ]
+    },
+    "sda-fischer-wang-graphics": {
+      "id": "sda-fischer-wang-graphics",
+      "type": "graphics",
+      "slug": "gis/sda-fischer-wang/graphics",
+      "content_path": "/gis/sda-fischer-wang/graphics/",
+      "assets": [
+        "SDA_book_cover.png",
+        "bishop.png",
+        "create_spatial_weight_mattrix.png",
+        "queen.png",
+        "rook.png",
+        "spatial_mat_explained.png",
+        "spatial_matrix.png"
+      ]
+    },
+    "book-citation-file": {
+      "id": "book-citation-file",
+      "type": "file",
+      "title": "Book Citation",
+      "slug": "gis/sda-fischer-wang/book-citation",
+      "content_path": "/gis/sda-fischer-wang/book-citation.html",
+      "metadata": {
+        "tags": [
+          "data",
+          "spatial_data_science",
+          "gis",
+          "database",
+          "map",
+          "data_analysis",
+          "fischer_wang_book"
+        ]
+      }
+    },
+    "mathja-file": {
+      "id": "mathja-file",
+      "type": "file",
+      "title": "Mathja",
+      "slug": "gis/sda-fischer-wang/mathja",
+      "content_path": "/gis/sda-fischer-wang/mathja.html"
+    },
+    "sda-fischer-wang-dir": {
+      "id": "sda-fischer-wang-dir",
+      "type": "directory",
+      "title": "Sda Fischer Wang",
+      "slug": "gis/sda-fischer-wang",
+      "content_path": "/gis/sda-fischer-wang/README.html",
+      "children": [
+        "sda-fischer-wang-graphics",
+        "book-citation-file",
+        "intro-file",
+        "mathja-file"
+      ],
+      "metadata": {
+        "tags": [
+          "gis"
+        ]
+      }
+    },
+    "sds-anselin-dir": {
+      "id": "sds-anselin-dir",
+      "type": "directory",
+      "title": "Sds Anselin",
+      "slug": "gis/sds-anselin",
+      "content_path": "/gis/sds-anselin/README.html",
+      "children": [
+        "intro-file"
+      ],
+      "metadata": {
+        "tags": [
+          "gis"
+        ]
+      }
+    },
+    "arcgis-pro-file": {
+      "id": "arcgis-pro-file",
+      "type": "file",
+      "title": "Arcgis Pro",
+      "slug": "gis/arcgis-pro",
+      "content_path": "/gis/arcgis-pro.html"
+    },
+    "data-classification-file": {
+      "id": "data-classification-file",
+      "type": "file",
+      "title": "Data Classification",
+      "slug": "gis/data-classification",
+      "content_path": "/gis/data-classification.html",
+      "metadata": {
+        "tags": [
+          "gis",
+          "data",
+          "data_classification"
+        ]
+      }
+    },
+    "data-models-file": {
+      "id": "data-models-file",
+      "type": "file",
+      "title": "Data Models",
+      "slug": "gis/data-models",
+      "content_path": "/gis/data-models.html",
+      "metadata": {
+        "tags": [
+          "gis",
+          "datum",
+          "coordinates",
+          "spatial_data_model",
+          "layers",
+          "thematic_layer",
+          "planar_coordinate_system",
+          "xy",
+          "spherical_coordinate_system",
+          "degree_minute_second",
+          "decimal_degree",
+          "radian"
+        ]
+      }
+    },
+    "file-types-file": {
+      "id": "file-types-file",
+      "type": "file",
+      "title": "File Types",
+      "slug": "gis/file-types",
+      "content_path": "/gis/file-types.html",
+      "metadata": {
+        "tags": [
+          "gis",
+          "file_types",
+          "shapefile",
+          "geodatabase",
+          "vector",
+          "raster",
+          "gis_data"
+        ]
+      }
+    },
+    "geographic-coordinate-system-file": {
+      "id": "geographic-coordinate-system-file",
+      "type": "file",
+      "title": "Geographic Coordinate System",
+      "slug": "gis/geographic-coordinate-system",
+      "content_path": "/gis/geographic-coordinate-system.html",
+      "metadata": {
+        "tags": [
+          "coordinate_reference_system",
+          "datum",
+          "crs",
+          "map_projections",
+          "geodesy",
+          "coordinates",
+          "projected_coordinate_system",
+          "gis"
+        ]
+      }
+    },
+    "installing-software-environment-file": {
+      "id": "installing-software-environment-file",
+      "type": "file",
+      "title": "Installing Software Environment",
+      "slug": "gis/installing-software-environment",
+      "content_path": "/gis/installing-software-environment.html",
+      "metadata": {
+        "tags": [
+          "conda",
+          "gis"
+        ]
+      }
+    },
+    "introduction-to-gis-file": {
+      "id": "introduction-to-gis-file",
+      "type": "file",
+      "title": "Introduction To Gis",
+      "slug": "gis/introduction-to-gis",
+      "content_path": "/gis/introduction-to-gis.html",
+      "metadata": {
+        "tags": [
+          "gis",
+          "geometry",
+          "maps",
+          "applied_geography",
+          "geography",
+          "workflow"
+        ]
+      }
+    },
+    "map-design-file": {
+      "id": "map-design-file",
+      "type": "file",
+      "title": "Map Design",
+      "slug": "gis/map-design",
+      "content_path": "/gis/map-design.html",
+      "metadata": {
+        "tags": [
+          "visual_variables",
+          "gis",
+          "map_design",
+          "design",
+          "data_visualization"
+        ]
+      }
+    },
+    "projections-file": {
+      "id": "projections-file",
+      "type": "file",
+      "title": "Projections",
+      "slug": "gis/projections",
+      "content_path": "/gis/projections.html"
+    },
+    "gis-dir": {
+      "id": "gis-dir",
+      "type": "directory",
+      "title": "Gis",
+      "slug": "gis",
+      "content_path": "/gis/README.html",
+      "children": [
+        "gis-graphics",
+        "sda-fischer-wang-dir",
+        "sds-anselin-dir",
+        "arcgis-pro-file",
+        "data-classification-file",
+        "data-models-file",
+        "file-types-file",
+        "geographic-coordinate-system-file",
+        "installing-software-environment-file",
+        "introduction-to-gis-file",
+        "map-design-file",
+        "projections-file"
+      ]
+    },
     "root-graphics": {
       "id": "root-graphics",
       "type": "graphics",
       "slug": "graphics",
       "content_path": "/graphics/",
       "assets": [
-        "ani3.gif",
-        "map.png",
-        "my-logo.jpg"
+        "mini-SPA.excalidraw.png"
       ]
     },
-    "math-graphics": {
-      "id": "math-graphics",
+    "howto-obsidian-graphics": {
+      "id": "howto-obsidian-graphics",
       "type": "graphics",
-      "slug": "math/graphics",
-      "content_path": "/math/graphics/",
+      "slug": "howto-obsidian/graphics",
+      "content_path": "/howto-obsidian/graphics/",
       "assets": [
-        "logseq_Obsidian V. Logseq.png"
+        "Screenshot 2023-08-11 at 8.45.44 AM.png",
+        "Screenshot 2023-08-11 at 9.21.16 AM.png",
+        "custom_css_vars.png",
+        "my_icon.svg",
+        "my_icon_mini.svg",
+        "my_icon_outline_mini.svg",
+        "settings_css_snips.png"
       ]
     },
-    "guess-file": {
-      "id": "guess-file",
+    "developer-console-file": {
+      "id": "developer-console-file",
       "type": "file",
-      "title": "Guess",
-      "slug": "math/guess",
-      "content_path": "/math/guess.html"
-    },
-    "welcome-file": {
-      "id": "welcome-file",
-      "type": "file",
-      "title": "Welcome",
-      "slug": "math/welcome",
-      "content_path": "/math/welcome.html",
+      "title": "Developer Console",
+      "slug": "howto-obsidian/plugin-coding/developer-console",
+      "content_path": "/howto-obsidian/plugin-coding/developer-console.html",
       "metadata": {
         "tags": [
-          "art",
-          "math",
-          "literature"
+          "obsidian",
+          "javascript",
+          "electron",
+          "web_dev",
+          "developer_console"
         ]
       }
+    },
+    "download-plugin-template-file": {
+      "id": "download-plugin-template-file",
+      "type": "file",
+      "title": "Download Plugin Template",
+      "slug": "howto-obsidian/plugin-coding/download-plugin-template",
+      "content_path": "/howto-obsidian/plugin-coding/download-plugin-template.html",
+      "metadata": {
+        "tags": [
+          "git",
+          "obsidian",
+          "obsidian_plugin",
+          "shell",
+          "zsh"
+        ]
+      }
+    },
+    "excalidraw-automate-a-click-file": {
+      "id": "excalidraw-automate-a-click-file",
+      "type": "file",
+      "title": "Excalidraw Automate A Click",
+      "slug": "howto-obsidian/plugin-coding/excalidraw-automate-a-click",
+      "content_path": "/howto-obsidian/plugin-coding/excalidraw-automate-a-click.html",
+      "metadata": {
+        "tags": [
+          "excalidraw",
+          "js",
+          "obsidian",
+          "obsidian_plugin"
+        ]
+      }
+    },
+    "open-in-vim-file": {
+      "id": "open-in-vim-file",
+      "type": "file",
+      "title": "Open In Vim",
+      "slug": "howto-obsidian/plugin-coding/open-in-vim",
+      "content_path": "/howto-obsidian/plugin-coding/open-in-vim.html",
+      "metadata": {
+        "tags": "plugin, obsidian, ts, system_menu"
+      }
+    },
+    "pararefact-file": {
+      "id": "pararefact-file",
+      "type": "file",
+      "title": "Pararefact",
+      "slug": "howto-obsidian/plugin-coding/pararefact",
+      "content_path": "/howto-obsidian/plugin-coding/pararefact.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "task2gantt-file": {
+      "id": "task2gantt-file",
+      "type": "file",
+      "title": "Task2Gantt",
+      "slug": "howto-obsidian/plugin-coding/task2gantt",
+      "content_path": "/howto-obsidian/plugin-coding/task2gantt.html",
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "obsidian_plugin",
+          "typescript",
+          "functional_requirements"
+        ]
+      }
+    },
+    "vim-ex-commands-file": {
+      "id": "vim-ex-commands-file",
+      "type": "file",
+      "title": "Vim Ex Commands",
+      "slug": "howto-obsidian/plugin-coding/vim-ex-commands",
+      "content_path": "/howto-obsidian/plugin-coding/vim-ex-commands.html",
+      "metadata": {
+        "tags": [
+          "vim",
+          "javascript",
+          "typescript",
+          "plugin",
+          "obsidian"
+        ]
+      }
+    },
+    "plugin-coding-dir": {
+      "id": "plugin-coding-dir",
+      "type": "directory",
+      "title": "Plugin Coding",
+      "slug": "howto-obsidian/plugin-coding",
+      "content_path": "/howto-obsidian/plugin-coding/README.html",
+      "children": [
+        "developer-console-file",
+        "download-plugin-template-file",
+        "excalidraw-automate-a-click-file",
+        "open-in-vim-file",
+        "pararefact-file",
+        "task2gantt-file",
+        "vim-ex-commands-file"
+      ],
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "obsidian_plugin"
+        ]
+      }
+    },
+    "print-current-tabs-file": {
+      "id": "print-current-tabs-file",
+      "type": "file",
+      "title": "Print Current Tabs",
+      "slug": "howto-obsidian/vim-plugs/practice-functionality/print-current-tabs",
+      "content_path": "/howto-obsidian/vim-plugs/practice-functionality/print-current-tabs.html"
+    },
+    "practice-functionality-dir": {
+      "id": "practice-functionality-dir",
+      "type": "directory",
+      "title": "Practice Functionality",
+      "slug": "howto-obsidian/vim-plugs/practice-functionality",
+      "content_path": "/howto-obsidian/vim-plugs/practice-functionality/README.html",
+      "children": [
+        "print-current-tabs-file"
+      ],
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "vim"
+        ]
+      }
+    },
+    "extending-obsidians-vim-file": {
+      "id": "extending-obsidians-vim-file",
+      "type": "file",
+      "title": "Extending Obsidian'S Vim",
+      "slug": "howto-obsidian/vim-plugs/extending-obsidians-vim",
+      "content_path": "/howto-obsidian/vim-plugs/extending-obsidians-vim.html",
+      "metadata": {
+        "tags": [
+          "vim",
+          "obsidian",
+          "plugin",
+          "js",
+          "javascript",
+          "ts",
+          "typescript"
+        ]
+      }
+    },
+    "vim-plugs-dir": {
+      "id": "vim-plugs-dir",
+      "type": "directory",
+      "title": "Vim Plugs",
+      "slug": "howto-obsidian/vim-plugs",
+      "content_path": "/howto-obsidian/vim-plugs/README.html",
+      "children": [
+        "practice-functionality-dir",
+        "extending-obsidians-vim-file"
+      ],
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "vim"
+        ]
+      }
+    },
+    "align-images-file": {
+      "id": "align-images-file",
+      "type": "file",
+      "title": "Align Images",
+      "slug": "howto-obsidian/align-images",
+      "content_path": "/howto-obsidian/align-images.html",
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "css"
+        ]
+      }
+    },
+    "css-variables-file": {
+      "id": "css-variables-file",
+      "type": "file",
+      "title": "Css Variables",
+      "slug": "howto-obsidian/css-variables",
+      "content_path": "/howto-obsidian/css-variables.html",
+      "metadata": {
+        "tags": "css, theme, obsidian, modify_theme, custom_theme"
+      }
+    },
+    "custom-callouts-icons-file": {
+      "id": "custom-callouts-icons-file",
+      "type": "file",
+      "title": "Custom Callouts Icons",
+      "slug": "howto-obsidian/custom-callouts-icons",
+      "content_path": "/howto-obsidian/custom-callouts-icons.html",
+      "metadata": {
+        "tags": "css, callouts, custom_icons"
+      }
+    },
+    "dataview-file": {
+      "id": "dataview-file",
+      "type": "file",
+      "title": "Dataview",
+      "slug": "howto-obsidian/dataview",
+      "content_path": "/howto-obsidian/dataview.html",
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "dataview"
+        ]
+      }
+    },
+    "gant-template-file": {
+      "id": "gant-template-file",
+      "type": "file",
+      "title": "Gant Template",
+      "slug": "howto-obsidian/gant-template",
+      "content_path": "/howto-obsidian/gant-template.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "hotkeys-file": {
+      "id": "hotkeys-file",
+      "type": "file",
+      "title": "Hotkeys",
+      "slug": "howto-obsidian/hotkeys",
+      "content_path": "/howto-obsidian/hotkeys.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "markdown-shortcuts-file": {
+      "id": "markdown-shortcuts-file",
+      "type": "file",
+      "title": "Markdown Shortcuts",
+      "slug": "howto-obsidian/markdown-shortcuts",
+      "content_path": "/howto-obsidian/markdown-shortcuts.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "mathjax-file": {
+      "id": "mathjax-file",
+      "type": "file",
+      "title": "Mathjax",
+      "slug": "howto-obsidian/mathjax",
+      "content_path": "/howto-obsidian/mathjax.html",
+      "metadata": {
+        "tags": [
+          "latex",
+          "obsidian",
+          "mathjax",
+          "notation"
+        ]
+      }
+    },
+    "my-icon-file": {
+      "id": "my-icon-file",
+      "type": "file",
+      "title": "My Icon",
+      "slug": "howto-obsidian/my-icon",
+      "content_path": "/howto-obsidian/my-icon.html",
+      "metadata": {
+        "excalidraw-plugin": "parsed",
+        "tags": [
+          "excalidraw"
+        ],
+        "excalidraw-export-svgpadding": 0,
+        "excalidraw-export-transparent": true,
+        "excalidraw-export-dark": false
+      }
+    },
+    "plugin-ideas-file": {
+      "id": "plugin-ideas-file",
+      "type": "file",
+      "title": "Plugin Ideas",
+      "slug": "howto-obsidian/plugin-ideas",
+      "content_path": "/howto-obsidian/plugin-ideas.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "run-code-file": {
+      "id": "run-code-file",
+      "type": "file",
+      "title": "Run Code",
+      "slug": "howto-obsidian/run-code",
+      "content_path": "/howto-obsidian/run-code.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "search-notes-file": {
+      "id": "search-notes-file",
+      "type": "file",
+      "title": "Search Notes",
+      "slug": "howto-obsidian/search-notes",
+      "content_path": "/howto-obsidian/search-notes.html",
+      "metadata": {
+        "tags": [
+          "obsidian",
+          "search"
+        ]
+      }
+    },
+    "tables-file": {
+      "id": "tables-file",
+      "type": "file",
+      "title": "Tables",
+      "slug": "howto-obsidian/tables",
+      "content_path": "/howto-obsidian/tables.html"
+    },
+    "toy-plugins-file": {
+      "id": "toy-plugins-file",
+      "type": "file",
+      "title": "Toy Plugins",
+      "slug": "howto-obsidian/toy-plugins",
+      "content_path": "/howto-obsidian/toy-plugins.html",
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "howto-obsidian-dir": {
+      "id": "howto-obsidian-dir",
+      "type": "directory",
+      "title": "Howto Obsidian",
+      "slug": "howto-obsidian",
+      "content_path": "/howto-obsidian/README.html",
+      "children": [
+        "howto-obsidian-graphics",
+        "plugin-coding-dir",
+        "vim-plugs-dir",
+        "align-images-file",
+        "css-variables-file",
+        "custom-callouts-icons-file",
+        "dataview-file",
+        "gant-template-file",
+        "hotkeys-file",
+        "markdown-shortcuts-file",
+        "mathjax-file",
+        "my-icon-file",
+        "plugin-ideas-file",
+        "run-code-file",
+        "search-notes-file",
+        "tables-file",
+        "toy-plugins-file"
+      ],
+      "metadata": {
+        "tags": [
+          "obsidian"
+        ]
+      }
+    },
+    "essence-of-calc-g-sanderson-dir": {
+      "id": "essence-of-calc-g-sanderson-dir",
+      "type": "directory",
+      "title": "Essence Of Calc G Sanderson",
+      "slug": "math/essence-of-calc-g-sanderson",
+      "content_path": "/math/essence-of-calc-g-sanderson/README.html",
+      "children": []
+    },
+    "logarithms-file": {
+      "id": "logarithms-file",
+      "type": "file",
+      "title": "Logarithms",
+      "slug": "math/logarithms",
+      "content_path": "/math/logarithms.html"
     },
     "math-dir": {
       "id": "math-dir",
@@ -49,111 +1413,16 @@
       "slug": "math",
       "content_path": "/math/README.html",
       "children": [
-        "math-graphics",
-        "guess-file",
-        "welcome-file"
-      ],
-      "metadata": {
-        "tags": [
-          "math",
-          "art",
-          "numbers"
-        ]
-      }
-    },
-    "moss-graphics": {
-      "id": "moss-graphics",
-      "type": "graphics",
-      "slug": "moss/graphics",
-      "content_path": "/moss/graphics/",
-      "assets": [
-        "hap.png"
+        "essence-of-calc-g-sanderson-dir",
+        "logarithms-file"
       ]
     },
-    "moss-1-graphics": {
-      "id": "moss-1-graphics",
-      "type": "graphics",
-      "slug": "moss/moss-1/graphics",
-      "content_path": "/moss/moss-1/graphics/",
-      "assets": [
-        "Screenshot 2026-02-06 at 6.27.09 PM.png",
-        "f.png"
-      ]
-    },
-    "look-file": {
-      "id": "look-file",
+    "a-note-for-fun-file": {
+      "id": "a-note-for-fun-file",
       "type": "file",
-      "title": "Look",
-      "slug": "moss/moss-1/look",
-      "content_path": "/moss/moss-1/look.html",
-      "metadata": {
-        "tags": [
-          "art",
-          "literature"
-        ]
-      }
-    },
-    "moss-1-dir": {
-      "id": "moss-1-dir",
-      "type": "directory",
-      "title": "Moss 1",
-      "slug": "moss/moss-1",
-      "content_path": "/moss/moss-1/README.html",
-      "children": [
-        "moss-1-graphics",
-        "look-file"
-      ]
-    },
-    "moss/look-file": {
-      "id": "moss/look-file",
-      "type": "file",
-      "title": "Look",
-      "slug": "moss/look",
-      "content_path": "/moss/look.html"
-    },
-    "moss-dir": {
-      "id": "moss-dir",
-      "type": "directory",
-      "title": "Moss",
-      "slug": "moss",
-      "content_path": "/moss/README.html",
-      "children": [
-        "moss-graphics",
-        "moss-1-dir",
-        "moss/look-file"
-      ],
-      "metadata": {
-        "tags": [
-          "nature",
-          "forest"
-        ]
-      }
-    },
-    "excuses-file": {
-      "id": "excuses-file",
-      "type": "file",
-      "title": "Excuses",
-      "slug": "excuses",
-      "content_path": "/excuses.html",
-      "metadata": {
-        "faces": [
-          "gram",
-          "colin"
-        ],
-        "tags": [
-          "literature",
-          "art"
-        ],
-        "party_list": [
-          "mo",
-          "so\u00a0",
-          "to"
-        ],
-        "secret": 987,
-        "host": false,
-        "created-on": "2026-02-07T14:04:00",
-        "due-date": "2026-02-13"
-      }
+      "title": "A Note For Fun",
+      "slug": "a-note-for-fun",
+      "content_path": "/a-note-for-fun.html"
     },
     "root-dir": {
       "id": "root-dir",
@@ -162,18 +1431,14 @@
       "slug": "root",
       "content_path": "/readme.html",
       "children": [
+        "backups-dir",
+        "computing-dir",
+        "gis-dir",
         "root-graphics",
+        "howto-obsidian-dir",
         "math-dir",
-        "moss-dir",
-        "excuses-file"
-      ],
-      "metadata": {
-        "tags": [
-          "art",
-          "literature",
-          "math"
-        ]
-      }
+        "a-note-for-fun-file"
+      ]
     }
   }
 }

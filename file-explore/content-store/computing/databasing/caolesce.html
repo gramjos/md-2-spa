@@ -1,0 +1,9 @@
+<p><code>COALESCE</code> function in SQL Server returns the first non-<code>NULL</code> expression among its arguments.
+<code>COALESCE(MiddleName, 'N/A')</code> checks if MiddleName is NULL. If it is, it returns 'N/A'; otherwise, it returns the MiddleName value.</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT 
+    FirstName,
+    LastName,
+    COALESCE(MiddleName, 'N/A') AS MiddleName
+FROM 
+    Employees;
+</code></pre></div>

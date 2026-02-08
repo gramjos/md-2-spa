@@ -1,0 +1,132 @@
+<p><code>PARTITION</code> a row-wise grouping mechanism where expression on this grouped row can become column values.
+Set up a test data base</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">CREATE TABLE PurchaseOrders (
+    PurchaseOrderNumber CHAR(8),
+    MaterialID VARCHAR(15),
+    Price DECIMAL(10, 2),
+    Vendor VARCHAR(12),
+    PurchaseDate DATE
+);
+
+-- Insert sample data
+INSERT INTO PurchaseOrders (PurchaseOrderNumber, MaterialID, Price, Vendor, PurchaseDate)
+VALUES
+('PO123456', 'MAT001', 509.20, 'VendorA', '2024-08-01'),
+('PO12345a', 'MAT001', 509.20, 'VendorA', '2024-05-01'),
+('PO222222', 'MAT001', 522.20, 'VendorA', '2024-08-11'),
+('PO123462', 'MAT001', 600.25, 'VendorB', '2024-08-07'),
+('PO111111', 'MAT001', 599.25, 'VendorB', '2024-08-01'), 
+('PO123459', 'MAT001', 610.00, 'VendorB', '2024-08-04'),
+('PO12345c', 'MAT001', 600.11, 'VendorC', '2024-04-04'),
+('PO1234cc', 'MAT001', 601.11, 'VendorC', '2024-05-04'),
+('PO123ccc', 'MAT001', 621.11, 'VendorC', '2024-06-04'),
+
+('PO123457', 'MAT002', 799.00, 'VendorA', '2024-08-02'),
+('PO123460', 'MAT002', 811.15, 'VendorA', '2024-08-05'),
+('PO1bbbbb', 'MAT002', 801.00, 'VendorB', '2024-06-02'),
+('PO12cccc', 'MAT002', 811.15, 'VendorC', '2024-04-05'),
+('PO1bbbba', 'MAT002', 814.00, 'VendorB', '2024-07-02'),
+('PO12ccca', 'MAT002', 898.15, 'VendorC', '2024-05-05'),
+
+('PO123458', 'MAT003', 700.00, 'VendorA', '2024-08-03'),
+('PO123460', 'MAT003', 811.15, 'VendorA', '2024-08-05'),
+('PO123461', 'MAT003', 400.22, 'VendorB', '2024-07-06'), 
+('PO12345z', 'MAT003', 700.00, 'VendorB', '2024-05-03'),
+('PO123a6z', 'MAT003', 811.15, 'VendorC', '2024-06-15'),
+('PO12346z', 'MAT003', 400.22, 'VendorC', '2024-07-22'); 
+</code></pre></div>
+<p><code>ROW_NUMBER</code> - the row count within a grouping.
+<code>PARTITION</code> (<em>group</em>) by vendor and sort by price and add a row count column within the previous calculation</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT 
+    PurchaseOrderNumber,
+    Vendor,
+    Price,
+    ROW_NUMBER() OVER (PARTITION BY Vendor ORDER BY Price DESC) AS RankWithinVendor
+FROM 
+    PurchaseOrders;
+</code></pre></div>
+<p>A running total</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT 
+    MaterialID,
+    PurchaseOrderNumber,
+    Price,
+    SUM(Price) OVER (PARTITION BY MaterialID ORDER BY PurchaseDate) AS RunningTotal
+FROM 
+    PurchaseOrders;
+</code></pre></div>
+<p>To find the average price per material for each vendor</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT 
+    Vendor,
+    MaterialID,
+    AVG(Price) AS AvgPricePerMaterial
+FROM 
+    PurchaseOrders
+GROUP BY 
+    Vendor,
+    MaterialID;
+</code></pre></div>
+<p>To find the average price per material for each vendor, but just for the last two months
+First build a column of 2 month back timestamps for each record</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT 
+	*, DATEADD(MONTH, -2, MAX(PurchaseDate) OVER ()) AS TwoMonthsAgo 
+FROM 
+	PurchaseOrders
+</code></pre></div>
+<p>Now we can use the column in a where clause to filter out before averaging</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">WITH LastTwoMonths AS (
+    SELECT 
+        *,
+        DATEADD(MONTH, -2, MAX(PurchaseDate) OVER ()) AS TwoMonthsAgo
+    FROM 
+        PurchaseOrders
+)
+SELECT 
+    Vendor,
+    MaterialID,
+    CAST(AVG(Price) AS DECIMAL(10, 2)) AS AvgPricePerMaterial
+FROM 
+    LastTwoMonths
+WHERE 
+    PurchaseDate &gt;= TwoMonthsAgo
+GROUP BY 
+    Vendor,
+    MaterialID;
+</code></pre></div>
+<p>To find the average price per material for each vendor, base the average on the last <code>n</code> (where <code>n</code> is an integer) purchase orders
+First, we need to assign a <code>ROWNUMBER</code> to each purchase order material by vendor by sequential date</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT 
+	Vendor,
+	MaterialID,
+	Price,
+	PurchaseDate,
+	ROW_NUMBER() OVER (PARTITION BY Vendor, MaterialID ORDER BY PurchaseDate DESC) AS RowNum
+FROM 
+	PurchaseOrders
+</code></pre></div>
+<p>Now we can use <code>RowNum</code> to filter when to start calculating an average</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">DECLARE @N INT;
+SET @N = 5; -- Replace 5 with the desired number of last purchases
+
+WITH RankedPurchases AS (
+    SELECT 
+        Vendor,
+        MaterialID,
+        Price,
+        PurchaseDate,
+        ROW_NUMBER() OVER (PARTITION BY Vendor, MaterialID ORDER BY PurchaseDate DESC) AS RowNum
+    FROM 
+        PurchaseOrders
+)
+SELECT 
+    Vendor,
+    MaterialID,
+    CAST(AVG(Price) AS DECIMAL(10, 2)) AS AvgPricePerMaterial
+FROM 
+    RankedPurchases
+WHERE 
+    RowNum &lt;= @N
+GROUP BY 
+    Vendor,
+    MaterialID;
+
+</code></pre></div>

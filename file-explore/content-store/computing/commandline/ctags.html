@@ -1,0 +1,34 @@
+<p>To create a tags file in the local directory.</p>
+<div class="code-block"><span class="code-lang">shell</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-shell">ctags -R .
+</code></pre></div>
+<p>to be more explicit</p>
+<div class="code-block"><span class="code-lang">zsh</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-zsh">$ tree
+.
+├── data
+│   ├── bnsf_rail.geojson
+│   └── pro_pic.jpg
+├── index.html
+├── js
+│   ├── app.js
+│   ├── basemap-control.js
+│   ├── charts-panel.js
+│   ├── landing-page.js
+│   ├── modal-info.js
+│   ├── table-interactions.js
+│   └── table-resize.js
+├── package.json
+├── README.md
+├── server.js
+├── styles.css
+
+$ ctags -R --languages=JavaScript,HTML,CSS \
+  --exclude=node_modules \
+  --exclude=dist \
+  --exclude=.git \
+  --exclude='*.geojson' \
+  --exclude='*.jpg'
+
+</code></pre></div>
+<p>copyme version</p>
+<div class="code-block"><span class="code-lang">zsh</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-zsh">ctags -R --languages=JavaScript,HTML,CSS --exclude=node_modules --exclude=dist --exclude=.git --exclude='*.geojson' -exclude='*.jpg'
+</code></pre></div>

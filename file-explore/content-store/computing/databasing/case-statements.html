@@ -1,0 +1,13 @@
+<p>Feature creation based on columns value</p>
+<div class="code-block"><span class="code-lang">sql</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-sql">SELECT
+    Column1,
+    Column2,
+    CASE 
+        WHEN Column1 IS NULL AND Column2 IS NOT NULL THEN Column2
+        WHEN Column2 IS NULL AND Column1 IS NOT NULL THEN Column1
+        WHEN Column1 IS NOT NULL AND Column2 IS NOT NULL AND Column1 &lt;&gt; Column2 THEN Column1 + ', ' + Column2
+        ELSE Column1 -- or Column2, since they are the same if both are not null and equal
+    END AS NewColumn
+FROM
+    YourTableName;
+</code></pre></div>

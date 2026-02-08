@@ -1,0 +1,64 @@
+<ul>
+<li>WORK mainly from the USB drive? maybe for some ITEMS
+one more device?</li>
+</ul>
+<p>Free SaS</p>
+<p>| service | storage amount |
+| ---- | ---- |
+| Google Drive | 15g |
+| Mega | 20g |
+| Microsoft OneDrive | 5g |
+| Dropbox | 2g |
+| Git | ? |</p>
+<p>USB drives</p>
+<p>| device | storage amount |
+|--------- | --------- |
+| G Drive | 1t |
+| PNY | 128g |
+| samsung | 128g |
+| samsung mini | 32g |
+| sandisk Cruz slider | 16g |</p>
+<h5>The Normal Backup process</h5>
+<p>Files that are currently on my computer are a subset
+G Drive hold everything
+Photos are on Samsung
+All else is on PNY</p>
+<h5>Zsh, Vim and aliases</h5>
+<ul>
+<li>source THESE files from the USB</li>
+</ul>
+<h2>Some things should not be back up</h2>
+<h3>ALL new libraries and virtual environments will not be next to their projects</h3>
+<h3>the commons</h3>
+<p>USE g_joss/Developer for code packages for USE
+store all VIRTUAL env in ~/.envs</p>
+<h4><code>rsync</code></h4>
+<p><code>$ rsync -azPv ~/Documents/* /Volumes/TREE_RINGS/Documents_Archive</code></p>
+<p><code>-a</code></p>
+<ul>
+<li>equivalent to <code>-rlptgoD</code><ul>
+<li>recursion</li>
+<li>links</li>
+<li><code>-p, --perms</code></li>
+<li>This option causes the receiving rsync to set THE destination</li>
+</ul>
+</li>
+</ul>
+<p>              permissions to be the same as the source permissions.
+<code>-z</code></p>
+<ul>
+<li>compress transfer
+<code>-P</code></li>
+<li>progress indicator
+<code>-v</code></li>
+<li>verbose</li>
+</ul>
+<hr />
+<p>I used the below command to copy from the M4 to the spinning disk G drive</p>
+<div class="code-block"><span class="code-lang">shell</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-shell">gramjos ➡️  /Volumes/g store
+
+🌀 rsync -azPv /Users/gramjos/ .
+</code></pre></div>
+<p>one more time
+<code>~/.MEGA-RECOVERYKEY.txt</code>
+location key for more STORAGE</p>

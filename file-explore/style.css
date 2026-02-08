@@ -302,11 +302,9 @@ a:hover { text-decoration: underline; }
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
 .content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
 
-/* Content images: scale to 50% of natural size, constrained by frame */
+/* Content images: constrain to 50% of container width */
 .content-body img {
-	transform: scale(0.5);
-	transform-origin: top left;
-	max-width: 200%; /* so 50% scale fits within the frame */
+	max-width: 50%;
 	height: auto;
 	display: block;
 	margin-bottom: 1em;

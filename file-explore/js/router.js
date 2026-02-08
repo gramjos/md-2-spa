@@ -323,7 +323,16 @@ export class Router {
 			const response = await fetch(`/content-store${routeData.contentPath}`)
 			if (!response.ok) throw new Error('Not found')
 			const html = await response.text()
-			contentBody.innerHTML = html
+
+			// Sanitize: strip <style>, <script>, <iframe> and on* attributes
+			const doc = new DOMParser().parseFromString(html, 'text/html')
+			doc.querySelectorAll('style, script, iframe').forEach(el => el.remove())
+			doc.querySelectorAll('*').forEach(el => {
+				for (const attr of [...el.attributes]) {
+					if (attr.name.startsWith('on')) el.removeAttribute(attr.name)
+				}
+			})
+			contentBody.innerHTML = doc.body.innerHTML
 			
 			// Rewrite asset paths (images, videos, etc.)
 			// Handles both relative paths and absolute /graphics/... paths

@@ -1,0 +1,27 @@
+<h5>Removing character (singular)</h5>
+<p>given the assignment,
+<code>$ x=./screens/location_detail/text_section.dart</code>
+task, remove the leading period
+<code>$ echo ${x#./}</code>
+<code>screens/location_detail/text_section.dart</code></p>
+<h3><strong>General Rules</strong></h3>
+<h5>Replacing Sub-strings</h5>
+<ul>
+<li><code>${VAR/pattern/replacement}</code>: Replaces the first occurrence of <code>pattern</code> in <code>VAR</code> with <code>replacement</code>.</li>
+<li><code>${VAR//pattern/replacement}</code>: Replaces all occurrences of <code>pattern</code> in <code>VAR</code> with <code>replacement</code>.</li>
+<li><code>${VAR/#pattern/replacement}</code>: Replaces <code>pattern</code> at the beginning of <code>VAR</code> with <code>replacement</code>.</li>
+<li><code>${VAR/%pattern/replacement}</code>: Replaces <code>pattern</code> at the end of <code>VAR</code> with <code>replacement</code>.</li>
+</ul>
+<h5>Default Values</h5>
+<ul>
+<li><code>${VAR:-default}</code>: Use <code>default</code> if <code>VAR</code> is unset or null.</li>
+<li><code>${VAR:=default}</code>: Assign <code>default</code> to <code>VAR</code> if <code>VAR</code> is unset or null.</li>
+<li><code>${VAR:+value}</code>: Use <code>value</code> if <code>VAR</code> is set.</li>
+<li><code>${VAR:?message}</code>: Display an error message if <code>VAR</code> is unset or null.</li>
+</ul>
+<h5>Indirection</h5>
+<p><code>${!VAR}</code>: Use the value of the variable <em>whose</em> name is the value of <code>VAR</code></p>
+<div class="code-block"><span class="code-lang">zsh</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-zsh">ref=&quot;foo&quot;
+foo=&quot;bar&quot;
+echo ${!ref}  # Output: bar (the value of the variable named in ref)
+</code></pre></div>

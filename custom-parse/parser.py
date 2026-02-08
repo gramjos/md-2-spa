@@ -205,6 +205,23 @@ def create_parser(manifest: dict) -> mistune.Markdown:
         plugins=['math', plugin_wiki_embed, plugin_wiki_link],
     )
 
+    # Sanitize: strip dangerous raw HTML tags after rendering
+    _original_call = md.__class__.__call__
+
+    def _sanitized_call(self, text):
+        html = _original_call(self, text)
+        # Remove <style>, <script>, <iframe> tags and their content
+        html = re.sub(r'<style[^>]*>.*?</style>', '', html, flags=re.DOTALL | re.IGNORECASE)
+        html = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.DOTALL | re.IGNORECASE)
+        html = re.sub(r'<iframe[^>]*>.*?</iframe>', '', html, flags=re.DOTALL | re.IGNORECASE)
+        # Remove on* event handler attributes
+        html = re.sub(r'\s+on\w+\s*=\s*"[^"]*"', '', html, flags=re.IGNORECASE)
+        html = re.sub(r"\s+on\w+\s*=\s*'[^']*'", '', html, flags=re.IGNORECASE)
+        return html
+
+    import types
+    md.__call__ = types.MethodType(_sanitized_call, md)
+
     # Attach manifest indexes to the renderer for link/image resolution
     title_index = build_title_index(manifest)
     slug_index = build_slug_index(manifest)

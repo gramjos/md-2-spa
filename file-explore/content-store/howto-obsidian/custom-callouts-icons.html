@@ -1,0 +1,37 @@
+<h4>Callouts</h4>
+<p>Callouts are foldable boxes (when exported to .png they remain open). The box color and icon can be customized.
+<strong>Sources</strong>: Zolt's HowTo <a href="https://www.youtube.com/watch?v=tSSc42tCVto">video</a>and <a href="https://help.obsidian.md/Editing+and+formatting/Callouts">Obsidian Docu</a></p>
+<h3>Making a Callout</h3>
+<blockquote>
+<p>[!NOTE] Title
+Contents</p>
+</blockquote>
+<p>After the icon declaration closing bracket, a '-' or '+' dictates the default behavior for open or close callout.</p>
+<p><a href="https://lucide.dev/">Lucid Dev </a> and  <a href="https://fontawesome.com/icons">Font Awesome</a> have free icons</p>
+<h6>To enable custom CSS</h6>
+<p>In <strong>Settings</strong> &gt; <strong>Appearance</strong> &gt; <strong>CSS Snippets</strong>
+<code>custom_callout_icons.css</code> modifies <a href="#">CSS_Variables</a>
+<code>$ cat custom_callout_icons.css | head -c 250</code></p>
+<div class="code-block"><span class="code-lang">css</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-css">.callout[data-callout=&quot;cci&quot;] {
+    --callout-color: 0, 0, 0;
+    --callout-icon: '&lt;svg version=&quot;1.1&quot; id=&quot;Layer_1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; x=&quot;0px&quot; y=&quot;0px&quot; width=&quot;100%&quot; viewBox=&quot;0 0 84 94&quot; enable-ba // cont. // ...
+</code></pre></div>
+<p>The below directory the holds the above file
+<code>~/Documents/Obsidian_Vault/.obsidian/snippets</code></p>
+<h4>Excalidraw Created Icons</h4>
+<p>Create simple graphic.  Once drawing is complete, then open the drawing in its markdown mode to add the following tags.</p>
+<div class="code-block"><span class="code-lang">markdown-tags</span><button class="copy-btn" aria-label="Copy code">Copy</button><pre><code class="language-markdown-tags">excalidraw-export-svgpadding: 0
+excalidraw-export-transparent: true
+excalidraw-export-dark: false
+</code></pre></div>
+<p>In Excalidraw then export them as SVG.
+Upload the Excalidraw SVG to https://jakearchibald.github.io/svgomg/ to minify by turning off all switches that do not remove the image from the screen. About 20% reduction in file should be expected.</p>
+<h5>practice the custom callouts</h5>
+<blockquote>
+<p>[!my_outlined_star]+ heerrreee
+star time</p>
+</blockquote>
+<blockquote>
+<p>[!my_icon]+ my icon time
+here it is</p>
+</blockquote>

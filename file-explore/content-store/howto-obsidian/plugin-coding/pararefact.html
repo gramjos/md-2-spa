@@ -1,0 +1,23 @@
+<h4>Idea from</h4>
+<p><a href="https://forum.obsidian.md/t/increase-all-heading-levels-for-selection/91929">Obsidian Forum - Source</a>
+Feature request to be able to increase the heading level of all headings in selection / under a specific heading (H1 → H2, H2 → H3, etc.)
+Use case or problem
+I find myself frequently in a situation where I need to introduce a higher level of classification over a part of my notes. Let’s say I took notes on verb tenses, but then I realized all those notes were related to the “indicatif” mood, and thus wanted to nest them under a higher-level heading “Indicatif” and allow for other sister nodes.
+So, something like <code>## Present, ## Imparfait, ## Passé Composé</code> becomes <code>## Indicatif ###Present ###Imparfait, ### Passé Composé ## Subjonctif ... ## Conditionnel ...</code>
+Proposed solution
+Either a menu item or a command that would add an extra level to all headings selected. (Similar to the “Extract this heading” menu item.)
+Current workaround (optional)
+Manually adding a “#” behind all existing headings.
+Related feature requests (optional)
+I couldn’t find any.</p>
+<hr />
+<h3>Functionality:</h3>
+<p><em>embed headings</em></p>
+<h4></h4>
+<ul>
+<li>given a position within a document. find the nearest heading searching upward (could be on same line as cursor).</li>
+<li>store the heading level of the first found heading as <code>initHead</code></li>
+<li>add a new blank heading of size <code>initHead</code> at <code>initHead</code>'s location (moving the rest of the document down) (maybe a replace text with a newline??)</li>
+<li>Searching downward the document from <code>initHead</code> as long as the next heading is great than <code>initHead</code>'s size then add a <code>#</code> to the level (if possible, less than 6)</li>
+<li>Searching ends when <code>initHead</code>'s level size is great than 'this' heading</li>
+</ul>
