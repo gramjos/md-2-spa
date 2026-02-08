@@ -6,6 +6,8 @@
 /* Dark theme (default) */
 :root, [data-theme="dark"] {
 	--sidebar-width: 260px;
+	--sidebar-min-width: 180px;
+	--sidebar-max-width: 500px;
 	--bg-primary: #1a1a2e;
 	--bg-secondary: #16213e;
 	--bg-content: #0f0f23;
@@ -185,7 +187,8 @@ a:hover { text-decoration: underline; }
 /* ===== Sidebar ===== */
 .sidebar {
 	width: var(--sidebar-width);
-	min-width: var(--sidebar-width);
+	min-width: var(--sidebar-min-width);
+	max-width: var(--sidebar-max-width);
 	background: var(--bg-secondary);
 	border-right: 1px solid var(--border);
 	display: flex;
@@ -197,6 +200,42 @@ a:hover { text-decoration: underline; }
 .sidebar-header {
 	padding: 16px;
 	border-bottom: 1px solid var(--border);
+}
+
+/* ===== Sidebar Resizer ===== */
+.sidebar-resizer {
+	width: 4px;
+	flex-shrink: 0;
+	cursor: col-resize;
+	background: transparent;
+	position: relative;
+	z-index: 2;
+	transition: background 0.15s ease;
+}
+
+.sidebar-resizer::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -4px;
+	width: 12px;
+}
+
+.sidebar-resizer:hover,
+.sidebar-resizer.active {
+	background: var(--accent);
+}
+
+body.sidebar-resizing {
+	user-select: none;
+	-webkit-user-select: none;
+	cursor: col-resize;
+}
+
+body.sidebar-resizing iframe,
+body.sidebar-resizing img {
+	pointer-events: none;
 }
 
 .sidebar-header h2 {
@@ -372,6 +411,22 @@ a:hover { text-decoration: underline; }
 
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
 .content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
+
+/* Lists: restore indentation stripped by the universal reset */
+.content-body ul,
+.content-body ol {
+	padding-left: 1.5em;
+	margin-bottom: 0.75em;
+}
+.content-body li {
+	margin-bottom: 0.25em;
+	color: var(--text-secondary);
+}
+.content-body li > ul,
+.content-body li > ol {
+	margin-top: 0.25em;
+	margin-bottom: 0;
+}
 
 /* Heading anchors: offset for sticky top-nav so anchored headings aren't hidden */
 .content-body h1,
@@ -551,6 +606,7 @@ a:hover { text-decoration: underline; }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
+	.sidebar-resizer { display: none; }
 	.menu-toggle:not(.hidden) { display: flex; }
 	
 	.sidebar {

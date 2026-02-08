@@ -3,6 +3,7 @@ import { buildFileTree } from './file-tree.js'
 import { setupMobileMenu } from './mobile-menu.js'
 import { setupThemeToggle } from './theme-toggle.js'
 import { setupScrollToTop } from './scroll-top.js'
+import { initSidebarResize } from './sidebar-resize.js'
 
 // ===== Initialize App =====
 async function init() {
@@ -15,6 +16,7 @@ async function init() {
 	setupThemeToggle()
 	setupMobileMenu()
 	setupScrollToTop()
+	initSidebarResize()
 
 	// Lightbox close handlers
 	const lightbox = document.getElementById('media-lightbox')

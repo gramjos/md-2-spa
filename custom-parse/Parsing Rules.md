@@ -76,6 +76,7 @@ try_hosting_Vault_ready_2_serve
 3. Bold, 'Code' and Italic text
 4. Media (static images and GIFs)
 5. Links (external web links and intra-file links (wiki-style))
+6. Ordered and Unordered Lists (including nested lists)
 ### Usage
 ##### Run the markdown to html parser by pointing it at the root of your vault:
 ```shell

@@ -266,6 +266,7 @@ export class Router {
 	applyLayout(namedRouteName) {
 		const app = document.getElementById('app')
 		const sidebar = document.getElementById('sidebar')
+		const sidebarResizer = document.getElementById('sidebar-resizer')
 		const menuToggle = document.getElementById('menu-toggle')
 		const overlay = document.getElementById('overlay')
 		const breadcrumb = document.getElementById('breadcrumb')
@@ -278,6 +279,7 @@ export class Router {
 		if (showSidebar) {
 			app.classList.remove('home-page')
 			sidebar.style.display = ''
+			sidebarResizer.style.display = ''
 			menuToggle.classList.remove('hidden')
 			overlay.style.display = ''
 			breadcrumb.style.display = ''
@@ -286,6 +288,7 @@ export class Router {
 			// Tag pages: no sidebar, but show breadcrumb
 			app.classList.add('home-page')
 			sidebar.style.display = 'none'
+			sidebarResizer.style.display = 'none'
 			menuToggle.classList.add('hidden')
 			menuToggle.classList.remove('active')
 			sidebar.classList.remove('open')
@@ -296,6 +299,7 @@ export class Router {
 		} else {
 			app.classList.add('home-page')
 			sidebar.style.display = 'none'
+			sidebarResizer.style.display = 'none'
 			menuToggle.classList.add('hidden')
 			menuToggle.classList.remove('active')
 			sidebar.classList.remove('open')

@@ -128,14 +128,21 @@ def resolve_image_embed(filename: str, asset_index: dict) -> str:
     regardless of which page references them.  The SPA router
     rewrites absolute paths by prepending /content-store.
 
-    e.g. "hap.png" → "/moss/graphics/hap.png"
-         "img.png" → "/graphics/img.png"
+    Obsidian embeds may include a directory prefix
+    (e.g. "graphics/ani3.gif") — we strip it and look up by
+    basename only, since the asset_index is keyed on filenames.
+
+    e.g. "hap.png"           → "/moss/graphics/hap.png"
+         "graphics/ani3.gif" → "/graphics/ani3.gif"
+         "img.png"           → "/graphics/img.png"
     """
     filename = filename.strip()
-    if filename in asset_index:
-        return asset_index[filename] + filename
+    # Strip any directory prefix (Obsidian sometimes includes "graphics/")
+    basename = filename.rsplit("/", 1)[-1] if "/" in filename else filename
+    if basename in asset_index:
+        return asset_index[basename] + basename
     # Fallback: assume root graphics
-    return f"/graphics/{filename}"
+    return f"/graphics/{basename}"
 
 
 # ---------------------------------------------------------------------------
@@ -166,7 +173,9 @@ def plugin_wiki_embed(md: mistune.Markdown) -> None:
         if "|" in filename:
             filename = filename.split("|", 1)[0]
         src = resolve_image_embed(filename, md.renderer._asset_index)
-        alt = filename.rsplit(".", 1)[0] if "." in filename else filename
+        # Use basename (no directory prefix) for alt text
+        basename = filename.rsplit("/", 1)[-1] if "/" in filename else filename
+        alt = basename.rsplit(".", 1)[0] if "." in basename else basename
         return f'<img src="{src}" alt="{alt}" />'
 
     md.renderer.wiki_embed = render_wiki_embed

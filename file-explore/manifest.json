@@ -993,6 +993,7 @@
       "slug": "graphics",
       "content_path": "/graphics/",
       "assets": [
+        "ani3.gif",
         "mini-SPA.excalidraw.png"
       ]
     },
