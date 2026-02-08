@@ -33,7 +33,7 @@ All commands are run from the repo root.
 |---------|-------------|
 | `make build` | Parse the vault into HTML fragments and generate `manifest.json` |
 | `make serve` | Start the Wrangler local dev server |
-| `make deploy` | Deploy the SPA to Cloudflare Pages |
+| `make deploy` | Deploy the SPA to Cloudflare Workers |
 | `make dev` | **Build + serve** — full local development workflow |
 | `make ship` | **Build + deploy** — build then push to production |
 | `make clean` | Remove generated `content-store/` and `manifest.json` |
@@ -66,7 +66,9 @@ make clean build
 
 ## Deployment
 
-Target: **Cloudflare Pages** (static hosting).
+Target: **Cloudflare Workers** with static assets.
 
 - Config: `file-explore/wrangler.jsonc`
-- SPA fallback is handled by `not_found_handling: "single-page-application"`
+- SPA fallback is handled via `assets.not_found_handling: "single-page-application"`
+- Local dev: `make serve` (runs `npx wrangler dev`)
+- Production deploy: `make deploy` (runs `npx wrangler deploy`)

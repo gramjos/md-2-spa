@@ -18,9 +18,9 @@ build:
 serve:
 	cd $(SPA_DIR) && npx wrangler dev
 
-## deploy  — Deploy SPA to Cloudflare Pages
+## deploy  — Deploy SPA to Cloudflare Workers
 deploy:
-	cd $(SPA_DIR) && npx wrangler pages deploy .
+	cd $(SPA_DIR) && npx wrangler deploy
 
 ## dev     — Build then serve locally
 dev: build serve
