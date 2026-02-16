@@ -21,6 +21,8 @@ from pathlib import Path
 
 import yaml
 
+from manifest import slugify
+
 
 # ---------------------------------------------------------------------------
 # Extraction
@@ -97,8 +99,6 @@ def enrich_manifest(manifest: dict, vault_path: Path) -> dict:
     Returns:
         The same manifest dict (mutated in-place) for convenience.
     """
-    from manifest import slugify
-
     items = manifest["items"]
 
     for node in items.values():
