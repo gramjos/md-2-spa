@@ -410,7 +410,8 @@ body.sidebar-resizing img {
 }
 
 .content-body p { margin-bottom: 1em; color: var(--text-secondary); }
-.content-body h1, .content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
+.content-body h1 { margin: 1em 0 0.5em; font-size: 2.5em;}
+.content-body h2, .content-body h3 { margin: 1em 0 0.5em; }
 
 /* Lists: restore indentation stripped by the universal reset */
 .content-body ul,

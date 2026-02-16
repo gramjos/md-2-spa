@@ -44,6 +44,33 @@
         ]
       }
     },
+    "cheat-sheet-file": {
+      "id": "cheat-sheet-file",
+      "type": "file",
+      "title": "Cheat Sheet",
+      "slug": "computing/commandline/github/cheat-sheet",
+      "content_path": "/computing/commandline/github/cheat-sheet.html",
+      "metadata": {
+        "tags": [
+          "github"
+        ]
+      }
+    },
+    "github-dir": {
+      "id": "github-dir",
+      "type": "directory",
+      "title": "Github",
+      "slug": "computing/commandline/github",
+      "content_path": "/computing/commandline/github/README.html",
+      "children": [
+        "cheat-sheet-file"
+      ],
+      "metadata": {
+        "tags": [
+          "github"
+        ]
+      }
+    },
     "zsh-graphics": {
       "id": "zsh-graphics",
       "type": "graphics",
@@ -275,6 +302,7 @@
       "slug": "computing/commandline",
       "content_path": "/computing/commandline/README.html",
       "children": [
+        "github-dir",
         "zsh-dir",
         "convert-file",
         "ctags-file",

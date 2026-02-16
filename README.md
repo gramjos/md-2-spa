@@ -1,4 +1,5 @@
-# md-2-spa
+# Your Second Brain At Your Finger Tips
+⚡️ [Live Site](https://file-explore.graham-joss.workers.dev/)
 
 Convert an Obsidian note-taking vault into a deployable single-page application.
 
