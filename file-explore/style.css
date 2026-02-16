@@ -8,22 +8,33 @@
 	--sidebar-width: 260px;
 	--sidebar-min-width: 180px;
 	--sidebar-max-width: 500px;
-	--bg-primary: #1a1a2e;
-	--bg-secondary: #16213e;
-	--bg-content: #0f0f23;
-	--text-primary: #e4e4e7;
-	--text-secondary: #a1a1aa;
-	--accent: #60a5fa;
-	--folder-color: #fbbf24;
-	--file-color: #34d399;
-	--border: #27273a;
-	--hover: #27273a;
-	--active: #3b3b5c;
-	--paper-bg: #1e1e38;
-	--surface-bg: #0a0a1a;
-	--paper-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
-	--inline-code-bg: #3a3a5c;
-	--inline-code-text: #f0c674;
+	
+	/* Lighter "Moonlight" / Blue-Grey Palette */
+	--bg-primary: #353a45;    /* Sidebar & Breadcrumb (medium grey-blue) */
+	--bg-secondary: #2e333d;  /* Top Nav (slightly darker) */
+	--bg-content: #2b3039;    /* Main Content (base) */
+	
+	--text-primary: #e6eaf0;  /* Bright white-grey */
+	--text-secondary: #9da5b4; /* Clear readable grey */
+	
+	--accent: #5fb3b3;        /* Teal/Cyan accent */
+	--folder-color: #ebcb8b;  /* Soft Yellow */
+	--file-color: #a3be8c;    /* Sage Green */
+	
+	--border: #4b5363;        /* Lighter, visible borders */
+	--hover: #424957;         /* Distinct hover */
+	--active: #4e5768;        /* Selected state */
+	
+	--paper-bg: #353a45;      /* Raised card element */
+	--surface-bg: #2b3039;    /* Background behind paper */
+	--paper-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+	
+	--inline-code-bg: #424957;
+	--inline-code-text: #fac863; 
+	
+	/* Code Blocks */
+	--code-block-bg: #282c34;    /* Darker than paper for contrast */
+	--code-block-border: #4b5363;
 }
 
 /* Light theme */
@@ -42,8 +53,9 @@
 	--paper-bg: #ffffff;
 	--surface-bg: #d4d4d8;
 	--paper-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-	--inline-code-bg: #e4e4e9;
-	--inline-code-text: #1a1a2e;
+	/* Fallback to matching bg-primary in light mode, or custom */
+	--code-block-bg: #f8f8fa;
+	--code-block-border: #d4d4d8; 
 }
 
 /* Retro Synthwave theme */
@@ -64,6 +76,10 @@
 	--paper-shadow: 0 2px 14px rgba(217, 79, 154, 0.12), 0 1px 6px rgba(0, 0, 0, 0.06);
 	--inline-code-bg: #f0d4f4;
 	--inline-code-text: #3d2244;
+
+	/* Retro code blocks */
+	--code-block-bg: #2b1d36;
+	--code-block-border: #d94f9a;
 }
 
 /* Retro theme: font & cursor */
@@ -766,8 +782,8 @@ body.sidebar-resizing img {
 	padding-top: 2rem;
 	overflow-x: auto;
 	border-radius: 6px;
-	background: var(--bg-primary);
-	border: 1px solid var(--border);
+	background: var(--code-block-bg);
+	border: 1px solid var(--code-block-border);
 }
 
 .code-block code {
