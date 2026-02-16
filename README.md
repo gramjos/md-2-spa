@@ -1,5 +1,6 @@
 # Your Second Brain At Your Finger Tips
 ⚡️ [Live Site](https://file-explore.graham-joss.workers.dev/)
+⚡️ <a href="https://file-explore.graham-joss.workers.dev/" target="_blank" rel="noopener noreferrer">Live Site</a>
 
 Convert an Obsidian note-taking vault into a deployable single-page application.
 
